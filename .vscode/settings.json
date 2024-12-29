@@ -1,0 +1,58 @@
+{
+	"workbench.colorTheme": "Default Dark Modern",
+	"workbench.iconTheme": "vscode-icons",
+	"files.autoSave": "afterDelay",
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+	"editor.formatOnPaste": true,
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"workbench.editor.titleScrollbarSizing": "large",
+	"workbench.editor.enablePreview": false,
+	"intelephense.diagnostics.undefinedClassConstants": false,
+	"intelephense.diagnostics.undefinedConstants": false,
+	"intelephense.diagnostics.undefinedFunctions": false,
+	"intelephense.diagnostics.undefinedMethods": false,
+	"intelephense.diagnostics.undefinedProperties": false,
+	"intelephense.diagnostics.undefinedSymbols": false,
+	"intelephense.diagnostics.undefinedTypes": false,
+	"intelephense.diagnostics.undefinedVariables": false,
+	"intelephense.diagnostics.unexpectedTokens": false,
+	"[blade]": {
+		"editor.defaultFormatter": "shufo.vscode-blade-formatter"
+	},
+	"[scss]": {
+		"editor.defaultFormatter": "vscode.css-language-features"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	},
+	"[html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"prisma.showPrismaDataPlatformNotification": false,
+	"explorer.compactFolders": false,
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[css]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[dockercompose]": {
+		"editor.defaultFormatter": "ms-azuretools.vscode-docker"
+	},
+	"[dockerfile]": {
+		"editor.defaultFormatter": "ms-azuretools.vscode-docker"
+	},
+	"editor.scrollbar.horizontalScrollbarSize": 20,
+	"[jsonc]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[prisma]": {
+		"editor.defaultFormatter": "Prisma.prisma"
+	}
+}
