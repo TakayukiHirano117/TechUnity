@@ -1,11 +1,19 @@
-import { Button } from '@/components/ui/button'
-import { SampleButtonProps } from '@/types/types'
-import React from 'react'
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { SampleButtonProps } from "@/types/types";
 
-const SampleButton = ({children, className}: SampleButtonProps) => {
-  return (
-    <Button className={className}>{children}</Button>
-  )
-}
+// React.forwardRefを使ってrefを受け渡す
+const SampleButton = React.forwardRef<HTMLButtonElement, SampleButtonProps>(
+	({ children, className, variant, ...props }, ref) => {
+		return (
+			<Button ref={ref} className={className} variant={variant} {...props}>
+				{children}
+			</Button>
+		);
+	},
+);
 
-export default SampleButton
+// 名前付きエクスポートの表示名を設定（デバッグ時に役立つ）
+SampleButton.displayName = "SampleButton";
+
+export default SampleButton;
