@@ -10,6 +10,7 @@ import GitHubIcon from "@/components/atoms/Icon/GitHubIcon";
 import GoogleIcon from "@/components/atoms/Icon/GoogleIcon";
 import SearchIcon from "@/components/atoms/SearchIcon";
 import MainDialog from "@/components/molecules/dialog/MainDialog";
+import MainDropdown from "@/components/molecules/dropdown/MainDropdown";
 
 const Header = () => {
 	// sessionから取得するとDBの情報が取れない可能性あり。
@@ -32,12 +33,16 @@ const Header = () => {
 						</Link>
 						{session ? (
 							<div className="flex items-center gap-4">
-								<AvatarIcon
-									className="cursor-pointer"
-									// 画像がundefinedの場合にダミー画像を出す
-									ImageSrc={session.user.image!}
-									fallbackText={session.user.name!}
-								/>
+								<MainDropdown username={session.user.name!}>
+									<button>
+										<AvatarIcon
+											className="cursor-pointer"
+											// 画像がundefinedの場合にダミー画像を出す
+											ImageSrc={session.user.image!}
+											fallbackText={session.user.name!}
+										/>
+									</button>
+								</MainDropdown>
 								<MainButton className="rounded-full font-bold">
 									<Link href={"/recruits/create"}>募集する</Link>
 								</MainButton>

@@ -61,6 +61,11 @@ const Create = () => {
 						className="bg-slate-100 focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
 						{...register("title")}
 					/>
+					{/* <Input
+						type="number"
+						placeholder="募集人数"
+						className="bg-slate-100 focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
+					/> */}
 					<Tabs defaultValue="write" className="w-[960px] mt-4">
 						<TabsList className="grid w-full grid-cols-2 border">
 							<TabsTrigger value="write">募集を書く</TabsTrigger>
