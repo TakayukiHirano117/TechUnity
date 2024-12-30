@@ -1,8 +1,8 @@
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
 import { NextAuthOptions } from "next-auth";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -23,6 +23,13 @@ export const authOptions: NextAuthOptions = {
 		signIn: "/",
 	},
 	callbacks: {
+		async jwt({ token, user }) {
+			if (user) {
+				return { ...token, id: user.id };
+			}
+
+			return token;
+		},
 		async session({ token, session }) {
 			if (token) {
 				session.user.id = token.id;

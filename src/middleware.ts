@@ -5,13 +5,13 @@ import { getToken } from "next-auth/jwt";
 export default withAuth(
 	async function middleware(req) {
 		const token = await getToken({ req });
-		console.log(token);
+		// console.log(token);
 		const isAuth = !!token;
 		const isAuthPage =
 			req.nextUrl.pathname.startsWith("/login") ||
 			req.nextUrl.pathname.startsWith("/register");
 
-		console.log(req.url);
+		// console.log(req.url);
 
 		if (isAuthPage) {
 			if (isAuth) {
