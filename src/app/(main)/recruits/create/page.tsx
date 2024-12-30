@@ -43,8 +43,16 @@ const Create = () => {
 
 	const content = watch("content");
 
-	const onSubmit = (data: { title: string; content: string }) => {
-		console.log(data);
+	const onSubmit = async (data: { title: string; content: string }) => {
+		const res = await fetch("/api/recruits", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+		});
+
+
 	};
 
 	const handleButtonClick = () => {
@@ -55,7 +63,7 @@ const Create = () => {
 	return (
 		<div className="bg-slate-100">
 			<div className="max-w-[960px] mx-auto p-4 container">
-				<form onSubmit={handleSubmit(onSubmit)}>
+				<form onSubmit={handleSubmit(onSubmit)} method="POST">
 					<Input
 						placeholder="タイトル"
 						className="bg-slate-100 focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
@@ -104,7 +112,7 @@ const Create = () => {
 										<Label htmlFor="airplane-mode">公開</Label>
 									</div>
 									<Button variant={"outline"} className="rounded-full">
-										保存する
+										作成する
 									</Button>
 									<div>
 										<Button

@@ -15,7 +15,7 @@ import MainDropdown from "@/components/molecules/dropdown/MainDropdown";
 const Header = () => {
 	// sessionから取得するとDBの情報が取れない可能性あり。
 	const { data: session, status } = useSession();
-	console.log(session);
+	// console.log(session);
 
 	return (
 		<header className="border-b">

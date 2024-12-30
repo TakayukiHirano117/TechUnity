@@ -76,8 +76,9 @@ model recruits {
   updatedAt   DateTime @updatedAt @map(name: "updated_at")
   creator     User     @relation(fields: [creatorId], references: [id], name: "creator")
   creatorId   String
-  applicant   User     @relation(fields: [applicantId], references: [id], name: "applicant")
-  applicantId String
+  applicant   User?     @relation(fields: [applicantId], references: [id], name: "applicant")
+  applicantId String?
+  // isPublishedを追加
 
   @@map(name: "recruits")
 }
