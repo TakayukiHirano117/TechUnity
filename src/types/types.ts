@@ -31,3 +31,12 @@ export type MainDialogProps = {
 	trigger: ReactNode;
 	children: ReactNode;
 };
+
+export type RecruitCardProps = {
+	title: string;
+	description: string;
+	authorName: string;
+	publishedAt: string;
+	goodCount: number;
+	remainingCount: number;
+};

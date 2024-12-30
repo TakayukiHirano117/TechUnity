@@ -1,15 +1,15 @@
 "use client";
 
-import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
-import SearchIcon from "@/components/atoms/SearchIcon";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { signIn, useSession } from "next-auth/react";
+import React from "react";
+import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import MainButton from "@/components/atoms/button/MainButton";
-import MainDialog from "@/components/molecules/dialog/MainDialog";
-import GoogleIcon from "@/components/atoms/Icon/GoogleIcon";
 import GitHubIcon from "@/components/atoms/Icon/GitHubIcon";
+import GoogleIcon from "@/components/atoms/Icon/GoogleIcon";
+import SearchIcon from "@/components/atoms/SearchIcon";
+import MainDialog from "@/components/molecules/dialog/MainDialog";
 
 const Header = () => {
 	// sessionから取得するとDBの情報が取れない可能性あり。
@@ -21,7 +21,7 @@ const Header = () => {
 			<div className="container mx-auto lg:px-20 py-3">
 				<div className="flex justify-between items-center">
 					<div>
-						<Link href="/">
+						<Link href="/recruits">
 							{/* svgにしたいな、WIX課金か？ */}
 							<Image src="/Preview.png" alt="logo" width={100} height={100} />
 						</Link>
@@ -39,7 +39,7 @@ const Header = () => {
 									fallbackText={session.user.name!}
 								/>
 								<MainButton className="rounded-full font-bold">
-									募集する
+									<Link href={"/recruits/create"}>募集する</Link>
 								</MainButton>
 							</div>
 						) : (

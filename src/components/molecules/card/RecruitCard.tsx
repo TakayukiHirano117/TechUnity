@@ -1,3 +1,5 @@
+import Link from "next/link";
+import React from "react";
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import {
 	Card,
@@ -6,8 +8,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import Link from "next/link";
-import React from "react";
+import { RecruitCardProps } from "@/types/types";
 
 const RecruitCard = ({
 	title,
@@ -16,14 +17,7 @@ const RecruitCard = ({
 	publishedAt,
 	goodCount,
 	remainingCount,
-}: {
-    title: string;
-    description: string;
-    authorName: string;
-    publishedAt: string;
-    goodCount: number;
-    remainingCount: number;
-}) => {
+}: RecruitCardProps) => {
 	return (
 		<Card className="shadow-none border-none">
 			<CardHeader>
@@ -32,9 +26,7 @@ const RecruitCard = ({
 						{title}
 					</Link>
 				</CardTitle>
-				<CardDescription className="truncate">
-                    {description}
-				</CardDescription>
+				<CardDescription className="truncate">{description}</CardDescription>
 			</CardHeader>
 			<CardContent className="flex gap-4">
 				<AvatarIcon
