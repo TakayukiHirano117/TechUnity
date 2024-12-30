@@ -8,7 +8,7 @@ body {
 
 body .w-md-editor-text-pre > code,
 body .w-md-editor-text-input {
-  font-size: 20px !important;
+  font-size: 16px !important;
   line-height: 24px !important;
   /* font-family: consolas; */
 }
