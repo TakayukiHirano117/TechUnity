@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import NextAuthSessionProvider from "@/components/atoms/auth/NextAuthSessionProvider";
+import ProgressBar from "@/components/atoms/progress/ProgressBar";
 import Footer from "@/components/organisms/footer/Footer";
 import Header from "@/components/organisms/header/Header";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -29,12 +31,16 @@ export default function RootLayout({
 	return (
 		<html lang="ja">
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+				className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-[screen]`}
 			>
 				<NextAuthSessionProvider>
 					<Header />
 				</NextAuthSessionProvider>
-				{children}
+				<ProgressBar>
+					{children}
+					<Toaster />
+				</ProgressBar>
+
 				<Footer />
 			</body>
 		</html>

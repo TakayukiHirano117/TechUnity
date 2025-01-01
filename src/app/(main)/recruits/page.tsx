@@ -3,6 +3,7 @@
 import React from "react";
 import useSWR from "swr";
 import RecruitCard from "@/components/molecules/card/RecruitCard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const getAllRecruits = async () => {
 	const res = await fetch("/api/recruits");
@@ -17,7 +18,7 @@ const AllRecruits = () => {
 		isLoading,
 	} = useSWR("/api/recruits", getAllRecruits);
 
-	if (isLoading) return <p>Loading...</p>;
+	if (isLoading) return <Skeleton className="w-full h-full rounded-full" />;
 
 	if (error) return <p>エラーが発生しました: {error.message}</p>;
 

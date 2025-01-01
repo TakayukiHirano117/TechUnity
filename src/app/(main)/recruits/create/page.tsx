@@ -14,9 +14,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { toast, useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 
 const Create = () => {
+	// const { toast } = useToast();
 	const router = useRouter();
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -101,13 +103,18 @@ const Create = () => {
 
 	return (
 		<div className="bg-slate-100">
-			<div className="max-w-[960px] mx-auto p-4 container">
+			<div className="max-w-[960px] mx-auto p-8 container">
 				<form onSubmit={handleSubmit(onSubmit)} method="POST">
 					<Input
 						placeholder="タイトル"
 						className="bg-slate-100 focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
 						{...register("title")}
 					/>
+					{/* {formState.errors.title && (
+						<p className="text-red-500 text-sm mt-1">
+							{formState.errors.title.message}
+						</p>
+					)} */}
 					{/* <Input
 						type="number"
 						placeholder="募集人数"
@@ -166,7 +173,22 @@ const Create = () => {
 									<Button
 										variant={"outline"}
 										className="rounded-full"
-										// disabled={!content || content.trim() === ""}
+										onClick={() => {
+											if (formState.errors.title || formState.errors.content) {
+												// バリデーションエラーがある場合、toastを表示
+												Object.values(formState.errors).forEach((error) => {
+													toast({
+														title: "エラー",
+														description:
+															error.message || "エラーが発生しました。",
+														variant: "destructive",
+														duration: 3000,
+													});
+												});
+
+												return;
+											}
+										}}
 										disabled={formState.isSubmitting || !content}
 									>
 										{formState.isSubmitting ? "作成中..." : "作成する"}
