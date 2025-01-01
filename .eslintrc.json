@@ -20,6 +20,7 @@
 	],
 	"plugins": ["@typescript-eslint", "react", "import"],
 	"rules": {
+		"react/prop-types": "off",
 		"react/react-in-jsx-scope": "off",
 		"import/order": [
 			"warn",
@@ -30,10 +31,9 @@
 					"internal",
 					"parent",
 					"sibling",
-					"index",
-					"object"
+					"index"
 				],
-				"newlines-between": "always",
+				"newlines-between": "never",
 				"alphabetize": { "order": "asc", "caseInsensitive": true }
 			}
 		],
