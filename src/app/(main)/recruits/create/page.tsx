@@ -134,7 +134,7 @@ const Create = () => {
 										source={content}
 										remarkPlugins={[remarkGfm]}
 										rehypePlugins={[rehypeSanitize]}
-										className="min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-code:text-slate-900 border p-4 rounded-lg max-w-full"
+										className="min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-4 rounded-lg max-w-full"
 									/>
 								</TabsContent>
 							</div>
