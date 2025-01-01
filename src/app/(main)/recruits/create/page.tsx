@@ -51,8 +51,6 @@ const Create = () => {
 			},
 			body: JSON.stringify(data),
 		});
-
-
 	};
 
 	const handleButtonClick = () => {
@@ -101,17 +99,26 @@ const Create = () => {
 										source={content}
 										remarkPlugins={[remarkGfm]}
 										rehypePlugins={[rehypeSanitize]}
-										className="h-[720px] text-[20px] prose prose-li:marker:list-disc prose-ol:marker:list-decimal border p-4 rounded-lg"
+										className="h-[720px] text-[20px] prose  prose-code:text-slate-900 border p-4 rounded-lg max-w-full"
 									/>
 								</TabsContent>
 							</div>
 							<div className="mt-2 z-10 w-1/5">
-								<div className="bg-slate-300 sticky top-0 flex flex-col gap-4 p-4 rounded-sm">
+								<div className="bg-slate-300 sticky top-[120px] flex flex-col gap-4 p-4 rounded-sm">
 									<div className="flex items-center space-x-2">
 										<Switch id="airplane-mode" />
-										<Label htmlFor="airplane-mode">公開</Label>
+										<Label
+											htmlFor="airplane-mode"
+											className="font-bold text-slate-700"
+										>
+											公開する
+										</Label>
 									</div>
-									<Button variant={"outline"} className="rounded-full">
+									<Button
+										variant={"outline"}
+										className="rounded-full"
+										disabled={!content || content.trim() === ""}
+									>
 										作成する
 									</Button>
 									<div>
