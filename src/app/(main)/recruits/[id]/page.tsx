@@ -47,7 +47,7 @@ const RecruitDetailPage = () => {
 					/>
 				</div>
 				<aside className="flex-1 lg:block hidden">
-					<div className="flex flex-col gap-4 border rounded-lg max-w-full bg-white p-4 ">
+					<div className="flex flex-col gap-4 border rounded-lg max-w-full bg-white p-4">
 						<div className="flex gap-4 items-center">
 							<AvatarIcon
 								ImageSrc={recruit?.creator.image}
@@ -61,12 +61,12 @@ const RecruitDetailPage = () => {
 									</p>
 								</Link>
 								{/* ログインしているユーザーと同じ場合はどうする */}
-								<MainButton
+								{/* <MainButton
 									className="rounded-full font-bold"
 									variant={"outline"}
 								>
 									フォローする
-								</MainButton>
+								</MainButton> */}
 							</div>
 						</div>
 					</div>
