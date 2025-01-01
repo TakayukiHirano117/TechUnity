@@ -6,7 +6,7 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnPaste": true,
 	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": true
+		"source.fixAll.eslint": "explicit"
 	},
 	"workbench.editor.titleScrollbarSizing": "large",
 	"workbench.editor.enablePreview": false,

@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { supabase } from "@/lib/supabase";
 
 const Create = () => {
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -51,13 +52,45 @@ const Create = () => {
 			},
 			body: JSON.stringify(data),
 		});
-
-
 	};
 
 	const handleButtonClick = () => {
 		// Inputのclickメソッドを呼び出す
 		inputRef.current?.click();
+	};
+
+	const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (!e.target.files || e.target.files.length === 0) return;
+
+		const file = e.target.files[0];
+
+		// ファイル名の重複を防ぐために、タイムスタンプを追加
+		const fileExtension = file.name.split(".").pop(); // 拡張子を抽出
+		const fileNameWithoutExtension = file.name.replace(`.${fileExtension}`, "");
+		const timestamp = Date.now(); // 現在のタイムスタンプ
+		const uniqueFileName = `${fileNameWithoutExtension}-${timestamp}.${fileExtension}`;
+
+		// Supabaseにファイルをアップロード
+		const { data, error } = await supabase.storage
+			.from("test") // ストレージバケット名
+			.upload(`images/${uniqueFileName}`, file);
+
+		if (error) {
+			console.error("アップロードエラー:", error.message);
+			return;
+		}
+
+		// ファイルのURLを取得
+		const { data: publicUrlData } = supabase.storage
+			.from("test")
+			.getPublicUrl(data.path);
+
+		if (publicUrlData?.publicUrl) {
+			// 現在のcontentの内容を取得して、markdownLinkを追加
+			const currentContent = watch("content");
+			const markdownLink = `![${file.name}](${publicUrlData.publicUrl})\n`;
+			setValue("content", currentContent + markdownLink); // 既存の内容に追加
+		}
 	};
 
 	return (
@@ -101,17 +134,26 @@ const Create = () => {
 										source={content}
 										remarkPlugins={[remarkGfm]}
 										rehypePlugins={[rehypeSanitize]}
-										className="h-[720px] text-[20px] prose prose-li:marker:list-disc prose-ol:marker:list-decimal border p-4 rounded-lg"
+										className="min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-4 rounded-lg max-w-full"
 									/>
 								</TabsContent>
 							</div>
 							<div className="mt-2 z-10 w-1/5">
-								<div className="bg-slate-300 sticky top-0 flex flex-col gap-4 p-4 rounded-sm">
+								<div className="bg-slate-300 sticky top-[120px] flex flex-col gap-4 p-4 rounded-sm">
 									<div className="flex items-center space-x-2">
 										<Switch id="airplane-mode" />
-										<Label htmlFor="airplane-mode">公開</Label>
+										<Label
+											htmlFor="airplane-mode"
+											className="font-bold text-slate-700"
+										>
+											公開する
+										</Label>
 									</div>
-									<Button variant={"outline"} className="rounded-full">
+									<Button
+										variant={"outline"}
+										className="rounded-full"
+										// disabled={!content || content.trim() === ""}
+									>
 										作成する
 									</Button>
 									<div>
@@ -132,7 +174,12 @@ const Create = () => {
 												/>
 											</svg>
 										</Button>
-										<Input className="hidden" type="file" ref={inputRef} />
+										<Input
+											className="hidden"
+											type="file"
+											ref={inputRef}
+											onChange={handleFileChange}
+										/>
 									</div>
 								</div>
 							</div>
