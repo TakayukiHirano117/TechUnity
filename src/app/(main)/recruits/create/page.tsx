@@ -86,8 +86,10 @@ const Create = () => {
 			.getPublicUrl(data.path);
 
 		if (publicUrlData?.publicUrl) {
+			// 現在のcontentの内容を取得して、markdownLinkを追加
+			const currentContent = watch("content");
 			const markdownLink = `![${file.name}](${publicUrlData.publicUrl})\n`;
-			setValue("content", markdownLink);
+			setValue("content", currentContent + markdownLink); // 既存の内容に追加
 		}
 	};
 
@@ -132,7 +134,7 @@ const Create = () => {
 										source={content}
 										remarkPlugins={[remarkGfm]}
 										rehypePlugins={[rehypeSanitize]}
-										className="h-[720px] text-[20px] prose  prose-code:text-slate-900 border p-4 rounded-lg max-w-full"
+										className="min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-code:text-slate-900 border p-4 rounded-lg max-w-full"
 									/>
 								</TabsContent>
 							</div>
