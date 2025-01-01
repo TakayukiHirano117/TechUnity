@@ -11,6 +11,7 @@ import {
 import { RecruitCardProps } from "@/types/types";
 
 const RecruitCard = ({
+	id,
 	title,
 	description,
 	authorName,
@@ -23,7 +24,7 @@ const RecruitCard = ({
 		<Card className="shadow-none border-none">
 			<CardHeader>
 				<CardTitle className="truncate text-lg">
-					<Link href={"/recruits/1"} className="hover:opacity-70">
+					<Link href={`/recruits/${id}`} className="hover:opacity-70">
 						{title}
 					</Link>
 				</CardTitle>

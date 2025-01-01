@@ -176,6 +176,7 @@ const Create = () => {
 											className="rounded-full w-auto"
 											variant={"outline"}
 											onClick={handleButtonClick}
+											type="button"
 										>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"

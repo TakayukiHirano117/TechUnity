@@ -33,6 +33,7 @@ export type MainDialogProps = {
 };
 
 export type RecruitCardProps = {
+	id: number;
 	title: string;
 	description: string;
 	authorName: string;
