@@ -3,8 +3,9 @@
 import "@uiw/react-md-editor/markdown-editor.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor from "@uiw/react-md-editor";
+import { useRouter } from "next/navigation";
 import React, { useRef } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import { z } from "zod";
@@ -16,6 +17,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/lib/supabase";
 
 const Create = () => {
+	const router = useRouter();
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	const formSchema = z.object({
@@ -26,25 +28,26 @@ const Create = () => {
 		content: z
 			.string()
 			.min(1, { message: "本文は1文字以上で入力してください" }),
+		isPublished: z.boolean(),
 	});
 
-	const {
-		register,
-		handleSubmit,
-		setValue,
-		watch,
-		// formState: { errors },
-	} = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
-		defaultValues: {
-			title: "",
-			content: "",
-		},
-	});
+	const { register, handleSubmit, setValue, watch, control, formState } =
+		useForm<z.infer<typeof formSchema>>({
+			resolver: zodResolver(formSchema),
+			defaultValues: {
+				title: "",
+				content: "",
+				isPublished: false,
+			},
+		});
 
 	const content = watch("content");
 
-	const onSubmit = async (data: { title: string; content: string }) => {
+	const onSubmit = async (data: {
+		title: string;
+		content: string;
+		isPublished: boolean;
+	}) => {
 		const res = await fetch("/api/recruits", {
 			method: "POST",
 			headers: {
@@ -52,6 +55,9 @@ const Create = () => {
 			},
 			body: JSON.stringify(data),
 		});
+
+		// 募集管理ページに飛ばすように修正する。
+		router.push("/recruits");
 	};
 
 	const handleButtonClick = () => {
@@ -141,20 +147,29 @@ const Create = () => {
 							<div className="mt-2 z-10 w-1/5">
 								<div className="bg-slate-300 sticky top-[120px] flex flex-col gap-4 p-4 rounded-sm">
 									<div className="flex items-center space-x-2">
-										<Switch id="airplane-mode" />
-										<Label
-											htmlFor="airplane-mode"
-											className="font-bold text-slate-700"
-										>
-											公開する
-										</Label>
+										<Controller
+											name="isPublished"
+											control={control}
+											render={({ field }) => (
+												<div className="flex items-center space-x-2">
+													<Switch
+														checked={field.value}
+														onCheckedChange={field.onChange}
+													/>
+													<Label className="font-bold text-slate-700">
+														{field.value ? "公開" : "非公開"}
+													</Label>
+												</div>
+											)}
+										/>
 									</div>
 									<Button
 										variant={"outline"}
 										className="rounded-full"
 										// disabled={!content || content.trim() === ""}
+										disabled={formState.isSubmitting || !content}
 									>
-										作成する
+										{formState.isSubmitting ? "作成中..." : "作成する"}
 									</Button>
 									<div>
 										<Button

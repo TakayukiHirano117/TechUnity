@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/db";
 
 export const POST = async (req: NextRequest) => {
-	const { title, content } = await req.json();
+	const { title, content, isPublished } = await req.json();
 
 	const session = await getServerSession(authOptions);
 	const creatorId = session!.user.id as string;
@@ -13,10 +13,10 @@ export const POST = async (req: NextRequest) => {
 		data: {
 			title,
 			content,
-			// creatorId,
+			isPublished,
 			creator: {
 				connect: {
-					id: creatorId, // UserのIDを指定
+					id: creatorId,
 				},
 			},
 		},
