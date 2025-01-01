@@ -36,6 +36,7 @@ export type RecruitCardProps = {
 	title: string;
 	description: string;
 	authorName: string;
+	avatarImageSrc: string;
 	publishedAt: string;
 	goodCount: number;
 	remainingCount: number;
