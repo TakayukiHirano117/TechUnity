@@ -74,6 +74,7 @@ model recruits {
   content     String
   createdAt   DateTime @default(now()) @map(name: "created_at")
   updatedAt   DateTime @updatedAt @map(name: "updated_at")
+  isPublished Boolean  @default(false) @map(name: "is_published")
   creator     User     @relation(fields: [creatorId], references: [id], name: "creator")
   creatorId   String
   applicant   User?     @relation(fields: [applicantId], references: [id], name: "applicant")
