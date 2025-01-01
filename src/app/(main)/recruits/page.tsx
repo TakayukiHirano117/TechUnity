@@ -29,6 +29,7 @@ const AllRecruits = () => {
 					{recruits.map((recruit) => (
 						<RecruitCard
 							key={recruit.id}
+							id={recruit.id}
 							title={recruit.title}
 							description={recruit.content}
 							authorName={recruit.creator.name}
