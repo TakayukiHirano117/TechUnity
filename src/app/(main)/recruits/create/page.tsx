@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { supabase } from "@/lib/supabase";
 
 const Create = () => {
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -56,6 +57,38 @@ const Create = () => {
 	const handleButtonClick = () => {
 		// Inputのclickメソッドを呼び出す
 		inputRef.current?.click();
+	};
+
+	const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (!e.target.files || e.target.files.length === 0) return;
+
+		const file = e.target.files[0];
+
+		// ファイル名の重複を防ぐために、タイムスタンプを追加
+		const fileExtension = file.name.split(".").pop(); // 拡張子を抽出
+		const fileNameWithoutExtension = file.name.replace(`.${fileExtension}`, "");
+		const timestamp = Date.now(); // 現在のタイムスタンプ
+		const uniqueFileName = `${fileNameWithoutExtension}-${timestamp}.${fileExtension}`;
+
+		// Supabaseにファイルをアップロード
+		const { data, error } = await supabase.storage
+			.from("test") // ストレージバケット名
+			.upload(`images/${uniqueFileName}`, file);
+
+		if (error) {
+			console.error("アップロードエラー:", error.message);
+			return;
+		}
+
+		// ファイルのURLを取得
+		const { data: publicUrlData } = supabase.storage
+			.from("test")
+			.getPublicUrl(data.path);
+
+		if (publicUrlData?.publicUrl) {
+			const markdownLink = `![${file.name}](${publicUrlData.publicUrl})\n`;
+			setValue("content", markdownLink);
+		}
 	};
 
 	return (
@@ -117,7 +150,7 @@ const Create = () => {
 									<Button
 										variant={"outline"}
 										className="rounded-full"
-										disabled={!content || content.trim() === ""}
+										// disabled={!content || content.trim() === ""}
 									>
 										作成する
 									</Button>
@@ -139,7 +172,12 @@ const Create = () => {
 												/>
 											</svg>
 										</Button>
-										<Input className="hidden" type="file" ref={inputRef} />
+										<Input
+											className="hidden"
+											type="file"
+											ref={inputRef}
+											onChange={handleFileChange}
+										/>
 									</div>
 								</div>
 							</div>
