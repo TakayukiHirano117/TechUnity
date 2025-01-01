@@ -3,6 +3,18 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/db";
 
+export const GET = async (req: NextRequest) => {
+	const recruits = await prisma.recruits.findMany({
+		include: {
+			creator: true,
+		},
+	});
+
+	// console.log(recruits)
+
+	return NextResponse.json(recruits);
+};
+
 export const POST = async (req: NextRequest) => {
 	const { title, content, isPublished } = await req.json();
 
