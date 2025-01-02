@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+import { signOut } from "next-auth/react";
+import React, { memo, ReactNode } from "react";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -13,9 +14,8 @@ import {
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { signOut } from "next-auth/react";
 
-const MainDropdown = ({
+const MainDropdown = memo(({
 	children,
 	username,
 }: {
@@ -103,6 +103,8 @@ const MainDropdown = ({
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
-};
+});
+
+MainDropdown.displayName = "MainDropdown";
 
 export default MainDropdown;

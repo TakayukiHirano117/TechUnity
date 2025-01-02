@@ -1,9 +1,9 @@
 "use client";
 
 import { AppProgressBar } from "next-nprogress-bar";
-import React from "react";
+import React, { memo } from "react";
 
-const ProgressBar = ({ children }: { children: React.ReactNode }) => {
+const ProgressBar = memo(({ children }: { children: React.ReactNode }) => {
 	return (
 		<div>
 			{children}
@@ -15,6 +15,8 @@ const ProgressBar = ({ children }: { children: React.ReactNode }) => {
 			/>
 		</div>
 	);
-};
+});
+
+ProgressBar.displayName = "ProgressBar";
 
 export default ProgressBar;

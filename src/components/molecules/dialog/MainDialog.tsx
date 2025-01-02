@@ -7,9 +7,9 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { MainDialogProps } from "@/types/types";
-import React, { ReactNode } from "react";
+import React, { memo, ReactNode } from "react";
 
-const MainDialog = ({
+const MainDialog = memo(({
 	title,
 	description,
 	trigger,
@@ -29,6 +29,8 @@ const MainDialog = ({
 			</DialogContent>
 		</Dialog>
 	);
-};
+});
+
+MainDialog.displayName = "MainDialog";
 
 export default MainDialog;
