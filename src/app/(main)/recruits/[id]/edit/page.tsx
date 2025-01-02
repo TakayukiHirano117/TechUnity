@@ -1,25 +1,39 @@
 "use client";
 
-import "@uiw/react-md-editor/markdown-editor.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor from "@uiw/react-md-editor";
-import { useRouter } from "next/navigation";
-import React, { useRef } from "react";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
+import useSWR from "swr";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { toast, useToast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 
-const Create = () => {
+const getRecruitDetail = async (url: string) => {
+	const response = await fetch(url, { cache: "no-store" });
+	// if (!response.ok) throw new Error("データの取得に失敗しました");
+	// console.log(response.json());
+	return response.json();
+};
+
+const EditRecruitPage = () => {
 	const router = useRouter();
+	const { id } = useParams();
 	const inputRef = useRef<HTMLInputElement>(null);
+
+	const {
+		data: recruit,
+		error,
+		isLoading,
+	} = useSWR(`/api/recruits/${id}/edit`, getRecruitDetail);
 
 	const formSchema = z.object({
 		title: z
@@ -32,7 +46,7 @@ const Create = () => {
 		isPublished: z.boolean(),
 	});
 
-	const { register, handleSubmit, setValue, watch, control, formState } =
+	const { register, handleSubmit, setValue, watch, control, formState, reset } =
 		useForm<z.infer<typeof formSchema>>({
 			resolver: zodResolver(formSchema),
 			defaultValues: {
@@ -44,13 +58,23 @@ const Create = () => {
 
 	const content = watch("content");
 
+	useEffect(() => {
+		if (recruit) {
+			reset({
+				title: recruit.title,
+				content: recruit.content,
+				isPublished: recruit.isPublished,
+			});
+		}
+	}, [recruit, reset]);
+
 	const onSubmit = async (data: {
 		title: string;
 		content: string;
 		isPublished: boolean;
 	}) => {
-		const res = await fetch("/api/recruits", {
-			method: "POST",
+		const res = await fetch(`/api/recruits/${id}`, {
+			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -97,6 +121,10 @@ const Create = () => {
 			setValue("content", currentContent + markdownLink); // 既存の内容に追加
 		}
 	};
+
+	// if (isLoading) return <p>loading</p>;
+	// if (error) return <p>error</p>;
+
 
 	return (
 		<div className="bg-slate-100">
@@ -188,7 +216,7 @@ const Create = () => {
 										}}
 										disabled={formState.isSubmitting || !content}
 									>
-										{formState.isSubmitting ? "作成中..." : "作成する"}
+										{formState.isSubmitting ? "更新中..." : "保存する"}
 									</Button>
 									<div>
 										<Button
@@ -226,4 +254,4 @@ const Create = () => {
 	);
 };
 
-export default Create;
+export default EditRecruitPage;
