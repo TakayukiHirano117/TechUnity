@@ -1,18 +1,29 @@
-import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
+import prisma from "@/lib/db";
 
 export const GET = async (
 	req: NextRequest,
 	{ params }: { params: { id: string } },
 ) => {
-	const id = params.id;
+	try {
+		const token = await getToken({ req });
 
-	const recruit = await prisma.recruits.findUnique({
-		where: { id: id },
-		include: { creator: true },
-	});
+		if (!token) {
+			return NextResponse.json("unauthorized", { status: 403 });
+		}
+		
+		const id = params.id;
 
-	console.log(recruit);
+		const recruit = await prisma.recruits.findUnique({
+			where: { id: id },
+			include: { creator: true },
+		});
 
-	return NextResponse.json(recruit);
+		console.log(recruit);
+
+		return NextResponse.json(recruit);
+	} catch (error) {
+		return NextResponse.json("error", { status: 500 });
+	}
 };
