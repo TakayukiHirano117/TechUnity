@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { memo } from "react";
 
-const Footer = () => {
+// propsを受け取ってないのでmemo化する意味はないが今後渡すかもしれないので忘れないうちにとりあえずやっとく。
+const Footer: React.FC = memo(() => {
 	return (
 		<footer className="pt-[3rem] container mt-auto">
 			<div className="mx-[3rem] px-[3rem] pb-[3rem]">
@@ -60,6 +61,8 @@ const Footer = () => {
 			</div>
 		</footer>
 	);
-};
+});
+
+Footer.displayName = "Footer";
 
 export default Footer;
