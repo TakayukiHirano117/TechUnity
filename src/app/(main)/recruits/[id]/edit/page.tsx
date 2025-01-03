@@ -15,12 +15,13 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
+import { editRecruitSchema } from "@/lib/formSchema";
 import { supabase } from "@/lib/supabase";
 
 const getRecruitDetail = async (url: string) => {
 	const response = await fetch(url, { cache: "no-store" });
 	// if (!response.ok) throw new Error("データの取得に失敗しました");
-	// console.log(response.json());
+	console.log(response.json());
 	return response.json();
 };
 
@@ -35,20 +36,9 @@ const EditRecruitPage = () => {
 		isLoading,
 	} = useSWR(`/api/recruits/${id}/edit`, getRecruitDetail);
 
-	const formSchema = z.object({
-		title: z
-			.string()
-			.min(1, { message: "タイトルは1文字以上で入力してください" })
-			.max(100, { message: "タイトルは100文字以内で入力してください" }),
-		content: z
-			.string()
-			.min(1, { message: "本文は1文字以上で入力してください" }),
-		isPublished: z.boolean(),
-	});
-
 	const { register, handleSubmit, setValue, watch, control, formState, reset } =
-		useForm<z.infer<typeof formSchema>>({
-			resolver: zodResolver(formSchema),
+		useForm<z.infer<typeof editRecruitSchema>>({
+			resolver: zodResolver(editRecruitSchema),
 			defaultValues: {
 				title: "",
 				content: "",
@@ -57,16 +47,6 @@ const EditRecruitPage = () => {
 		});
 
 	const content = watch("content");
-
-	useEffect(() => {
-		if (recruit) {
-			reset({
-				title: recruit.title,
-				content: recruit.content,
-				isPublished: recruit.isPublished,
-			});
-		}
-	}, [recruit, reset]);
 
 	const onSubmit = async (data: {
 		title: string;
@@ -125,7 +105,6 @@ const EditRecruitPage = () => {
 	// if (isLoading) return <p>loading</p>;
 	// if (error) return <p>error</p>;
 
-
 	return (
 		<div className="bg-slate-100">
 			<div className="max-w-[960px] mx-auto p-8 container">
@@ -135,16 +114,6 @@ const EditRecruitPage = () => {
 						className="bg-slate-100 focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
 						{...register("title")}
 					/>
-					{/* {formState.errors.title && (
-						<p className="text-red-500 text-sm mt-1">
-							{formState.errors.title.message}
-						</p>
-					)} */}
-					{/* <Input
-						type="number"
-						placeholder="募集人数"
-						className="bg-slate-100 focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
-					/> */}
 					<Tabs defaultValue="write" className="w-[960px] mt-4">
 						<TabsList className="grid w-full grid-cols-2 border">
 							<TabsTrigger value="write">募集を書く</TabsTrigger>

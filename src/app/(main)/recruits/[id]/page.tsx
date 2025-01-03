@@ -73,13 +73,6 @@ const RecruitDetailPage = () => {
 												{recruit?.creator.name}
 											</p>
 										</Link>
-										{/* ログインしているユーザーと同じ場合はどうする */}
-										{/* <MainButton
-										className="rounded-full font-bold"
-										variant={"outline"}
-									>
-										フォローする
-									</MainButton> */}
 									</div>
 								</div>
 							</div>

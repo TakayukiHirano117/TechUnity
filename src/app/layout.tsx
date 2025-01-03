@@ -5,6 +5,7 @@ import NextAuthSessionProvider from "@/components/atoms/auth/NextAuthSessionProv
 import ProgressBar from "@/components/atoms/progress/ProgressBar";
 import Footer from "@/components/organisms/footer/Footer";
 import Header from "@/components/organisms/header/Header";
+import DefaultLayout from "@/components/templates/DefaultLayout";
 import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
@@ -33,15 +34,7 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-[screen]`}
 			>
-				<NextAuthSessionProvider>
-					<Header />
-				</NextAuthSessionProvider>
-				<ProgressBar>
-					{children}
-					<Toaster />
-				</ProgressBar>
-
-				<Footer />
+				<DefaultLayout>{children}</DefaultLayout>
 			</body>
 		</html>
 	);

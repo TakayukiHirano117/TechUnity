@@ -14,27 +14,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { toast, useToast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
+import { createRecruitSchema } from "@/lib/formSchema";
 import { supabase } from "@/lib/supabase";
+import { handleFileChange } from "@/lib/imgeUpload";
 
 const Create = () => {
 	const router = useRouter();
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	const formSchema = z.object({
-		title: z
-			.string()
-			.min(1, { message: "タイトルは1文字以上で入力してください" })
-			.max(100, { message: "タイトルは100文字以内で入力してください" }),
-		content: z
-			.string()
-			.min(1, { message: "本文は1文字以上で入力してください" }),
-		isPublished: z.boolean(),
-	});
-
 	const { register, handleSubmit, setValue, watch, control, formState } =
-		useForm<z.infer<typeof formSchema>>({
-			resolver: zodResolver(formSchema),
+		useForm<z.infer<typeof createRecruitSchema>>({
+			resolver: zodResolver(createRecruitSchema),
 			defaultValues: {
 				title: "",
 				content: "",
@@ -64,40 +55,41 @@ const Create = () => {
 		inputRef.current?.click();
 	};
 
-	const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (!e.target.files || e.target.files.length === 0) return;
+	// const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+	// 	if (!e.target.files || e.target.files.length === 0) return;
 
-		const file = e.target.files[0];
+	// 	const file = e.target.files[0];
 
-		// ファイル名の重複を防ぐために、タイムスタンプを追加
-		const fileExtension = file.name.split(".").pop(); // 拡張子を抽出
-		const fileNameWithoutExtension = file.name.replace(`.${fileExtension}`, "");
-		const timestamp = Date.now(); // 現在のタイムスタンプ
-		const uniqueFileName = `${fileNameWithoutExtension}-${timestamp}.${fileExtension}`;
+	// 	// ファイル名の重複を防ぐために、タイムスタンプを追加
+	// 	const fileExtension = file.name.split(".").pop(); // 拡張子を抽出
+	// 	const fileNameWithoutExtension = file.name.replace(`.${fileExtension}`, "");
+	// 	const timestamp = Date.now(); // 現在のタイムスタンプ
+	// 	const uniqueFileName = `${fileNameWithoutExtension}-${timestamp}.${fileExtension}`;
 
-		// Supabaseにファイルをアップロード
-		const { data, error } = await supabase.storage
-			.from("test") // ストレージバケット名
-			.upload(`images/${uniqueFileName}`, file);
+	// 	// Supabaseにファイルをアップロード
+	// 	const { data, error } = await supabase.storage
+	// 		.from("test") // ストレージバケット名
+	// 		.upload(`images/${uniqueFileName}`, file);
 
-		if (error) {
-			console.error("アップロードエラー:", error.message);
-			return;
-		}
+	// 	if (error) {
+	// 		console.error("アップロードエラー:", error.message);
+	// 		return;
+	// 	}
 
-		// ファイルのURLを取得
-		const { data: publicUrlData } = supabase.storage
-			.from("test")
-			.getPublicUrl(data.path);
+	// 	// ファイルのURLを取得
+	// 	const { data: publicUrlData } = supabase.storage
+	// 		.from("test")
+	// 		.getPublicUrl(data.path);
 
-		if (publicUrlData?.publicUrl) {
-			// 現在のcontentの内容を取得して、markdownLinkを追加
-			const currentContent = watch("content");
-			const markdownLink = `![${file.name}](${publicUrlData.publicUrl})\n`;
-			setValue("content", currentContent + markdownLink); // 既存の内容に追加
-		}
-	};
+	// 	if (publicUrlData?.publicUrl) {
+	// 		// 現在のcontentの内容を取得して、markdownLinkを追加
+	// 		const currentContent = watch("content");
+	// 		const markdownLink = `![${file.name}](${publicUrlData.publicUrl})\n`;
+	// 		setValue("content", currentContent + markdownLink); // 既存の内容に追加
+	// 	}
+	// };
 
+	
 	return (
 		<div className="bg-slate-100">
 			<div className="max-w-[960px] mx-auto p-8 container">
@@ -213,7 +205,7 @@ const Create = () => {
 											className="hidden"
 											type="file"
 											ref={inputRef}
-											onChange={handleFileChange}
+											onChange={(e) => handleFileChange(e, content, setValue)}
 										/>
 									</div>
 								</div>
