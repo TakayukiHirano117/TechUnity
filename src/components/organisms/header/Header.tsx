@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
-import React from "react";
+import React, { memo } from "react";
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import MainButton from "@/components/atoms/button/MainButton";
 import GitHubIcon from "@/components/atoms/Icon/GitHubIcon";
@@ -12,7 +12,8 @@ import SearchIcon from "@/components/atoms/SearchIcon";
 import MainDialog from "@/components/molecules/dialog/MainDialog";
 import MainDropdown from "@/components/molecules/dropdown/MainDropdown";
 
-const Header = () => {
+// propsを受け取ってないのでmemo化する意味はないが今後渡すかもしれないので忘れないうちにとりあえずやっとく。
+const Header: React.FC = memo(() => {
 	// sessionから取得するとDBの情報が取れない可能性あり。
 	const { data: session, status } = useSession();
 	// console.log(session);
@@ -80,6 +81,8 @@ const Header = () => {
 			</div>
 		</header>
 	);
-};
+});
+
+Header.displayName = "Header";
 
 export default Header;

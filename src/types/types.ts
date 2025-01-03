@@ -33,10 +33,26 @@ export type MainDialogProps = {
 };
 
 export type RecruitCardProps = {
+	id: number;
 	title: string;
 	description: string;
 	authorName: string;
+	avatarImageSrc: string;
 	publishedAt: string;
 	goodCount: number;
 	remainingCount: number;
 };
+
+export type DashBoardRecruits = {
+	id: number;
+	title: string;
+	content: string;
+	creator: {
+		name: string;
+		image: string;
+	};
+	createdAt: string;
+	updatedAt: string;
+	applicantId: string;
+	isPublished: boolean;
+}

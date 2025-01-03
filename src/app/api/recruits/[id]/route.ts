@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
 import { getToken } from "next-auth/jwt";
-import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/db";
 
-export const GET = async (req: NextRequest) => {
+export const GET = async (
+	req: NextRequest,
+	{ params }: { params: { id: string } },
+) => {
 	try {
 		const token = await getToken({ req });
 
@@ -12,26 +13,25 @@ export const GET = async (req: NextRequest) => {
 			return NextResponse.json("unauthorized", { status: 403 });
 		}
 
-		// select句で必要なカラムのみ返すように要修正
-		const recruits = await prisma.recruits.findMany({
-			where: {
-				isPublished: true,
-			},
-			orderBy: {
-				createdAt: "desc",
-			},
-			include: {
-				creator: true,
-			},
+		const id = params.id;
+
+		const recruit = await prisma.recruits.findUnique({
+			where: { id: id },
+			include: { creator: true },
 		});
 
-		return NextResponse.json(recruits);
+		console.log(recruit);
+
+		return NextResponse.json(recruit);
 	} catch (error) {
 		return NextResponse.json("error", { status: 500 });
 	}
 };
 
-export const POST = async (req: NextRequest) => {
+export const PUT = async (
+	req: NextRequest,
+	{ params }: { params: { id: string } },
+) => {
 	try {
 		const token = await getToken({ req });
 
@@ -39,21 +39,19 @@ export const POST = async (req: NextRequest) => {
 			return NextResponse.json("unauthorized", { status: 403 });
 		}
 
+		const id = params.id;
+
 		const { title, content, isPublished } = await req.json();
 
-		const session = await getServerSession(authOptions);
-		const creatorId = session!.user.id as string;
+		const updatedAt = new Date();
 
-		const recruit = await prisma.recruits.create({
+		const recruit = await prisma.recruits.update({
+			where: { id: id },
 			data: {
 				title,
 				content,
 				isPublished,
-				creator: {
-					connect: {
-						id: creatorId,
-					},
-				},
+				updatedAt,
 			},
 		});
 
