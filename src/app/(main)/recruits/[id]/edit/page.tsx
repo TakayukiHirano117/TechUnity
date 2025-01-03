@@ -1,13 +1,13 @@
 "use client";
 
-import "@uiw/react-md-editor/markdown-editor.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor from "@uiw/react-md-editor";
-import { useRouter } from "next/navigation";
-import React, { useRef } from "react";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
+import useSWR from "swr";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,17 +15,30 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
-import { createRecruitSchema } from "@/lib/formSchema";
+import { editRecruitSchema } from "@/lib/formSchema";
 import { supabase } from "@/lib/supabase";
-import { handleFileChange } from "@/lib/imgeUpload";
 
-const Create = () => {
+const getRecruitDetail = async (url: string) => {
+	const response = await fetch(url, { cache: "no-store" });
+	// if (!response.ok) throw new Error("データの取得に失敗しました");
+	console.log(response.json());
+	return response.json();
+};
+
+const EditRecruitPage = () => {
 	const router = useRouter();
+	const { id } = useParams();
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	const { register, handleSubmit, setValue, watch, control, formState } =
-		useForm<z.infer<typeof createRecruitSchema>>({
-			resolver: zodResolver(createRecruitSchema),
+	const {
+		data: recruit,
+		error,
+		isLoading,
+	} = useSWR(`/api/recruits/${id}/edit`, getRecruitDetail);
+
+	const { register, handleSubmit, setValue, watch, control, formState, reset } =
+		useForm<z.infer<typeof editRecruitSchema>>({
+			resolver: zodResolver(editRecruitSchema),
 			defaultValues: {
 				title: "",
 				content: "",
@@ -40,8 +53,8 @@ const Create = () => {
 		content: string;
 		isPublished: boolean;
 	}) => {
-		const res = await fetch("/api/recruits", {
-			method: "POST",
+		const res = await fetch(`/api/recruits/${id}`, {
+			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -55,41 +68,43 @@ const Create = () => {
 		inputRef.current?.click();
 	};
 
-	// const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-	// 	if (!e.target.files || e.target.files.length === 0) return;
+	const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (!e.target.files || e.target.files.length === 0) return;
 
-	// 	const file = e.target.files[0];
+		const file = e.target.files[0];
 
-	// 	// ファイル名の重複を防ぐために、タイムスタンプを追加
-	// 	const fileExtension = file.name.split(".").pop(); // 拡張子を抽出
-	// 	const fileNameWithoutExtension = file.name.replace(`.${fileExtension}`, "");
-	// 	const timestamp = Date.now(); // 現在のタイムスタンプ
-	// 	const uniqueFileName = `${fileNameWithoutExtension}-${timestamp}.${fileExtension}`;
+		// ファイル名の重複を防ぐために、タイムスタンプを追加
+		const fileExtension = file.name.split(".").pop(); // 拡張子を抽出
+		const fileNameWithoutExtension = file.name.replace(`.${fileExtension}`, "");
+		const timestamp = Date.now(); // 現在のタイムスタンプ
+		const uniqueFileName = `${fileNameWithoutExtension}-${timestamp}.${fileExtension}`;
 
-	// 	// Supabaseにファイルをアップロード
-	// 	const { data, error } = await supabase.storage
-	// 		.from("test") // ストレージバケット名
-	// 		.upload(`images/${uniqueFileName}`, file);
+		// Supabaseにファイルをアップロード
+		const { data, error } = await supabase.storage
+			.from("test") // ストレージバケット名
+			.upload(`images/${uniqueFileName}`, file);
 
-	// 	if (error) {
-	// 		console.error("アップロードエラー:", error.message);
-	// 		return;
-	// 	}
+		if (error) {
+			console.error("アップロードエラー:", error.message);
+			return;
+		}
 
-	// 	// ファイルのURLを取得
-	// 	const { data: publicUrlData } = supabase.storage
-	// 		.from("test")
-	// 		.getPublicUrl(data.path);
+		// ファイルのURLを取得
+		const { data: publicUrlData } = supabase.storage
+			.from("test")
+			.getPublicUrl(data.path);
 
-	// 	if (publicUrlData?.publicUrl) {
-	// 		// 現在のcontentの内容を取得して、markdownLinkを追加
-	// 		const currentContent = watch("content");
-	// 		const markdownLink = `![${file.name}](${publicUrlData.publicUrl})\n`;
-	// 		setValue("content", currentContent + markdownLink); // 既存の内容に追加
-	// 	}
-	// };
+		if (publicUrlData?.publicUrl) {
+			// 現在のcontentの内容を取得して、markdownLinkを追加
+			const currentContent = watch("content");
+			const markdownLink = `![${file.name}](${publicUrlData.publicUrl})\n`;
+			setValue("content", currentContent + markdownLink); // 既存の内容に追加
+		}
+	};
 
-	
+	// if (isLoading) return <p>loading</p>;
+	// if (error) return <p>error</p>;
+
 	return (
 		<div className="bg-slate-100">
 			<div className="max-w-[960px] mx-auto p-8 container">
@@ -99,16 +114,6 @@ const Create = () => {
 						className="bg-slate-100 focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
 						{...register("title")}
 					/>
-					{/* {formState.errors.title && (
-						<p className="text-red-500 text-sm mt-1">
-							{formState.errors.title.message}
-						</p>
-					)} */}
-					{/* <Input
-						type="number"
-						placeholder="募集人数"
-						className="bg-slate-100 focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
-					/> */}
 					<Tabs defaultValue="write" className="w-[960px] mt-4">
 						<TabsList className="grid w-full grid-cols-2 border">
 							<TabsTrigger value="write">募集を書く</TabsTrigger>
@@ -180,7 +185,7 @@ const Create = () => {
 										}}
 										disabled={formState.isSubmitting || !content}
 									>
-										{formState.isSubmitting ? "作成中..." : "作成する"}
+										{formState.isSubmitting ? "更新中..." : "保存する"}
 									</Button>
 									<div>
 										<Button
@@ -205,7 +210,7 @@ const Create = () => {
 											className="hidden"
 											type="file"
 											ref={inputRef}
-											onChange={(e) => handleFileChange(e, content, setValue)}
+											onChange={handleFileChange}
 										/>
 									</div>
 								</div>
@@ -218,4 +223,4 @@ const Create = () => {
 	);
 };
 
-export default Create;
+export default EditRecruitPage;

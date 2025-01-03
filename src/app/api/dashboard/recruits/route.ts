@@ -3,26 +3,27 @@ import { getToken } from "next-auth/jwt";
 import prisma from "@/lib/db";
 
 export const GET = async (req: NextRequest) => {
-	// 現在ログインしているユーザーの投稿をすべて取得
-	const token = await getToken({ req });
+	try {
+		const token = await getToken({ req });
 
-	if (!token) {
-		return NextResponse.json("unauthorized", { status: 403 });
+		if (!token) {
+			return NextResponse.json("unauthorized", { status: 403 });
+		}
+
+		const recruits = await prisma.recruits.findMany({
+			where: {
+				creatorId: token.id,
+			},
+			orderBy: {
+				createdAt: "desc",
+			},
+			include: {
+				creator: true,
+			},
+		});
+
+		return NextResponse.json(recruits);
+	} catch (error) {
+		return NextResponse.json(error, { status: 500 });
 	}
-
-	console.log(token);
-
-	const recruits = await prisma.recruits.findMany({
-		where: {
-			creatorId: token.id,
-		},
-		orderBy: {
-			createdAt: "desc",
-		},
-		include: {
-			creator: true,
-		},
-	});
-
-	return NextResponse.json(recruits);
 };
