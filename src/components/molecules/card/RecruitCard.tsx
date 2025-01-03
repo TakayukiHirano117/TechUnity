@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import Link from "next/link";
 import React, { memo } from "react";
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
@@ -38,7 +39,9 @@ const RecruitCard = memo(
 							<p>{authorName}</p>
 						</Link>
 						<div className="flex justify-between gap-2 items-center">
-							<div className="text-sm text-slate-700">{publishedAt}</div>
+							<div className="text-sm text-slate-700">
+								{format(publishedAt, "yyyy/MM/dd")}
+							</div>
 							<div className="flex items-center text-sm text-slate-700">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
