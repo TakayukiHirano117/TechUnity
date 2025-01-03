@@ -21,7 +21,7 @@ import { supabase } from "@/lib/supabase";
 const getRecruitDetail = async (url: string) => {
 	const response = await fetch(url, { cache: "no-store" });
 	// if (!response.ok) throw new Error("データの取得に失敗しました");
-	console.log(response.json());
+	console.log(response);
 	return response.json();
 };
 
@@ -102,8 +102,18 @@ const EditRecruitPage = () => {
 		}
 	};
 
-	// if (isLoading) return <p>loading</p>;
-	// if (error) return <p>error</p>;
+	useEffect(() => {
+		if (recruit) {
+			reset({
+				title: recruit.title,
+				content: recruit.content,
+				isPublished: recruit.isPublished,
+			});
+		}
+	}, [recruit, reset]);
+
+	if (isLoading) return <p>Loading...</p>;
+	if (error) return <p>Error: {error.message}</p>;
 
 	return (
 		<div className="bg-slate-100">

@@ -60,3 +60,26 @@ export const PUT = async (
 		return NextResponse.json("error", { status: 500 });
 	}
 };
+
+export const DELETE = async (
+	req: NextRequest,
+	{ params }: { params: { id: string } },
+) => {
+	try {
+		const token = await getToken({ req });
+
+		if (!token) {
+			return NextResponse.json("unauthorized", { status: 403 });
+		}
+
+		const id = params.id;
+
+		await prisma.recruits.delete({
+			where: { id: id },
+		});
+
+		return NextResponse.json("success");
+	} catch (error) {
+		return NextResponse.json("error", { status: 500 });
+	}
+};
