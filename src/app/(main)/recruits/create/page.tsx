@@ -123,7 +123,7 @@ const Create = () => {
 										hideToolbar={true}
 										preview="edit"
 										height={720}
-										className="p-2 border"
+										className="p-4 border"
 										textareaProps={{
 											placeholder: "Markdownで募集を書いてください",
 										}}
@@ -136,7 +136,7 @@ const Create = () => {
 										source={content}
 										remarkPlugins={[remarkGfm]}
 										rehypePlugins={[rehypeSanitize]}
-										className="min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-4 rounded-lg max-w-full"
+										className="min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-8 rounded-lg max-w-full"
 									/>
 								</TabsContent>
 							</div>

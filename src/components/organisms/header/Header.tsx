@@ -25,7 +25,7 @@ const Header: React.FC = memo(() => {
 					<div>
 						<Link href="/recruits">
 							{/* svgにしたいな、WIX課金か？ */}
-							<Image src="/Preview.png" alt="logo" width={100} height={100} />
+							<Image src="/Preview.png" alt="logo" width={120} height={120} />
 						</Link>
 					</div>
 					<div className="flex items-center gap-4">
