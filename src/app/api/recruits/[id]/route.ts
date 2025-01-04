@@ -14,13 +14,17 @@ export const GET = async (
 		}
 
 		const id = params.id;
+		const userId = token.id;
 
-		const recruit = await prisma.recruits.findUnique({
+		const recruit = await prisma.recruit.findUnique({
 			where: { id: id },
-			include: { creator: true },
+			include: {
+				creator: true,
+				likes: true,
+			},
 		});
 
-		console.log(recruit);
+		console.log(recruit?.likes.length);
 
 		return NextResponse.json(recruit);
 	} catch (error) {
@@ -45,7 +49,7 @@ export const PUT = async (
 
 		const updatedAt = new Date();
 
-		const recruit = await prisma.recruits.update({
+		const recruit = await prisma.recruit.update({
 			where: { id: id },
 			data: {
 				title,
@@ -74,7 +78,7 @@ export const DELETE = async (
 
 		const id = params.id;
 
-		await prisma.recruits.delete({
+		await prisma.recruit.delete({
 			where: { id: id },
 		});
 

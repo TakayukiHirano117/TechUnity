@@ -1,3 +1,4 @@
+import { Like } from "@prisma/client";
 import { ReactNode } from "react";
 
 export type MainButtonProps = {
@@ -39,7 +40,7 @@ export type RecruitCardProps = {
 	authorName: string;
 	avatarImageSrc: string;
 	publishedAt: string;
-	goodCount: number;
+	likes: Like[];
 	remainingCount: number;
 };
 
