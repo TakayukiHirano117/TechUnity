@@ -40,8 +40,6 @@ export const GET = async (
 			isLiked,
 		};
 
-		console.log(response);
-
 		return NextResponse.json(response);
 	} catch (error) {
 		return NextResponse.json("error", { status: 500 });

@@ -16,19 +16,19 @@ export const POST = async (
 		const userId = token.id;
 		const recruitId = params.id;
 
-		const existingLike = await prisma.like.findFirst({
+		const existingApplication = await prisma.application.findFirst({
 			where: {
 				userId,
 				recruitId,
 			},
 		});
 
-		if (existingLike) {
-			await prisma.like.delete({
-				where: { id: existingLike.id },
+		if (existingApplication) {
+			await prisma.application.delete({
+				where: { id: existingApplication.id },
 			});
 		} else {
-			const res = await prisma.like.create({
+			await prisma.application.create({
 				data: {
 					userId: userId,
 					recruitId: recruitId,
@@ -36,11 +36,11 @@ export const POST = async (
 			});
 		}
 
-		const isLiked = existingLike ? false : true;
+		const isApplied = existingApplication ? false : true;
 
-		return NextResponse.json({ success: true, isLiked }, { status: 200 });
+		return NextResponse.json({ success: true, isApplied }, { status: 200 });
 	} catch (error) {
-		console.error("Error in POST /api/recruits/:id/like:", error); // ログに出力
+		console.error("Error: ", error); // ログに出力
 		return NextResponse.json(
 			{ error: error instanceof Error ? error.message : String(error) }, // エラー内容をレスポンスに含める
 			{ status: 500 },

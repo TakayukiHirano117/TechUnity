@@ -10,7 +10,7 @@ const Footer: React.FC = memo(() => {
 				<div className="flex items-center justify-between">
 					<div className="flex flex-col max-w-[250px] gap-2">
 						<Link href="/">
-							<Image src="/Preview.png" alt="logo" width={100} height={100} />
+							<Image src="/Logo.png" alt="logo" width={100} height={100} />
 						</Link>
 						<p className="text-xs text-slate-600">
 							チーム開発メンバー募集プラットフォーム
@@ -52,7 +52,7 @@ const Footer: React.FC = memo(() => {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							Takayuki Hirano
+							TakayukiHirano117
 						</Link>
 						. All Rights Reserved.
 					</p>
