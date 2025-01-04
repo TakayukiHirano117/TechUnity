@@ -43,5 +43,7 @@ export default withAuth(
 
 export const config = {
 	// 一覧ページ・詳細ページなどは認証不要にすること。
-	matcher: ["/", "/recruits/:path*"],
+	matcher: ["/recruits/create", "/recruits/[id]/edit", "/dashboard/:path*"],
 };
+
+// 
