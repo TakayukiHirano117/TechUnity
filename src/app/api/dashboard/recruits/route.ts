@@ -17,10 +17,20 @@ export const GET = async (req: NextRequest) => {
 			orderBy: {
 				createdAt: "desc",
 			},
-			include: {
-				creator: true,
+			select: {
+				id: true,
+				title: true,
+				createdAt: true,
+				isPublished: true,
+				creator: {
+					select: {
+						id: true,
+					},
+				},
 			},
 		});
+
+		console.log(recruits);
 
 		return NextResponse.json(recruits);
 	} catch (error) {

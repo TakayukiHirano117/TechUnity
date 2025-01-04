@@ -6,12 +6,6 @@ import prisma from "@/lib/db";
 
 export const GET = async (req: NextRequest) => {
 	try {
-		const token = await getToken({ req });
-
-		if (!token) {
-			return NextResponse.json("unauthorized", { status: 403 });
-		}
-
 		// select句で必要なカラムのみ返すように要修正
 		const recruits = await prisma.recruit.findMany({
 			where: {

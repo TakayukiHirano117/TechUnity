@@ -7,14 +7,7 @@ export const GET = async (
 	{ params }: { params: { id: string } },
 ) => {
 	try {
-		const token = await getToken({ req });
-
-		if (!token) {
-			return NextResponse.json("unauthorized", { status: 403 });
-		}
-
 		const id = params.id;
-		const userId = token.id;
 
 		const recruit = await prisma.recruit.findUnique({
 			where: { id: id },
@@ -23,8 +16,6 @@ export const GET = async (
 				likes: true,
 			},
 		});
-
-		console.log(recruit?.likes.length);
 
 		return NextResponse.json(recruit);
 	} catch (error) {
