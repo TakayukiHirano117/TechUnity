@@ -9,15 +9,40 @@ export const GET = async (
 	try {
 		const id = params.id;
 
+		const token = await getToken({ req });
+
+		const userId = token?.id || null;
+
 		const recruit = await prisma.recruit.findUnique({
 			where: { id: id },
 			include: {
 				creator: true,
-				likes: true,
+				likes: {
+					select: {
+						userId: true, // 必要なフィールドのみ取得
+					},
+				},
 			},
 		});
 
-		return NextResponse.json(recruit);
+		if (!recruit) {
+			return NextResponse.json({ message: "Not found" }, { status: 404 });
+		}
+
+		// 自分が「いいね」しているかどうかを判定
+		const isLiked = userId
+			? recruit.likes.some((like) => like.userId === userId)
+			: false;
+
+		// `isLiked` をレスポンスに追加
+		const response = {
+			...recruit,
+			isLiked,
+		};
+
+		console.log(response);
+
+		return NextResponse.json(response);
 	} catch (error) {
 		return NextResponse.json("error", { status: 500 });
 	}

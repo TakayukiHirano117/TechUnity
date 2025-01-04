@@ -43,11 +43,12 @@ const RecruitDetailPage = () => {
 
 	const toggle = async () => {
 		await likeFetcher(`/api/recruits/${id}/like`);
-		mutate(`/api/recruits/${id}/like`);
+		mutate(`/api/recruits/${id}`);
 	};
 
 	return (
 		<div className=" bg-slate-100 mx-auto">
+			{likeData}
 			{!recruit || isLoading ? (
 				<div className="flex justify-between">
 					<div className="mx-auto space-y-3 h-screen mt-3">
@@ -78,15 +79,7 @@ const RecruitDetailPage = () => {
 								rehypePlugins={[rehypeSanitize]}
 								className="text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-10 rounded-t-lg max-w-full"
 							/>
-							<div className="rounded-b-lg bg-white border p-8 w-full flex ietms-center justify-between">
-								<div className="flex items-center gap-4">
-									<AvatarIcon
-										ImageSrc={recruit?.creator.image}
-										fallbackText={recruit?.creator.name}
-										className="w-12 h-12"
-									/>
-									<h4 className="font-bold text-lg">{recruit?.creator.name}</h4>
-								</div>
+							<div className="rounded-b-lg bg-white border p-8 w-full flex flex-col justify-between">
 								<div>
 									<div className="flex items-center gap-4 ">
 										<div className="flex items-center gap-2">
@@ -97,7 +90,9 @@ const RecruitDetailPage = () => {
 													className="text-slate-600"
 												/>
 											</div>
-											○○人が応募しています。
+											<span className="text-slate-500 text-sm">
+												○○人が応募しています。
+											</span>
 										</div>
 										<div className="flex items-center gap-2">
 											<button
@@ -110,16 +105,30 @@ const RecruitDetailPage = () => {
 													width="24"
 													height="24"
 													className={`${
-														recruit.likes.length > 0
-															? "text-red-600"
+														recruit.isLiked
+															? "text-red-600 fill-red-600"
 															: "text-slate-600"
 													}`}
 												/>
 											</button>
-											<span>
+											<span className="text-slate-500 text-sm">
 												{recruit.likes.length > 0 && recruit.likes.length}
 											</span>
 										</div>
+									</div>
+								</div>
+								<hr className="my-6" />
+								<div className="flex items-center gap-4">
+									<AvatarIcon
+										ImageSrc={recruit?.creator.image}
+										fallbackText={recruit?.creator.name}
+										className="w-12 h-12"
+									/>
+									<div>
+										<h4 className="font-bold text-lg">
+											{recruit?.creator.name}
+										</h4>
+										<p>{recruit.creator.description || ""}</p>
 									</div>
 								</div>
 								{/* <hr className="my-8" /> */}
