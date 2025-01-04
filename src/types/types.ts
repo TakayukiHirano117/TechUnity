@@ -14,6 +14,8 @@ export type MainButtonProps = {
 		| null
 		| undefined;
 	onClick?: () => void;
+	disabled?: boolean;
+	type?: "button" | "submit" | "reset";
 };
 
 export type SearchIconProps = {
@@ -31,6 +33,8 @@ export type MainDialogProps = {
 	description: string;
 	trigger: ReactNode;
 	children: ReactNode;
+	onOpenChange?(open: boolean): void;
+	isOpen?: boolean;
 };
 
 export type RecruitCardProps = {

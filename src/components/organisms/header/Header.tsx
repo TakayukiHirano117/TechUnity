@@ -24,8 +24,7 @@ const Header: React.FC = memo(() => {
 				<div className="flex justify-between items-center">
 					<div>
 						<Link href="/">
-							{/* svgにしたいな、WIX課金か？ */}
-							<Image src="/Preview.png" alt="logo" width={120} height={120} />
+							<Image src="/Logo.png" alt="logo" width={120} height={120} />
 						</Link>
 					</div>
 					<div className="flex items-center gap-4">
