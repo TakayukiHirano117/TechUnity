@@ -12,7 +12,7 @@ import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
 import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
-import { useLike } from "@/hooks/useLike";
+// import { useLike } from "@/hooks/useLike";
 
 const getRecruitDetail = async (url: string) => {
 	const response = await fetch(url, { cache: "no-store" });
@@ -37,8 +37,8 @@ const RecruitDetailPage = () => {
 
 	const {
 		data: likeData,
-		likeError,
-		likeLoading,
+		// likeError,
+		// likeLoading,
 	} = useSWR(`/api/recruits/${id}/like`);
 
 	const toggle = async () => {

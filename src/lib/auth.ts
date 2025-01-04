@@ -21,7 +21,7 @@ export const authOptions: NextAuthOptions = {
 	pages: {
 		// signIn後のリダイレクト先を設定
 		signIn: "/",
-		signOut: "/recruits"
+		signOut: "/",
 	},
 	callbacks: {
 		async jwt({ token, user }) {
