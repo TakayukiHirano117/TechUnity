@@ -7,20 +7,15 @@ export const GET = async (
 	{ params }: { params: { id: string } },
 ) => {
 	try {
-		const token = await getToken({ req });
-
-		if (!token) {
-			return NextResponse.json("unauthorized", { status: 403 });
-		}
-
 		const id = params.id;
 
-		const recruit = await prisma.recruits.findUnique({
+		const recruit = await prisma.recruit.findUnique({
 			where: { id: id },
-			include: { creator: true },
+			include: {
+				creator: true,
+				likes: true,
+			},
 		});
-
-		console.log(recruit);
 
 		return NextResponse.json(recruit);
 	} catch (error) {
@@ -45,7 +40,7 @@ export const PUT = async (
 
 		const updatedAt = new Date();
 
-		const recruit = await prisma.recruits.update({
+		const recruit = await prisma.recruit.update({
 			where: { id: id },
 			data: {
 				title,
@@ -56,6 +51,29 @@ export const PUT = async (
 		});
 
 		return NextResponse.json(recruit);
+	} catch (error) {
+		return NextResponse.json("error", { status: 500 });
+	}
+};
+
+export const DELETE = async (
+	req: NextRequest,
+	{ params }: { params: { id: string } },
+) => {
+	try {
+		const token = await getToken({ req });
+
+		if (!token) {
+			return NextResponse.json("unauthorized", { status: 403 });
+		}
+
+		const id = params.id;
+
+		await prisma.recruit.delete({
+			where: { id: id },
+		});
+
+		return NextResponse.json("success");
 	} catch (error) {
 		return NextResponse.json("error", { status: 500 });
 	}

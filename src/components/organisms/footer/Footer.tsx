@@ -9,8 +9,7 @@ const Footer: React.FC = memo(() => {
 			<div className="mx-[3rem] px-[3rem] pb-[3rem]">
 				<div className="flex items-center justify-between">
 					<div className="flex flex-col max-w-[250px] gap-2">
-						<Link href="/recruits">
-							{/* svgにしたいな、WIX課金か？ */}
+						<Link href="/">
 							<Image src="/Preview.png" alt="logo" width={100} height={100} />
 						</Link>
 						<p className="text-xs text-slate-600">

@@ -1,3 +1,8 @@
-export default function Home() {
-	return <div className="">TOPページ</div>;
-}
+import React from "react";
+import RecruitTopPage from "@/components/pages/RecruitTopPage";
+
+const Top = () => {
+	return <RecruitTopPage />;
+};
+
+export default Top;

@@ -19,13 +19,13 @@ const Header: React.FC = memo(() => {
 	// console.log(session);
 
 	return (
-		<header className="border-b">
+		<header className="border-b px-2">
 			<div className="container mx-auto lg:px-20 py-3">
 				<div className="flex justify-between items-center">
 					<div>
-						<Link href="/recruits">
+						<Link href="/">
 							{/* svgにしたいな、WIX課金か？ */}
-							<Image src="/Preview.png" alt="logo" width={100} height={100} />
+							<Image src="/Preview.png" alt="logo" width={120} height={120} />
 						</Link>
 					</div>
 					<div className="flex items-center gap-4">

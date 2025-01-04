@@ -6,25 +6,25 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import useSWR from "swr";
-import MainButton from "@/components/atoms/button/MainButton";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
-import MainDialog from "@/components/molecules/dialog/MainDialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
 import { deleteRecruit } from "@/lib/apiFetch";
 import { DashBoardRecruits } from "@/types/types";
+import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 
 const items = SidebarItems;
 
-const getRecruitsWithUser = async (): Promise<DashBoardRecruits[]> => {
-	const res = await fetch("/api/dashboard/recruits");
+const getLikedRecruits = async (): Promise<DashBoardRecruits[]> => {
+	const res = await fetch("/api/dashboard/liked-recruits");
 	const recruits = await res.json();
+	console.log(recruits);
 	return recruits;
 };
 
-const RecruitsCreatedByMe = () => {
+const LikedRecruitsDashboardPage = () => {
 	const router = useRouter();
 
 	const {
@@ -32,8 +32,8 @@ const RecruitsCreatedByMe = () => {
 		error,
 		isLoading,
 	} = useSWR<DashBoardRecruits[]>(
-		"/api/dashboard/recruits",
-		getRecruitsWithUser,
+		"/api/dashboard/liked-recruits",
+		getLikedRecruits,
 	);
 
 	// if (isLoading) return <p>loading...</p>;
@@ -55,7 +55,7 @@ const RecruitsCreatedByMe = () => {
 					<>
 						<DashBoardSideBar items={items} />
 						<div className="flex flex-col gap-4 w-9/12">
-							<h1 className="font-bold text-3xl">募集の管理</h1>
+							<h1 className="font-bold text-3xl">いいねした募集</h1>
 							<div className="flex flex-col gap-4">
 								{recruits.length > 0 ? (
 									recruits?.map((recruit) => (
@@ -66,71 +66,28 @@ const RecruitsCreatedByMe = () => {
 											<div className="border-t w-full p-2 flex items-center justify-between gap-2">
 												<div>
 													<h3 className="text-lg font-bold hover:opacity-70">
-														<Link href={`/recruits/${recruit.id}/edit`}>{recruit.title}</Link>
+														<Link href={`/recruits/${recruit.id}`}>
+															{recruit.title}
+														</Link>
 													</h3>
-													<span className="text-sm text-slate-600">
-														{recruit.isPublished ? (
-															<Badge>公開中</Badge>
-														) : (
-															<Badge variant="outline">非公開</Badge>
-														)}
-													</span>
 												</div>
 												<div className="flex gap-4 items-center">
-													<Link href={`/recruits/${recruit.id}/edit`}>
+													<Link href={`/recruits/${recruit.id}`}>
 														<div className="p-2 rounded-full hover:bg-slate-200 border">
-															<PencilIcon
+															<HeartIcon
 																width="20"
 																height="20"
 																className="hover:opacity-70 text-slate-600"
 															/>
 														</div>
 													</Link>
-													{/* <Link href={"/"}> */}
-													<div className="p-2 rounded-full hover:bg-slate-200 border cursor-pointer">
-														<MainDialog
-															title="削除しますか？"
-															description={`${recruit.title}を削除します、この操作は取り消せません`}
-															trigger={
-																<DeleteIcon
-																	width="20"
-																	height="20"
-																	className="hover:opacity-70 text-slate-600"
-																/>
-															}
-														>
-															<div className="flex gap-4 justify-around">
-																<MainButton
-																	className="rounded-full py-2 px-4"
-																	variant={"outline"}
-																>
-																	キャンセル
-																</MainButton>
-																<MainButton
-																	className="rounded-full py-2 px-4"
-																	variant={"destructive"}
-																	onClick={() =>
-																		deleteRecruit(
-																			recruit.id,
-																			router,
-																			"/dashboard/recruits",
-																		)
-																	}
-																>
-																	削除
-																</MainButton>
-															</div>
-														</MainDialog>
-													</div>
-													{/* </Link> */}
 												</div>
 											</div>
 										</div>
 									))
 								) : (
 									<div className="flex flex-col items-center gap-4 text-slate-600">
-										<h3>まだ募集がありません。</h3>
-										<p>募集を作成してみましょう!</p>
+										<h3>まだいいねした募集がありません。</h3>
 										<Image
 											src={"/undraw_engineering-team_13ax.svg"}
 											width={300}
@@ -138,11 +95,6 @@ const RecruitsCreatedByMe = () => {
 											alt="no-recruits"
 											className="my-8"
 										/>
-										<div>
-											<MainButton className="rounded-full font-bold">
-												<Link href={"/recruits/create"}>募集する</Link>
-											</MainButton>
-										</div>
 									</div>
 								)}
 							</div>
@@ -154,4 +106,4 @@ const RecruitsCreatedByMe = () => {
 	);
 };
 
-export default RecruitsCreatedByMe;
+export default LikedRecruitsDashboardPage;

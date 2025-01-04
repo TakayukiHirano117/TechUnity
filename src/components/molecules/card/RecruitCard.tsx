@@ -1,6 +1,8 @@
+import { format } from "date-fns";
 import Link from "next/link";
 import React, { memo } from "react";
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
+import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import {
 	Card,
 	CardContent,
@@ -18,7 +20,7 @@ const RecruitCard = memo(
 		authorName,
 		avatarImageSrc,
 		publishedAt,
-		goodCount,
+		likes,
 		remainingCount,
 	}: RecruitCardProps) => {
 		return (
@@ -38,20 +40,16 @@ const RecruitCard = memo(
 							<p>{authorName}</p>
 						</Link>
 						<div className="flex justify-between gap-2 items-center">
-							<div className="text-sm text-slate-700">{publishedAt}</div>
+							<div className="text-sm text-slate-700">
+								{format(publishedAt, "yyyy/MM/dd")}
+							</div>
 							<div className="flex items-center text-sm text-slate-700">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="16"
-									height="16"
-									viewBox="0 0 24 24"
-								>
-									<path
-										fill="currentColor"
-										d="M12 4.528a6 6 0 0 0-8.243 8.715l6.829 6.828a2 2 0 0 0 2.828 0l6.829-6.828A6 6 0 0 0 12 4.528zm-1.172 1.644l.465.464a1 1 0 0 0 1.414 0l.465-.464a4 4 0 1 1 5.656 5.656L12 18.657l-6.828-6.829a4 4 0 0 1 5.656-5.656z"
-									/>
-								</svg>
-								{goodCount || 0}
+								{likes.length > 0 && (
+									<>
+										<HeartIcon width="16" height="16" />
+										<span>{likes.length}</span>
+									</>
+								)}
 							</div>
 							<p className="text-end text-xs text-slate-600 font-extralight">
 								あと{remainingCount || 0}人募集中
@@ -59,7 +57,6 @@ const RecruitCard = memo(
 						</div>
 					</div>
 				</CardContent>
-				{/* <CardFooter></CardFooter> */}
 			</Card>
 		);
 	},

@@ -23,7 +23,7 @@ const RecruitsIndex = () => {
 	return (
 		<>
 			{!recruits || isValidating ? (
-				<div className="flex flex-col space-y-3 z-50 h-screen items-center">
+				<div className="flex flex-col space-y-3 z-50 h-screen items-center mt-3">
 					<LoadingIcon
 						width="40"
 						height="40"

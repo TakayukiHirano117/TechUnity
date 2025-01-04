@@ -19,7 +19,7 @@ export const GET = async (
 
 		const id = params.id;
 
-		const recruit = await prisma.recruits.findUnique({
+		const recruit = await prisma.recruit.findUnique({
 			where: { id: id },
 			select: {
 				// id: true,

@@ -10,17 +10,27 @@ export const GET = async (req: NextRequest) => {
 			return NextResponse.json("unauthorized", { status: 403 });
 		}
 
-		const recruits = await prisma.recruits.findMany({
+		const recruits = await prisma.recruit.findMany({
 			where: {
 				creatorId: token.id,
 			},
 			orderBy: {
 				createdAt: "desc",
 			},
-			include: {
-				creator: true,
+			select: {
+				id: true,
+				title: true,
+				createdAt: true,
+				isPublished: true,
+				creator: {
+					select: {
+						id: true,
+					},
+				},
 			},
 		});
+
+		console.log(recruits);
 
 		return NextResponse.json(recruits);
 	} catch (error) {
