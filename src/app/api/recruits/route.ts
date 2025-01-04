@@ -13,7 +13,7 @@ export const GET = async (req: NextRequest) => {
 		}
 
 		// select句で必要なカラムのみ返すように要修正
-		const recruits = await prisma.recruits.findMany({
+		const recruits = await prisma.recruit.findMany({
 			where: {
 				isPublished: true,
 			},
@@ -22,6 +22,7 @@ export const GET = async (req: NextRequest) => {
 			},
 			include: {
 				creator: true,
+				likes: true,
 			},
 		});
 
@@ -44,7 +45,7 @@ export const POST = async (req: NextRequest) => {
 		const session = await getServerSession(authOptions);
 		const creatorId = session!.user.id as string;
 
-		const recruit = await prisma.recruits.create({
+		const recruit = await prisma.recruit.create({
 			data: {
 				title,
 				content,

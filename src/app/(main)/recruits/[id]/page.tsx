@@ -5,18 +5,23 @@ import { format } from "date-fns";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
-import ReactMarkdown from "react-markdown";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
-import MainButton from "@/components/atoms/button/MainButton";
+import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
 import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
+import { useLike } from "@/hooks/useLike";
 
 const getRecruitDetail = async (url: string) => {
 	const response = await fetch(url, { cache: "no-store" });
 	// if (!response.ok) throw new Error("データの取得に失敗しました");
+	return response.json();
+};
+
+const likeFetcher = async (url: string) => {
+	const response = await fetch(url, { cache: "no-store", method: "POST" });
 	return response.json();
 };
 
@@ -30,11 +35,22 @@ const RecruitDetailPage = () => {
 		isLoading,
 	} = useSWR(`/api/recruits/${id}`, getRecruitDetail);
 
+	const {
+		data: likeData,
+		likeError,
+		likeLoading,
+	} = useSWR(`/api/recruits/${id}/like`);
+
+	const toggle = async () => {
+		await likeFetcher(`/api/recruits/${id}/like`);
+		mutate(`/api/recruits/${id}/like`);
+	};
+
 	return (
 		<div className=" bg-slate-100 mx-auto">
 			{!recruit || isLoading ? (
 				<div className="flex justify-between">
-					<div className="mx-auto space-y-3 h-screen">
+					<div className="mx-auto space-y-3 h-screen mt-3">
 						<LoadingIcon
 							width="40"
 							height="40"
@@ -72,13 +88,39 @@ const RecruitDetailPage = () => {
 									<h4 className="font-bold text-lg">{recruit?.creator.name}</h4>
 								</div>
 								<div>
-									<span className=" bg-slate-200 hover:bg-red-300 inline-flex rounded-full p-2 cursor-pointer">
-										<HeartIcon
-											width="24"
-											height="24"
-											className="text-slate-600"
-										/>
-									</span>
+									<div className="flex items-center gap-4 ">
+										<div className="flex items-center gap-2">
+											<div className="bg-slate-200 rounded-full p-2 hover:bg-green-300 cursor-pointer flex items-center">
+												<ApplyIcon
+													width="24"
+													height="24"
+													className="text-slate-600"
+												/>
+											</div>
+											○○人が応募しています。
+										</div>
+										<div className="flex items-center gap-2">
+											<button
+												type="button"
+												className="bg-slate-200 rounded-full p-2 hover:bg-red-300 cursor-pointer"
+												onClick={toggle}
+												// disabled={likeLoading}
+											>
+												<HeartIcon
+													width="24"
+													height="24"
+													className={`${
+														recruit.likes.length > 0
+															? "text-red-600"
+															: "text-slate-600"
+													}`}
+												/>
+											</button>
+											<span>
+												{recruit.likes.length > 0 && recruit.likes.length}
+											</span>
+										</div>
+									</div>
 								</div>
 								{/* <hr className="my-8" /> */}
 							</div>

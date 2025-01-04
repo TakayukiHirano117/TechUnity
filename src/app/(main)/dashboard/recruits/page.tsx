@@ -65,7 +65,9 @@ const RecruitsCreatedByMe = () => {
 										>
 											<div className="border-t w-full p-2 flex items-center justify-between gap-2">
 												<div>
-													<h3 className="text-lg font-bold">{recruit.title}</h3>
+													<h3 className="text-lg font-bold hover:opacity-70">
+														<Link href={`/recruits/${recruit.id}/edit`}>{recruit.title}</Link>
+													</h3>
 													<span className="text-sm text-slate-600">
 														{recruit.isPublished ? (
 															<Badge>公開中</Badge>

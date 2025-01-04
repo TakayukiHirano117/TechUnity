@@ -16,8 +16,8 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
 import { createRecruitSchema } from "@/lib/formSchema";
-import { supabase } from "@/lib/supabase";
 import { handleFileChange } from "@/lib/imgeUpload";
+import { supabase } from "@/lib/supabase";
 
 const Create = () => {
 	const router = useRouter();
@@ -89,9 +89,8 @@ const Create = () => {
 	// 	}
 	// };
 
-	
 	return (
-		<div className="bg-slate-100">
+		<div className="bg-slate-100 w-full">
 			<div className="max-w-[960px] mx-auto p-8 container">
 				<form onSubmit={handleSubmit(onSubmit)} method="POST">
 					<Input
@@ -184,7 +183,7 @@ const Create = () => {
 									</Button>
 									<div>
 										<Button
-											className="rounded-full w-auto"
+											className="rounded-full"
 											variant={"outline"}
 											onClick={handleButtonClick}
 											type="button"

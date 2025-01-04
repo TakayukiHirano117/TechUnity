@@ -1,5 +1,6 @@
 import React from "react";
 import RecruitCard from "@/components/molecules/card/RecruitCard";
+import { Like } from "@prisma/client";
 
 const RecruitList = ({
 	recruits,
@@ -13,7 +14,7 @@ const RecruitList = ({
 			image: string;
 		};
 		createdAt: string;
-		goodCount: number;
+		likes: Like[]
 		remainingCount: number;
 	}[];
 }) => {
@@ -28,7 +29,7 @@ const RecruitList = ({
 					authorName={recruit.creator.name}
 					avatarImageSrc={recruit.creator.image}
 					publishedAt={recruit.createdAt}
-					goodCount={recruit.goodCount}
+					likes={recruit.likes}
 					remainingCount={recruit.remainingCount}
 				/>
 			))}
