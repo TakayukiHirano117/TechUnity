@@ -24,7 +24,7 @@ export const SidebarItems = [
 	},
 	{
 		id: 4,
-		href: "/settings/profile",
+		href: "/dashboard/profiles",
 		icon: <GearIcon width="20" height="20" />,
 		text: "アカウント設定",
 	},
