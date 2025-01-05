@@ -1,19 +1,15 @@
 "use client";
 
-import { DeleteIcon, PencilIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import useSWR from "swr";
+import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
-import { deleteRecruit } from "@/lib/apiFetch";
 import { DashBoardRecruits } from "@/types/types";
-import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 
 const items = SidebarItems;
 

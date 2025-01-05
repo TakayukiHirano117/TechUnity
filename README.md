@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 概要
+チーム開発メンバー募集プラットフォームです。
+チーム開発経験を積みたいけど、自分のまわりに開発をしている友人が少なかったり、Xなどで声をかけるのは少し気が引ける方が、
+気軽にチーム開発経験を積めることを目的としています。
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 技術一覧・機能一覧
+- Nextjs 14.2.21
+- React 18.3.1
+- TypeScript ^5.7.2
+- DB(Supabase)
+- ORM(Prisma)
+- デプロイ(Vercel)
+- UIライブラリ・フレームワーク(tailwindcss, shadcn/ui)
+- 認証(NextAuth.js v4(4.24.11))
+- ソーシャルログイン(GitHub, Google)
+- フォームバリデーション(zod)
+- 募集一覧
+- 募集詳細
+- 募集作成(react-hook-form, react-md-editor, Supabase Storage)
+- 募集編集(react-hook-form, react-md-editor, Supabase Storage)
+- 募集へのいいね
+- 募集へのコメント
+- 募集への応募
+- いいねした募集一覧
+- 応募した募集一覧

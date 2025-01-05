@@ -29,9 +29,9 @@ export const GET = async (
 			},
 		});
 
-        // console.log(recruit);
+		// console.log(recruit);
 
-		return NextResponse.json({ recruit });
+		return NextResponse.json(recruit);
 	} catch (error) {
 		return NextResponse.json("error", { status: 500 });
 	}
