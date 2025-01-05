@@ -41,7 +41,7 @@ const RecruitsCreatedByMe = () => {
 	if (error) return <p>エラーが発生しました: {error.message}</p>;
 
 	return (
-		<div className="bg-slate-100">
+		<div className="bg-slate-100 min-h-screen">
 			<div className="px-8 py-14 flex justify-between container mx-auto gap-12 max-w-[1080px]">
 				{!recruits || isLoading ? (
 					<div className="mx-auto space-y-3 h-screen">

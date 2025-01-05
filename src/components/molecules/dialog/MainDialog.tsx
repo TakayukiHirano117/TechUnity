@@ -10,16 +10,25 @@ import {
 import { MainDialogProps } from "@/types/types";
 
 const MainDialog = memo(
-	({ title, description, trigger, children }: MainDialogProps) => {
+	({
+		title,
+		description,
+		trigger,
+		children,
+		isOpen,
+		onOpenChange,
+	}: MainDialogProps) => {
 		return (
-			<Dialog>
+			<Dialog open={isOpen} onOpenChange={onOpenChange}>
 				<DialogTrigger asChild>{trigger}</DialogTrigger>
 				<DialogContent>
 					<DialogHeader>
 						<DialogTitle className="text-center sm:text-2xl md:text-3xl lg:text-4xl">
 							{title}
 						</DialogTitle>
-						<DialogDescription className="text-center">{description}</DialogDescription>
+						<DialogDescription className="text-center">
+							{description}
+						</DialogDescription>
 					</DialogHeader>
 					{children}
 				</DialogContent>

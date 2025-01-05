@@ -1,6 +1,6 @@
+import { Application, Like } from "@prisma/client";
 import React from "react";
 import RecruitCard from "@/components/molecules/card/RecruitCard";
-import { Like } from "@prisma/client";
 
 const RecruitList = ({
 	recruits,
@@ -14,7 +14,8 @@ const RecruitList = ({
 			image: string;
 		};
 		createdAt: string;
-		likes: Like[]
+		likes: Like[];
+		applications: Application[];
 		remainingCount: number;
 	}[];
 }) => {
@@ -30,6 +31,7 @@ const RecruitList = ({
 					avatarImageSrc={recruit.creator.image}
 					publishedAt={recruit.createdAt}
 					likes={recruit.likes}
+					applications={recruit.applications}
 					remainingCount={recruit.remainingCount}
 				/>
 			))}

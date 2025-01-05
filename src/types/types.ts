@@ -1,3 +1,4 @@
+import { Application } from './../../node_modules/.prisma/client/index.d';
 import { Like } from "@prisma/client";
 import { ReactNode } from "react";
 
@@ -14,6 +15,8 @@ export type MainButtonProps = {
 		| null
 		| undefined;
 	onClick?: () => void;
+	disabled?: boolean;
+	type?: "button" | "submit" | "reset";
 };
 
 export type SearchIconProps = {
@@ -31,6 +34,8 @@ export type MainDialogProps = {
 	description: string;
 	trigger: ReactNode;
 	children: ReactNode;
+	onOpenChange?(open: boolean): void;
+	isOpen?: boolean;
 };
 
 export type RecruitCardProps = {
@@ -41,6 +46,7 @@ export type RecruitCardProps = {
 	avatarImageSrc: string;
 	publishedAt: string;
 	likes: Like[];
+	applications: Application[];
 	remainingCount: number;
 };
 

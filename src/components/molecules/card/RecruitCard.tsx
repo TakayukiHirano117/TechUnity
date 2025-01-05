@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 import React, { memo } from "react";
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
+import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
 import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import {
 	Card,
@@ -21,6 +22,7 @@ const RecruitCard = memo(
 		avatarImageSrc,
 		publishedAt,
 		likes,
+		applications,
 		remainingCount,
 	}: RecruitCardProps) => {
 		return (
@@ -31,7 +33,7 @@ const RecruitCard = memo(
 							{title}
 						</Link>
 					</CardTitle>
-					<CardDescription className="truncate">{description}</CardDescription>
+					{/* <CardDescription className="truncate">{description}</CardDescription> */}
 				</CardHeader>
 				<CardContent className="flex gap-4">
 					<AvatarIcon ImageSrc={avatarImageSrc} fallbackText="アバター" />
@@ -43,7 +45,13 @@ const RecruitCard = memo(
 							<div className="text-sm text-slate-700">
 								{format(publishedAt, "yyyy/MM/dd")}
 							</div>
-							<div className="flex items-center text-sm text-slate-700">
+							<div className="flex items-center text-sm text-slate-700 gap-1">
+								{applications.length > 0 && (
+									<>
+										<ApplyIcon width="16" height="16" />
+										<span>{applications.length}</span>
+									</>
+								)}
 								{likes.length > 0 && (
 									<>
 										<HeartIcon width="16" height="16" />
@@ -52,7 +60,7 @@ const RecruitCard = memo(
 								)}
 							</div>
 							<p className="text-end text-xs text-slate-600 font-extralight">
-								あと{remainingCount || 0}人募集中
+								あと{remainingCount || "n"}人募集中
 							</p>
 						</div>
 					</div>

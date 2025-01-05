@@ -11,12 +11,11 @@ import GoogleIcon from "@/components/atoms/Icon/GoogleIcon";
 import SearchIcon from "@/components/atoms/SearchIcon";
 import MainDialog from "@/components/molecules/dialog/MainDialog";
 import MainDropdown from "@/components/molecules/dropdown/MainDropdown";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // propsを受け取ってないのでmemo化する意味はないが今後渡すかもしれないので忘れないうちにとりあえずやっとく。
 const Header: React.FC = memo(() => {
-	// sessionから取得するとDBの情報が取れない可能性あり。
 	const { data: session, status } = useSession();
-	// console.log(session);
 
 	return (
 		<header className="border-b px-2">
@@ -24,31 +23,16 @@ const Header: React.FC = memo(() => {
 				<div className="flex justify-between items-center">
 					<div>
 						<Link href="/">
-							{/* svgにしたいな、WIX課金か？ */}
-							<Image src="/Preview.png" alt="logo" width={120} height={120} />
+							<Image src="/Logo.png" alt="logo" width={120} height={120} />
 						</Link>
 					</div>
 					<div className="flex items-center gap-4">
 						<Link href={"/search"}>
 							<SearchIcon className="hover:opacity-70 w-6 h-6 font-bold cursor-pointer" />
 						</Link>
-						{session ? (
-							<div className="flex items-center gap-4">
-								<MainDropdown username={session.user.name!}>
-									<button>
-										<AvatarIcon
-											className="cursor-pointer"
-											// 画像がundefinedの場合にダミー画像を出す
-											ImageSrc={session.user.image!}
-											fallbackText={session.user.name!}
-										/>
-									</button>
-								</MainDropdown>
-								<MainButton className="rounded-full font-bold">
-									<Link href={"/recruits/create"}>募集する</Link>
-								</MainButton>
-							</div>
-						) : (
+						{status === "loading" ? (
+							<Skeleton className="w-40 h-10 rounded-full" />
+						) : !session ? (
 							<MainDialog
 								title="TechUnity"
 								description="TechUnityはチーム開発メンバーの募集をお手伝いする、チーム開発メンバー募集プラットフォームです。"
@@ -75,6 +59,21 @@ const Header: React.FC = memo(() => {
 									Googleでログイン
 								</MainButton>
 							</MainDialog>
+						) : (
+							<div className="flex items-center gap-4">
+								<MainDropdown username={session.user.name!}>
+									<button>
+										<AvatarIcon
+											className="cursor-pointer"
+											ImageSrc={session.user.image!}
+											fallbackText={session.user.name!}
+										/>
+									</button>
+								</MainDropdown>
+								<MainButton className="rounded-full font-bold">
+									<Link href={"/recruits/create"}>募集する</Link>
+								</MainButton>
+							</div>
 						)}
 					</div>
 				</div>
