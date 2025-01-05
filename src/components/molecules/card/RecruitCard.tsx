@@ -33,7 +33,7 @@ const RecruitCard = memo(
 							{title}
 						</Link>
 					</CardTitle>
-					<CardDescription className="truncate">{description}</CardDescription>
+					{/* <CardDescription className="truncate">{description}</CardDescription> */}
 				</CardHeader>
 				<CardContent className="flex gap-4">
 					<AvatarIcon ImageSrc={avatarImageSrc} fallbackText="アバター" />

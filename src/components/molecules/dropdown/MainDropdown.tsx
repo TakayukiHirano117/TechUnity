@@ -33,7 +33,7 @@ const MainDropdown = memo(
 					</DropdownMenuItem>
 					<DropdownMenuItem>
 						<ApplyIcon width="20" height="20" />
-						<span>応募した募集</span>
+						<Link href={"/dashboard/applied-recruits"}>応募した募集</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem>
 						<GearIcon width="20" height="20" />
