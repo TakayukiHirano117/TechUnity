@@ -83,13 +83,117 @@ const RecruitDetailPage = () => {
 								<div>
 									<div className="flex items-center gap-4 ">
 										<div className="flex items-center gap-2">
-											<div className="bg-slate-200 rounded-full p-2 hover:bg-green-300 cursor-pointer flex items-center">
+											<div className=" flex items-center">
 												{/* まだ応募してないとき */}
-												<MainDialog
+												{!recruit.isApplied ? (
+													<MainDialog
+														title="応募しますか？"
+														description=""
+														trigger={
+															<button
+																type="button"
+																className={`rounded-full p-2 hover:bg-green-300 cursor-pointer ${recruit.isApplied ? "bg-green-300" : "bg-slate-200"}`}
+																// onClick={() => toggleApply()}
+																disabled={isApplyMutating}
+															>
+																<ApplyIcon
+																	width="24"
+																	height="24"
+																	className="text-slate-600"
+																/>
+															</button>
+														}
+														onOpenChange={setIsDialogOpen}
+														isOpen={isDialogOpen}
+													>
+														<div className="flex flex-col items-center justify-center gap-4">
+															<Image
+																src={"/undraw_resume_jrgi.svg"}
+																width={200}
+																height={200}
+																alt="resume"
+															/>
+															<div className="flex justify-center gap-4">
+																<DialogClose asChild>
+																	<MainButton
+																		className="rounded-full font-bold"
+																		variant={"outline"}
+																	>
+																		キャンセル
+																	</MainButton>
+																</DialogClose>
+																<MainButton
+																	type="button"
+																	className="rounded-full font-bold"
+																	onClick={handleApply}
+																	disabled={isApplyMutating}
+																>
+																	{isApplyMutating ? "応募中" : "応募する"}
+																</MainButton>
+															</div>
+														</div>
+													</MainDialog>
+												) : (
+													<MainDialog
+														title="すでに応募済みです!"
+														description="応募を取り下げますか？"
+														trigger={
+															<button
+																type="button"
+																className={`rounded-full p-2 hover:bg-green-300 cursor-pointer ${recruit.isApplied ? "bg-green-300" : "bg-slate-200"}`}
+																disabled={isApplyMutating}
+															>
+																<ApplyIcon
+																	width="24"
+																	height="24"
+																	className="text-slate-600"
+																/>
+															</button>
+														}
+														onOpenChange={setIsDialogOpen}
+														isOpen={isDialogOpen}
+													>
+														<div className="flex flex-col items-center justify-center gap-4">
+															<Image
+																src={"/undraw_feeling-blue_8si6.svg"}
+																width={200}
+																height={200}
+																alt="resume"
+															/>
+															<div className="flex justify-center gap-4">
+																<DialogClose asChild>
+																	<MainButton
+																		className="rounded-full font-bold"
+																		variant={"outline"}
+																	>
+																		キャンセル
+																	</MainButton>
+																</DialogClose>
+																<MainButton
+																	type="button"
+																	className="rounded-full font-bold"
+																	onClick={handleApply}
+																	disabled={isApplyMutating}
+																>
+																	{isApplyMutating
+																		? "取り下げています.."
+																		: "取り下げる"}
+																</MainButton>
+															</div>
+														</div>
+													</MainDialog>
+												)}
+												{/* {isApplied} */}
+												{/* <MainDialog
 													title="応募しますか？"
 													description=""
 													trigger={
-														<button type="button">
+														<button
+															type="button"
+															className={`rounded-full p-2 hover:bg-green-300 cursor-pointer ${recruit.isApplied ? "bg-green-300" : "bg-slate-200"}`}
+															// onClick={() => toggleApply()}
+															disabled={isApplyMutating}
+														>
 															<ApplyIcon
 																width="24"
 																height="24"
@@ -126,10 +230,13 @@ const RecruitDetailPage = () => {
 															</MainButton>
 														</div>
 													</div>
-												</MainDialog>
+												</MainDialog> */}
+												{/* もうすでに自分は応募しているとき */}
 											</div>
 											<span className="text-slate-500 text-sm">
-												○○人が応募しています。
+												{recruit.applications.length > 0
+													? `${recruit.applications.length}人のユーザーが応募しています。`
+													: "まだ誰も応募していません。"}
 											</span>
 										</div>
 										<div className="flex items-center gap-2">

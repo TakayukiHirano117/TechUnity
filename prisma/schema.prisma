@@ -79,7 +79,7 @@ model Recruit {
   creator     User          @relation(fields: [creatorId], references: [id], name: "creator")
   creatorId   String
   likes       Like[]
-  Application Application[]
+  applications Application[]
 
   @@map(name: "recruits")
 }
