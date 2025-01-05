@@ -11,7 +11,6 @@ import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
 import MainDialog from "@/components/molecules/dialog/MainDialog";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
 import { deleteRecruit } from "@/lib/apiFetch";
 import { DashBoardRecruits } from "@/types/types";
@@ -66,7 +65,9 @@ const RecruitsCreatedByMe = () => {
 											<div className="border-t w-full p-2 flex items-center justify-between gap-2">
 												<div>
 													<h3 className="text-lg font-bold hover:opacity-70">
-														<Link href={`/recruits/${recruit.id}/edit`}>{recruit.title}</Link>
+														<Link href={`/recruits/${recruit.id}/edit`}>
+															{recruit.title}
+														</Link>
 													</h3>
 													<span className="text-sm text-slate-600">
 														{recruit.isPublished ? (
