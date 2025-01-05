@@ -17,58 +17,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 const Header: React.FC = memo(() => {
 	const { data: session, status } = useSession();
 
-	const renderContent = () => {
-		if (status === "loading") {
-			return <Skeleton className="w-40 h-10" />;
-		}
-
-		if (!session) {
-			return (
-				<MainDialog
-					title="TechUnity"
-					description="TechUnityはチーム開発メンバーの募集をお手伝いする、チーム開発メンバー募集プラットフォームです。"
-					trigger={
-						<MainButton className="rounded-full font-bold">ログイン</MainButton>
-					}
-				>
-					<MainButton
-						className="rounded-full font-bold"
-						variant="outline"
-						onClick={() => signIn("github")}
-					>
-						<GitHubIcon />
-						GitHubでログイン
-					</MainButton>
-					<MainButton
-						className="rounded-full font-bold"
-						variant="outline"
-						onClick={() => signIn("google")}
-					>
-						<GoogleIcon />
-						Googleでログイン
-					</MainButton>
-				</MainDialog>
-			);
-		}
-
-		return (
-			<div className="flex items-center gap-4">
-				<MainDropdown username={session.user.name!}>
-					<button>
-						<AvatarIcon
-							className="cursor-pointer"
-							ImageSrc={session.user.image!}
-							fallbackText={session.user.name!}
-						/>
-					</button>
-				</MainDropdown>
-				<MainButton className="rounded-full font-bold">
-					<Link href={"/recruits/create"}>募集する</Link>
-				</MainButton>
-			</div>
-		);
-	};
-
 	return (
 		<header className="border-b px-2">
 			<div className="container mx-auto lg:px-20 py-3">
@@ -82,7 +30,51 @@ const Header: React.FC = memo(() => {
 						<Link href={"/search"}>
 							<SearchIcon className="hover:opacity-70 w-6 h-6 font-bold cursor-pointer" />
 						</Link>
-						{renderContent()}
+						{status === "loading" ? (
+							<Skeleton className="w-40 h-10 rounded-full" />
+						) : !session ? (
+							<MainDialog
+								title="TechUnity"
+								description="TechUnityはチーム開発メンバーの募集をお手伝いする、チーム開発メンバー募集プラットフォームです。"
+								trigger={
+									<MainButton className="rounded-full font-bold">
+										ログイン
+									</MainButton>
+								}
+							>
+								<MainButton
+									className="rounded-full font-bold"
+									variant="outline"
+									onClick={() => signIn("github")}
+								>
+									<GitHubIcon />
+									GitHubでログイン
+								</MainButton>
+								<MainButton
+									className="rounded-full font-bold"
+									variant="outline"
+									onClick={() => signIn("google")}
+								>
+									<GoogleIcon />
+									Googleでログイン
+								</MainButton>
+							</MainDialog>
+						) : (
+							<div className="flex items-center gap-4">
+								<MainDropdown username={session.user.name!}>
+									<button>
+										<AvatarIcon
+											className="cursor-pointer"
+											ImageSrc={session.user.image!}
+											fallbackText={session.user.name!}
+										/>
+									</button>
+								</MainDropdown>
+								<MainButton className="rounded-full font-bold">
+									<Link href={"/recruits/create"}>募集する</Link>
+								</MainButton>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

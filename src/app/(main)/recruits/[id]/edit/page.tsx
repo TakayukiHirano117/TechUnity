@@ -34,7 +34,7 @@ const EditRecruitPage = () => {
 		data: recruit,
 		error,
 		isLoading,
-	// } = useSWR(`/api/recruits/${id}/edit`, getRecruitDetail);
+	} = useSWR(`/api/recruits/${id}/edit`, getRecruitDetail);
 
 	const { register, handleSubmit, setValue, watch, control, formState, reset } =
 		useForm<z.infer<typeof editRecruitSchema>>({

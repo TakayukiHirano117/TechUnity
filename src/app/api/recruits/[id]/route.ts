@@ -22,6 +22,11 @@ export const GET = async (
 						userId: true, // 必要なフィールドのみ取得
 					},
 				},
+				applications: {
+					select: {
+						userId: true,
+					},
+				},
 			},
 		});
 
@@ -34,10 +39,17 @@ export const GET = async (
 			? recruit.likes.some((like) => like.userId === userId)
 			: false;
 
+		const isApplied = userId
+			? recruit.applications.some(
+					(application) => application.userId === userId,
+				)
+			: false;
+
 		// `isLiked` をレスポンスに追加
 		const response = {
 			...recruit,
 			isLiked,
+			isApplied,
 		};
 
 		return NextResponse.json(response);

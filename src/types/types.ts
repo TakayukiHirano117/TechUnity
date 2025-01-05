@@ -1,3 +1,4 @@
+import { Application } from './../../node_modules/.prisma/client/index.d';
 import { Like } from "@prisma/client";
 import { ReactNode } from "react";
 
@@ -45,6 +46,7 @@ export type RecruitCardProps = {
 	avatarImageSrc: string;
 	publishedAt: string;
 	likes: Like[];
+	applications: Application[];
 	remainingCount: number;
 };
 
