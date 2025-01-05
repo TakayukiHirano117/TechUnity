@@ -12,25 +12,25 @@ export const GET = async (req: NextRequest) => {
 
 		const userId = token.id;
 
-		const likedRecruits = await prisma.recruit.findMany({
+		const appliedRecruits = await prisma.recruit.findMany({
 			where: {
-				likes: {
+				applications: {
 					some: {
-						userId: userId, // 自分がいいねした投稿のみフィルタリング
+						userId: userId,
 					},
 				},
 			},
 			include: {
-				creator: true, // 投稿の作成者の情報を取得
-				likes: true, // いいねの情報を取得（必要に応じて削除可能）
+				creator: true,
+				applications: true,
 			},
 		});
 
-		// console.log(likedRecruits);
+		console.log(appliedRecruits);
 
-		return NextResponse.json(likedRecruits);
+		return NextResponse.json(appliedRecruits);
 	} catch (error) {
-		console.error("Error fetching liked recruits:", error);
+		console.error("Error fetching applied recruits:", error);
 		return NextResponse.json(
 			{ error: error instanceof Error ? error.message : String(error) },
 			{ status: 500 },
