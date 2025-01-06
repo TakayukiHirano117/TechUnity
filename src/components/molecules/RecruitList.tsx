@@ -10,6 +10,7 @@ const RecruitList = ({
 		title: string;
 		content: string;
 		creator: {
+			id: string;
 			name: string;
 			image: string;
 		};
@@ -28,6 +29,7 @@ const RecruitList = ({
 					title={recruit.title}
 					description={recruit.content}
 					authorName={recruit.creator.name}
+					authorId={recruit.creator.id}
 					avatarImageSrc={recruit.creator.image}
 					publishedAt={recruit.createdAt}
 					likes={recruit.likes}
