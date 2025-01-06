@@ -11,6 +11,7 @@ import GoogleIcon from "@/components/atoms/Icon/GoogleIcon";
 import SearchIcon from "@/components/atoms/SearchIcon";
 import MainDialog from "@/components/molecules/dialog/MainDialog";
 import MainDropdown from "@/components/molecules/dropdown/MainDropdown";
+import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 
 // propsを受け取ってないのでmemo化する意味はないが今後渡すかもしれないので忘れないうちにとりあえずやっとく。
@@ -27,9 +28,12 @@ const Header: React.FC = memo(() => {
 						</Link>
 					</div>
 					<div className="flex items-center gap-4">
-						<Link href={"/search"}>
-							<SearchIcon className="hover:opacity-70 w-6 h-6 font-bold cursor-pointer" />
-						</Link>
+						{/* <Link href={"/search"}> */}
+						<div className="flex items-center gap-2 relative">
+							<SearchIcon className="w-6 h-6 font-bold absolute top-2 left-2 text-slate-600" />
+							<Input placeholder="募集を検索" className="pl-10" />
+						</div>
+						{/* </Link> */}
 						{status === "loading" ? (
 							<Skeleton className="w-40 h-10 rounded-full" />
 						) : !session ? (
