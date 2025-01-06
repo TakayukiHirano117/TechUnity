@@ -183,55 +183,6 @@ const RecruitDetailPage = () => {
 														</div>
 													</MainDialog>
 												)}
-												{/* {isApplied} */}
-												{/* <MainDialog
-													title="応募しますか？"
-													description=""
-													trigger={
-														<button
-															type="button"
-															className={`rounded-full p-2 hover:bg-green-300 cursor-pointer ${recruit.isApplied ? "bg-green-300" : "bg-slate-200"}`}
-															// onClick={() => toggleApply()}
-															disabled={isApplyMutating}
-														>
-															<ApplyIcon
-																width="24"
-																height="24"
-																className="text-slate-600"
-															/>
-														</button>
-													}
-													onOpenChange={setIsDialogOpen}
-													isOpen={isDialogOpen}
-												>
-													<div className="flex flex-col items-center justify-center gap-4">
-														<Image
-															src={"/undraw_resume_jrgi.svg"}
-															width={200}
-															height={200}
-															alt="resume"
-														/>
-														<div className="flex justify-center gap-4">
-															<DialogClose asChild>
-																<MainButton
-																	className="rounded-full font-bold"
-																	variant={"outline"}
-																>
-																	キャンセル
-																</MainButton>
-															</DialogClose>
-															<MainButton
-																type="button"
-																className="rounded-full font-bold"
-																onClick={handleApply}
-																disabled={isApplyMutating}
-															>
-																{isApplyMutating ? "応募中" : "応募する"}
-															</MainButton>
-														</div>
-													</div>
-												</MainDialog> */}
-												{/* もうすでに自分は応募しているとき */}
 											</div>
 											<span className="text-slate-500 text-sm">
 												{recruit.applications.length > 0
@@ -268,23 +219,15 @@ const RecruitDetailPage = () => {
 										className="w-12 h-12"
 									/>
 									<div>
-										<h4 className="font-bold text-lg">
-											{recruit?.creator.name}
+										<h4 className="font-bold text-lg hover:underline">
+											<Link href={`/profiles/${recruit.creator.id}`} passHref>
+												{recruit?.creator.name}
+											</Link>
 										</h4>
 										<p>{recruit.creator.description || ""}</p>
 									</div>
 								</div>
-								{/* <hr className="my-8" /> */}
 							</div>
-							{/* <ReactMarkdown
-								remarkPlugins={[remarkGfm]}
-								rehypePlugins={[rehypeSanitize]}
-								className="bg-white text-md prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-10 rounded-lg max-w-full"
-							>
-								{recruit?.content}
-								{/* <div>ffff</div>
-							</ReactMarkdown> */}
-							<div className=""></div>
 						</div>
 						<aside className="flex-1 lg:block hidden">
 							<div className="flex flex-col gap-4 border rounded-lg max-w-full bg-white p-4">

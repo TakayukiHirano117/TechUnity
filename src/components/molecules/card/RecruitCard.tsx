@@ -22,6 +22,7 @@ const RecruitCard = memo(
 		avatarImageSrc,
 		publishedAt,
 		likes,
+		authorId,
 		applications,
 		remainingCount,
 	}: RecruitCardProps) => {
@@ -38,7 +39,7 @@ const RecruitCard = memo(
 				<CardContent className="flex gap-4">
 					<AvatarIcon ImageSrc={avatarImageSrc} fallbackText="アバター" />
 					<div>
-						<Link href={"/profiles/1"} className="hover:underline">
+						<Link href={`/profiles/${authorId}`} className="hover:underline">
 							<p>{authorName}</p>
 						</Link>
 						<div className="flex justify-between gap-2 items-center">
