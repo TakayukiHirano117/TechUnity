@@ -37,7 +37,7 @@ const MainDropdown = memo(
 					</DropdownMenuItem>
 					<DropdownMenuItem>
 						<GearIcon width="20" height="20" />
-						<span>アカウント設定</span>
+						<Link href={"/dashboard/profiles"}>アカウント設定</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem>
 						<LogoutIcon width="20" height="20" />

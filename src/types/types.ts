@@ -42,6 +42,7 @@ export type RecruitCardProps = {
 	id: number;
 	title: string;
 	description: string;
+	authorId: string;
 	authorName: string;
 	avatarImageSrc: string;
 	publishedAt: string;
