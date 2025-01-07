@@ -16,7 +16,7 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
 import { createRecruitSchema } from "@/lib/formSchema";
-import { handleFileChange } from "@/lib/imgeUpload";
+import { handleFileChange } from "@/lib/imageUpload";
 import { supabase } from "@/lib/supabase";
 
 const Create = () => {

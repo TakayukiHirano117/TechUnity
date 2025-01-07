@@ -1,7 +1,11 @@
 import React, { Suspense } from "react";
 import LoadingIcon from "../atoms/Icon/LoadingIcon";
-import RecruitsIndex from "../organisms/recruits/RecruitsIndex";
+// import RecruitsIndex from "../organisms/recruits/RecruitsIndex";
 import DefaultLayout from "../templates/DefaultLayout";
+
+const RecruitsIndex = React.lazy(
+	() => import("../organisms/recruits/RecruitsIndex"),
+);
 
 const RecruitTopPage = () => {
 	return (
