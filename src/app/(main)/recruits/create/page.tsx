@@ -17,7 +17,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
 import { createRecruitSchema } from "@/lib/formSchema";
 import { handleFileChange } from "@/lib/imageUpload";
-import { supabase } from "@/lib/supabase";
 
 const Create = () => {
 	const router = useRouter();
@@ -40,7 +39,7 @@ const Create = () => {
 		content: string;
 		isPublished: boolean;
 	}) => {
-		const res = await fetch("/api/recruits", {
+		await fetch("/api/recruits", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -54,40 +53,6 @@ const Create = () => {
 	const handleButtonClick = () => {
 		inputRef.current?.click();
 	};
-
-	// const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-	// 	if (!e.target.files || e.target.files.length === 0) return;
-
-	// 	const file = e.target.files[0];
-
-	// 	// ファイル名の重複を防ぐために、タイムスタンプを追加
-	// 	const fileExtension = file.name.split(".").pop(); // 拡張子を抽出
-	// 	const fileNameWithoutExtension = file.name.replace(`.${fileExtension}`, "");
-	// 	const timestamp = Date.now(); // 現在のタイムスタンプ
-	// 	const uniqueFileName = `${fileNameWithoutExtension}-${timestamp}.${fileExtension}`;
-
-	// 	// Supabaseにファイルをアップロード
-	// 	const { data, error } = await supabase.storage
-	// 		.from("test") // ストレージバケット名
-	// 		.upload(`images/${uniqueFileName}`, file);
-
-	// 	if (error) {
-	// 		console.error("アップロードエラー:", error.message);
-	// 		return;
-	// 	}
-
-	// 	// ファイルのURLを取得
-	// 	const { data: publicUrlData } = supabase.storage
-	// 		.from("test")
-	// 		.getPublicUrl(data.path);
-
-	// 	if (publicUrlData?.publicUrl) {
-	// 		// 現在のcontentの内容を取得して、markdownLinkを追加
-	// 		const currentContent = watch("content");
-	// 		const markdownLink = `![${file.name}](${publicUrlData.publicUrl})\n`;
-	// 		setValue("content", currentContent + markdownLink); // 既存の内容に追加
-	// 	}
-	// };
 
 	return (
 		<div className="bg-slate-100 w-full">

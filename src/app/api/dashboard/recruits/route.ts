@@ -30,7 +30,7 @@ export const GET = async (req: NextRequest) => {
 			},
 		});
 
-		console.log(recruits);
+		// console.log(recruits);
 
 		return NextResponse.json(recruits);
 	} catch (error) {

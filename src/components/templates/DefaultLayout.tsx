@@ -10,12 +10,12 @@ const DefaultLayout = ({ children }: { children: ReactNode }) => {
 		<>
 			<NextAuthSessionProvider>
 				<Header />
+				<ProgressBar>
+					{children}
+					<Toaster />
+				</ProgressBar>
+				<Footer />
 			</NextAuthSessionProvider>
-			<ProgressBar>
-				{children}
-				<Toaster />
-			</ProgressBar>
-			<Footer />
 		</>
 	);
 };
