@@ -17,6 +17,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
 import { createRecruitSchema } from "@/lib/formSchema";
 import { handleFileChange } from "@/lib/imageUpload";
+import ImageUpload from "@/components/molecules/ImageUpload";
 
 const Create = () => {
 	const router = useRouter();
@@ -143,6 +144,7 @@ const Create = () => {
 											</svg>
 											画像を挿入
 										</Button>
+										<ImageUpload />
 										<Input
 											className="hidden"
 											type="file"

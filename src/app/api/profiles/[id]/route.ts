@@ -8,11 +8,22 @@ export const GET = async (
 	const profile = await prisma.user.findUnique({
 		where: { id: params.id },
 		include: {
-			recruits_creator: true,
+			recruits_creator: {
+				select: {
+					id: true,
+					title: true,
+					content: true,
+					createdAt: true,
+					updatedAt: true,
+					isPublished: true,
+					likes: true, // likesを含める
+					applications: true, // applicationsを含める
+				},
+			},
 		},
 	});
 
-	console.log(profile)
+	console.log(profile);
 
 	return NextResponse.json(profile);
 };
