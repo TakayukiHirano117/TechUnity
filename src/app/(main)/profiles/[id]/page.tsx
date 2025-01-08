@@ -49,7 +49,7 @@ const ProfilePage = ({ params }: { params: { id: string } }) => {
 					<AvatarIcon
 						ImageSrc={profile?.image || ""}
 						fallbackText={profile?.name || "No Name"}
-						className="w-30 h-30"
+						className="w-20 h-20"
 					/>
 					<div>
 						<h1 className="text-2xl font-bold text-slate-900">

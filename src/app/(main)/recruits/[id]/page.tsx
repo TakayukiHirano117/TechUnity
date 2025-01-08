@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
 import React, { useState } from "react";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
@@ -12,6 +13,8 @@ import useSWR from "swr";
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import MainButton from "@/components/atoms/button/MainButton";
 import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
+import GitHubIcon from "@/components/atoms/Icon/GitHubIcon";
+import GoogleIcon from "@/components/atoms/Icon/GoogleIcon";
 import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import MainDialog from "@/components/molecules/dialog/MainDialog";
@@ -27,6 +30,8 @@ const getRecruitDetail = async (url: string) => {
 const RecruitDetailPage = () => {
 	const params = useParams();
 	const id = params.id;
+
+	const { data: session } = useSession();
 
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -84,63 +89,125 @@ const RecruitDetailPage = () => {
 									<div className="flex items-center gap-4 ">
 										<div className="flex items-center gap-2">
 											<div className=" flex items-center">
-												{/* まだ応募してないとき */}
-												{!recruit.isApplied ? (
-													<MainDialog
-														title="応募しますか？"
-														description=""
-														trigger={
-															<button
-																type="button"
-																className={`rounded-full p-2 hover:bg-green-300 cursor-pointer ${recruit.isApplied ? "bg-green-300" : "bg-slate-200"}`}
-																// onClick={() => toggleApply()}
-																disabled={isApplyMutating}
-															>
-																<ApplyIcon
-																	width="24"
-																	height="24"
-																	className="text-slate-600"
-																/>
-															</button>
-														}
-														onOpenChange={setIsDialogOpen}
-														isOpen={isDialogOpen}
-													>
-														<div className="flex flex-col items-center justify-center gap-4">
-															<Image
-																src={"/undraw_resume_jrgi.svg"}
-																width={200}
-																height={200}
-																alt="resume"
-															/>
-															<div className="flex justify-center gap-4">
-																<DialogClose asChild>
-																	<MainButton
-																		className="rounded-full font-bold"
-																		variant={"outline"}
-																	>
-																		キャンセル
-																	</MainButton>
-																</DialogClose>
-																<MainButton
+												{session ? (
+													!recruit.isApplied ? (
+														<MainDialog
+															title="応募しますか？"
+															description=""
+															trigger={
+																<button
 																	type="button"
-																	className="rounded-full font-bold"
-																	onClick={handleApply}
+																	className={`rounded-full p-2 hover:bg-green-300 cursor-pointer ${
+																		recruit.isApplied
+																			? "bg-green-300"
+																			: "bg-slate-200"
+																	}`}
 																	disabled={isApplyMutating}
 																>
-																	{isApplyMutating ? "応募中" : "応募する"}
-																</MainButton>
+																	<ApplyIcon
+																		width="24"
+																		height="24"
+																		className="text-slate-600"
+																	/>
+																</button>
+															}
+															onOpenChange={setIsDialogOpen}
+															isOpen={isDialogOpen}
+														>
+															<div className="flex flex-col items-center justify-center gap-4">
+																<Image
+																	src={"/undraw_resume_jrgi.svg"}
+																	width={200}
+																	height={200}
+																	alt="resume"
+																/>
+																<div className="flex justify-center gap-4">
+																	<DialogClose asChild>
+																		<MainButton
+																			className="rounded-full font-bold"
+																			variant={"outline"}
+																		>
+																			キャンセル
+																		</MainButton>
+																	</DialogClose>
+																	<MainButton
+																		type="button"
+																		className="rounded-full font-bold"
+																		onClick={handleApply}
+																		disabled={isApplyMutating}
+																	>
+																		{isApplyMutating ? "応募中" : "応募する"}
+																	</MainButton>
+																</div>
 															</div>
-														</div>
-													</MainDialog>
+														</MainDialog>
+													) : (
+														<MainDialog
+															title="すでに応募済みです!"
+															description="応募を取り下げますか？"
+															trigger={
+																<button
+																	type="button"
+																	className={`rounded-full p-2 hover:bg-green-300 cursor-pointer ${
+																		recruit.isApplied
+																			? "bg-green-300"
+																			: "bg-slate-200"
+																	}`}
+																	disabled={isApplyMutating}
+																>
+																	<ApplyIcon
+																		width="24"
+																		height="24"
+																		className="text-slate-600"
+																	/>
+																</button>
+															}
+															onOpenChange={setIsDialogOpen}
+															isOpen={isDialogOpen}
+														>
+															<div className="flex flex-col items-center justify-center gap-4">
+																<Image
+																	src={"/undraw_feeling-blue_8si6.svg"}
+																	width={200}
+																	height={200}
+																	alt="resume"
+																/>
+																<div className="flex justify-center gap-4">
+																	<DialogClose asChild>
+																		<MainButton
+																			className="rounded-full font-bold"
+																			variant={"outline"}
+																		>
+																			キャンセル
+																		</MainButton>
+																	</DialogClose>
+																	<MainButton
+																		type="button"
+																		className="rounded-full font-bold"
+																		onClick={handleApply}
+																		disabled={isApplyMutating}
+																	>
+																		{isApplyMutating
+																			? "取り下げています.."
+																			: "取り下げる"}
+																	</MainButton>
+																</div>
+															</div>
+														</MainDialog>
+													)
 												) : (
+													// <LoginDialog />
 													<MainDialog
-														title="すでに応募済みです!"
-														description="応募を取り下げますか？"
+														title="TechUnity"
+														description="TechUnityはチーム開発メンバーの募集をお手伝いする、チーム開発メンバー募集プラットフォームです。"
 														trigger={
 															<button
 																type="button"
-																className={`rounded-full p-2 hover:bg-green-300 cursor-pointer ${recruit.isApplied ? "bg-green-300" : "bg-slate-200"}`}
+																className={`rounded-full p-2 hover:bg-green-300 cursor-pointer ${
+																	recruit.isApplied
+																		? "bg-green-300"
+																		: "bg-slate-200"
+																}`}
 																disabled={isApplyMutating}
 															>
 																<ApplyIcon
@@ -150,37 +217,23 @@ const RecruitDetailPage = () => {
 																/>
 															</button>
 														}
-														onOpenChange={setIsDialogOpen}
-														isOpen={isDialogOpen}
 													>
-														<div className="flex flex-col items-center justify-center gap-4">
-															<Image
-																src={"/undraw_feeling-blue_8si6.svg"}
-																width={200}
-																height={200}
-																alt="resume"
-															/>
-															<div className="flex justify-center gap-4">
-																<DialogClose asChild>
-																	<MainButton
-																		className="rounded-full font-bold"
-																		variant={"outline"}
-																	>
-																		キャンセル
-																	</MainButton>
-																</DialogClose>
-																<MainButton
-																	type="button"
-																	className="rounded-full font-bold"
-																	onClick={handleApply}
-																	disabled={isApplyMutating}
-																>
-																	{isApplyMutating
-																		? "取り下げています.."
-																		: "取り下げる"}
-																</MainButton>
-															</div>
-														</div>
+														<MainButton
+															className="rounded-full font-bold"
+															variant="outline"
+															onClick={() => signIn("github")}
+														>
+															<GitHubIcon />
+															GitHubでログイン
+														</MainButton>
+														<MainButton
+															className="rounded-full font-bold"
+															variant="outline"
+															onClick={() => signIn("google")}
+														>
+															<GoogleIcon />
+															Googleでログイン
+														</MainButton>
 													</MainDialog>
 												)}
 											</div>
@@ -191,20 +244,66 @@ const RecruitDetailPage = () => {
 											</span>
 										</div>
 										<div className="flex items-center gap-2">
-											<button
-												type="button"
-												className={`rounded-full p-2 hover:bg-red-300 cursor-pointer ${recruit.isLiked ? "bg-red-300" : "bg-slate-200"}`}
-												onClick={() => toggleRecruitLike()}
-												disabled={isLikeRecruitMutating}
-											>
-												<HeartIcon
-													width="24"
-													height="24"
-													className={`${
-														recruit.isLiked ? "text-red-600" : "text-slate-600"
-													}`}
-												/>
-											</button>
+											{session ? (
+												<>
+													<button
+														type="button"
+														className={`rounded-full p-2 hover:bg-red-300 cursor-pointer ${recruit.isLiked ? "bg-red-300" : "bg-slate-200"}`}
+														onClick={() => toggleRecruitLike()}
+														disabled={isLikeRecruitMutating}
+													>
+														<HeartIcon
+															width="24"
+															height="24"
+															className={`${
+																recruit.isLiked
+																	? "text-red-600"
+																	: "text-slate-600"
+															}`}
+														/>
+													</button>
+												</>
+											) : (
+												<MainDialog
+													title="TechUnity"
+													description="TechUnityはチーム開発メンバーの募集をお手伝いする、チーム開発メンバー募集プラットフォームです。"
+													trigger={
+														<button
+															type="button"
+															className={`rounded-full p-2 hover:bg-red-300 cursor-pointer ${recruit.isLiked ? "bg-red-300" : "bg-slate-200"}`}
+															// onClick={() => toggleRecruitLike()}
+															// disabled={isLikeRecruitMutating}
+														>
+															<HeartIcon
+																width="24"
+																height="24"
+																className={`${
+																	recruit.isLiked
+																		? "text-red-600"
+																		: "text-slate-600"
+																}`}
+															/>
+														</button>
+													}
+												>
+													<MainButton
+														className="rounded-full font-bold"
+														variant="outline"
+														onClick={() => signIn("github")}
+													>
+														<GitHubIcon />
+														GitHubでログイン
+													</MainButton>
+													<MainButton
+														className="rounded-full font-bold"
+														variant="outline"
+														onClick={() => signIn("google")}
+													>
+														<GoogleIcon />
+														Googleでログイン
+													</MainButton>
+												</MainDialog>
+											)}
 											<span className="text-slate-500 text-sm">
 												{recruit.likes.length > 0 && recruit.likes.length}
 											</span>
@@ -238,7 +337,10 @@ const RecruitDetailPage = () => {
 										className="w-12 h-12"
 									/>
 									<div className="flex flex-col gap-1">
-										<Link href={"/profiles/1"} className="hover:underline">
+										<Link
+											href={`/profiles/${recruit.creator.id}`}
+											className="hover:underline"
+										>
 											<p className="font-bold hover:underline text-md">
 												{recruit?.creator.name}
 											</p>

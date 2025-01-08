@@ -30,7 +30,7 @@ export const GET = async (
 			},
 		});
 
-		console.log(recruit)
+		// console.log(recruit)
 
 		if (!recruit) {
 			return NextResponse.json({ message: "Not found" }, { status: 404 });
