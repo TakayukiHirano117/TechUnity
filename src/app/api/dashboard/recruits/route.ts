@@ -27,10 +27,20 @@ export const GET = async (req: NextRequest) => {
 						id: true,
 					},
 				},
+				likes: {
+					select: {
+						userId: true,
+					},
+				},
+				applications: {
+					select: {
+						userId: true,
+					},
+				},
 			},
 		});
 
-		// console.log(recruits);
+		console.log(recruits);
 
 		return NextResponse.json(recruits);
 	} catch (error) {

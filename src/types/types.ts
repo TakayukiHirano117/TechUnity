@@ -60,6 +60,8 @@ export type DashBoardRecruits = {
 		// name: string;
 		// image: string;
 	};
+	likes: Like[];
+	applications: Application[];
 	createdAt: string;
 	updatedAt: string;
 	// applicantId: string;

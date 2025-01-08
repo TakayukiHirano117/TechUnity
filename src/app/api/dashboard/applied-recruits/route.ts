@@ -22,6 +22,7 @@ export const GET = async (req: NextRequest) => {
 			},
 			include: {
 				creator: true,
+				likes: true,
 				applications: true,
 			},
 		});
