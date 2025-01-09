@@ -7,8 +7,10 @@ import { useRouter } from "next/navigation";
 import React, { useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import rehypeSanitize from "rehype-sanitize";
+import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import { z } from "zod";
+import ImageUpload from "@/components/molecules/ImageUpload";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,12 +18,11 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
 import { createRecruitSchema } from "@/lib/formSchema";
-import { handleFileChange } from "@/lib/imageUpload";
-import ImageUpload from "@/components/molecules/ImageUpload";
+// import { handleFileChange } from "@/lib/imageUpload";
 
 const Create = () => {
 	const router = useRouter();
-	const inputRef = useRef<HTMLInputElement>(null);
+	// const inputRef = useRef<HTMLInputElement>(null);
 
 	const { register, handleSubmit, setValue, watch, control, formState } =
 		useForm<z.infer<typeof createRecruitSchema>>({
@@ -51,8 +52,14 @@ const Create = () => {
 		router.push("/dashboard/recruits");
 	};
 
-	const handleButtonClick = () => {
-		inputRef.current?.click();
+	// const handleButtonClick = () => {
+	// 	inputRef.current?.click();
+	// };
+
+	const onInsertImage = (name: string, url: string) => {
+		const content = watch("content");
+		const imageLink = `![${name}](${url})`;
+		setValue("content", content + imageLink);
 	};
 
 	return (
@@ -99,7 +106,7 @@ const Create = () => {
 								<TabsContent value="preview">
 									<MDEditor.Markdown
 										source={content}
-										remarkPlugins={[remarkGfm]}
+										remarkPlugins={[remarkGfm, remarkBreaks]}
 										rehypePlugins={[rehypeSanitize]}
 										className="min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-8 rounded-lg max-w-full"
 									/>
@@ -125,7 +132,7 @@ const Create = () => {
 										/>
 									</div>
 									<div>
-										<Button
+										{/* <Button
 											className="rounded-full"
 											variant={"outline"}
 											onClick={handleButtonClick}
@@ -143,14 +150,14 @@ const Create = () => {
 												/>
 											</svg>
 											画像を挿入
-										</Button>
-										<ImageUpload />
-										<Input
+										</Button> */}
+										<ImageUpload onInsertImage={onInsertImage} />
+										{/* <Input
 											className="hidden"
 											type="file"
 											ref={inputRef}
 											onChange={(e) => handleFileChange(e, content, setValue)}
-										/>
+										/> */}
 									</div>
 									<Button
 										variant={"outline"}
