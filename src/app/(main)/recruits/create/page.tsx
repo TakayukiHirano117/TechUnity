@@ -108,7 +108,7 @@ const Create = () => {
 										source={content}
 										remarkPlugins={[remarkGfm, remarkBreaks]}
 										rehypePlugins={[rehypeSanitize]}
-										className="min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-8 rounded-lg max-w-full"
+										className="min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-6 rounded-lg max-w-full"
 									/>
 								</TabsContent>
 							</div>
@@ -151,7 +151,10 @@ const Create = () => {
 											</svg>
 											画像を挿入
 										</Button> */}
-										<ImageUpload onInsertImage={onInsertImage} />
+										<ImageUpload
+											folder="recruits"
+											onInsertImage={onInsertImage}
+										/>
 										{/* <Input
 											className="hidden"
 											type="file"
