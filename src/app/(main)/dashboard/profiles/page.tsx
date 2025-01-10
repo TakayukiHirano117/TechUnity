@@ -4,15 +4,16 @@ import Image from "next/image";
 import React from "react";
 import useSWR from "swr";
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
+import MainButton from "@/components/atoms/button/MainButton";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
+import ImageUpload from "@/components/molecules/ImageUpload";
 import { AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
-import { Button } from "@/components/ui/button";
-import MainButton from "@/components/atoms/button/MainButton";
 
 const items = SidebarItems;
 
@@ -31,6 +32,12 @@ const ProfileSettingsPage = () => {
 		isLoading,
 	} = useSWR("/api/dashboard/profiles", getProfile);
 
+	const onInsertImage = (name: string, url: string) => {
+		// const content = watch("content");
+		const imageLink = `![${name}](${url})`;
+		// setValue("content", content + imageLink);
+	};
+
 	return (
 		<div className="bg-slate-100 min-h-screen">
 			<div className="px-8 py-14 flex justify-between container mx-auto gap-12 max-w-[1080px]">
@@ -48,7 +55,23 @@ const ProfileSettingsPage = () => {
 						<div className="flex flex-col gap-4 w-9/12">
 							<h1 className="font-bold text-3xl">プロフィール</h1>
 							<div className="flex gap-8 mt-4">
-								<button
+								<ImageUpload folder="recruits" onInsertImage={onInsertImage}>
+									{(open) => (
+										<button
+											type="button"
+											className="flex flex-col items-center gap-1"
+											onClick={() => open()}
+										>
+											<AvatarIcon
+												className="w-20 h-20"
+												ImageSrc={profile.image}
+												fallbackText={profile.name}
+											/>
+											<span className="text-sm text-slate-600">変更する</span>
+										</button>
+									)}
+								</ImageUpload>
+								{/* <button
 									type="button"
 									className="flex flex-col items-center gap-1"
 								>
@@ -58,8 +81,7 @@ const ProfileSettingsPage = () => {
 										fallbackText={profile.name}
 									/>
 									<span className="text-sm text-slate-600">変更する</span>
-									<input type="hidden" name="" />
-								</button>
+								</button> */}
 								<div className="w-full flex flex-col gap-8">
 									<div className="flex flex-col gap-2">
 										<Label htmlFor="name" className="text-slate-600 font-bold">
@@ -77,7 +99,9 @@ const ProfileSettingsPage = () => {
 										/>
 									</div>
 									<div className="flex justify-center">
-										<MainButton className="font-bold rounded-full">更新する</MainButton>
+										<MainButton className="font-bold rounded-full">
+											更新する
+										</MainButton>
 									</div>
 								</div>
 							</div>

@@ -1,14 +1,15 @@
 import { ImageIcon } from "lucide-react";
 import { CldUploadWidget } from "next-cloudinary";
-import React from "react";
+import React, { ReactElement, ReactNode } from "react";
 import MainButton from "../atoms/button/MainButton";
 
 type ImageUploadType = {
 	folder?: string;
 	onInsertImage: (name: string, url: string) => void;
+	children: (open: () => void) => ReactElement;
 };
 
-const ImageUpload = ({ folder, onInsertImage }: ImageUploadType) => {
+const ImageUpload = ({ folder, onInsertImage, children }: ImageUploadType) => {
 	return (
 		<CldUploadWidget
 			signatureEndpoint="/api/sign-cloudinary-params"
@@ -36,18 +37,7 @@ const ImageUpload = ({ folder, onInsertImage }: ImageUploadType) => {
 				folder: folder,
 			}}
 		>
-			{({ open }) => {
-				return (
-					<MainButton
-						className="rounded-full font-bold flex gap-1"
-						onClick={() => open()}
-						variant={"outline"}
-					>
-						<ImageIcon size={24} />
-						<span>画像を挿入</span>
-					</MainButton>
-				);
-			}}
+			{({ open }) => children(open)}
 		</CldUploadWidget>
 	);
 };

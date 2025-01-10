@@ -2,13 +2,17 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor from "@uiw/react-md-editor";
+import { ImageIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import rehypeSanitize from "rehype-sanitize";
+import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import useSWR from "swr";
 import { z } from "zod";
+import MainButton from "@/components/atoms/button/MainButton";
+import ImageUpload from "@/components/molecules/ImageUpload";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,24 +20,15 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
 import { editRecruitSchema } from "@/lib/formSchema";
-import { handleFileChange } from "@/lib/imageUpload";
 
 const getRecruitDetail = async (url: string) => {
 	const response = await fetch(url, { cache: "no-store" });
-	console.log(response);
 	return response.json();
 };
 
 const EditRecruitPage = () => {
 	const router = useRouter();
 	const { id } = useParams();
-	const inputRef = useRef<HTMLInputElement>(null);
-
-	const {
-		data: recruit,
-		error,
-		isLoading,
-	} = useSWR(`/api/recruits/${id}/edit`, getRecruitDetail);
 
 	const { register, handleSubmit, setValue, watch, control, formState, reset } =
 		useForm<z.infer<typeof editRecruitSchema>>({
@@ -44,6 +39,21 @@ const EditRecruitPage = () => {
 				isPublished: false,
 			},
 		});
+
+	const {
+		data: recruit,
+		error,
+		isLoading,
+	} = useSWR(`/api/recruits/${id}/edit`, getRecruitDetail, {
+		onSuccess: (data) => {
+			// データ取得成功後にフォームの初期値を設定
+			reset({
+				title: data.title,
+				content: data.content,
+				isPublished: data.isPublished,
+			});
+		},
+	});
 
 	const content = watch("content");
 
@@ -63,19 +73,11 @@ const EditRecruitPage = () => {
 		router.push("/dashboard/recruits");
 	};
 
-	const handleButtonClick = () => {
-		inputRef.current?.click();
+	const onInsertImage = (name: string, url: string) => {
+		const content = watch("content");
+		const imageLink = `![${name}](${url})`;
+		setValue("content", content + imageLink);
 	};
-
-	useEffect(() => {
-		if (recruit) {
-			reset({
-				title: recruit.title,
-				content: recruit.content,
-				isPublished: recruit.isPublished,
-			});
-		}
-	}, [recruit, reset]);
 
 	if (isLoading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error.message}</p>;
@@ -114,7 +116,7 @@ const EditRecruitPage = () => {
 								<TabsContent value="preview">
 									<MDEditor.Markdown
 										source={content}
-										remarkPlugins={[remarkGfm]}
+										remarkPlugins={[remarkGfm, remarkBreaks]}
 										rehypePlugins={[rehypeSanitize]}
 										className="min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-4 rounded-lg max-w-full"
 									/>
@@ -139,39 +141,23 @@ const EditRecruitPage = () => {
 											)}
 										/>
 									</div>
-									<div>
-										<Button
-											className="rounded-full w-auto"
-											variant={"outline"}
-											onClick={handleButtonClick}
-											type="button"
-										>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												width="20"
-												height="20"
-												viewBox="0 0 256 256"
+									<ImageUpload folder="recruits" onInsertImage={onInsertImage}>
+										{(open) => (
+											<MainButton
+												className="rounded-full font-bold flex gap-1"
+												onClick={() => open()}
+												variant={"outline"}
 											>
-												<path
-													fill="currentColor"
-													d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16Zm0 16v102.75l-26.07-26.06a16 16 0 0 0-22.63 0l-20 20l-44-44a16 16 0 0 0-22.62 0L40 149.37V56ZM40 172l52-52l80 80H40Zm176 28h-21.37l-36-36l20-20L216 181.38V200Zm-72-100a12 12 0 1 1 12 12a12 12 0 0 1-12-12Z"
-												/>
-											</svg>
-											画像を挿入
-										</Button>
-										<Input
-											className="hidden"
-											type="file"
-											ref={inputRef}
-											onChange={(e) => handleFileChange(e, content, setValue)}
-										/>
-									</div>
+												<ImageIcon size={24} />
+												<span>画像を挿入</span>
+											</MainButton>
+										)}
+									</ImageUpload>
 									<Button
 										variant={"outline"}
 										className="rounded-full"
 										onClick={() => {
 											if (formState.errors.title || formState.errors.content) {
-												// バリデーションエラーがある場合、toastを表示
 												Object.values(formState.errors).forEach((error) => {
 													toast({
 														title: "エラー",

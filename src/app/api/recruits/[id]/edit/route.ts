@@ -11,6 +11,7 @@ export const GET = async (
 	// 必要なカラムのみ返すこと。
 
 	try {
+		// ログインしているユーザーが投稿したものでなければエラー
 		const token = await getToken({ req });
 
 		if (!token) {

@@ -1,4 +1,4 @@
-import { Application } from './../../node_modules/.prisma/client/index.d';
+import { Application } from '.prisma/client';
 import { Like } from "@prisma/client";
 import { ReactNode } from "react";
 
