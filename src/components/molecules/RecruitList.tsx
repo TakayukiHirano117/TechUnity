@@ -15,6 +15,8 @@ const RecruitList = ({
 			image: string;
 		};
 		createdAt: string;
+		updatedAt: string;
+		isPublished: boolean;
 		likes: Like[];
 		applications: Application[];
 		remainingCount: number;
@@ -28,13 +30,13 @@ const RecruitList = ({
 					id={recruit.id}
 					title={recruit.title}
 					description={recruit.content}
-					authorName={recruit.creator.name}
-					authorId={recruit.creator.id}
-					avatarImageSrc={recruit.creator.image}
+					authorName={recruit?.creator.name}
+					authorId={recruit?.creator.id}
+					avatarImageSrc={recruit?.creator.image}
 					publishedAt={recruit.createdAt}
 					likes={recruit.likes}
 					applications={recruit.applications}
-					remainingCount={recruit.remainingCount}
+					remainingCount={recruit?.remainingCount}
 				/>
 			))}
 		</div>

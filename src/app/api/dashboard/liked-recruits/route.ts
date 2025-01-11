@@ -23,10 +23,11 @@ export const GET = async (req: NextRequest) => {
 			include: {
 				creator: true, // 投稿の作成者の情報を取得
 				likes: true, // いいねの情報を取得（必要に応じて削除可能）
+				applications: true, // 応募の情報を取得（必要に応じて削除可能）
 			},
 		});
 
-		// console.log(likedRecruits);
+		console.log(likedRecruits);
 
 		return NextResponse.json(likedRecruits);
 	} catch (error) {

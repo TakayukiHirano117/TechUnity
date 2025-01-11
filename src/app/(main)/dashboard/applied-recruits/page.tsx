@@ -9,6 +9,9 @@ import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
 import { DashBoardRecruits } from "@/types/types";
+import HeartIcon from "@/components/atoms/Icon/HeartIcon";
+import { format } from "date-fns";
+import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 
 const items = SidebarItems;
 
@@ -52,36 +55,64 @@ const AppliedRecruitsPage = () => {
 											key={recruit.id}
 											className="flex items-center justify-between gap-4"
 										>
-											<div className="border-t w-full p-2 flex items-center justify-between gap-2">
-												<div>
-													<h3 className="text-lg font-bold hover:opacity-70">
+											<div className="border-t w-full p-2 ">
+												<div className="flex flex-col gap-2">
+													<div>
+														<h3 className="text-lg font-bold hover:opacity-70">
+															<Link
+																href={`/recruits/${recruit.id}`}
+																className="truncate w-1/2"
+															>
+																{recruit.title}
+															</Link>
+														</h3>
+													</div>
+													<div className="flex gap-2 items-end text-slate-600 text-sm">
+														<AvatarIcon
+															ImageSrc={recruit.creator.image}
+															fallbackText="アバター"
+															className="w-8 h-8 rounded-full"
+														/>
 														<Link
-															href={`/recruits/${recruit.id}`}
-															className="truncate w-1/2"
+															href={`/profiles/${recruit.creator.id}`}
+															className="hover:underline"
 														>
-															{recruit.title}
+															<p>{recruit.creator.name}</p>
 														</Link>
-													</h3>
-												</div>
-												<div className="flex gap-4 items-center">
-													<Link href={`/recruits/${recruit.id}`}>
-														<div className="p-2 rounded-full hover:bg-slate-200 border">
-															<ApplyIcon
-																width="20"
-																height="20"
-																className="hover:opacity-70 text-slate-600"
-															/>
-														</div>
-													</Link>
+														{recruit.applications.length > 0 && (
+															<div className="flex items-center gap-1">
+																<ApplyIcon width="16" height="16" />
+																<span>{recruit.applications.length}</span>
+															</div>
+														)}
+														{recruit.likes.length > 0 && (
+															<div className="flex items-center gap-1">
+																<HeartIcon width="16" height="16" />
+																<span>{recruit.likes.length}</span>
+															</div>
+														)}
+														<div>{format(recruit.createdAt, "yyyy/MM/dd")}</div>
+													</div>
+													{/* <div className="flex gap-4 items-center">
+														<Link href={`/recruits/${recruit.id}`}>
+															<div className="p-2 rounded-full hover:bg-slate-200 border">
+																<ApplyIcon
+																	width="20"
+																	height="20"
+																	className="hover:opacity-70 text-slate-600"
+																/>
+															</div>
+														</Link>
+													</div> */}
 												</div>
 											</div>
 										</div>
 									))
 								) : (
 									<div className="flex flex-col items-center gap-4 text-slate-600">
-										<h3>まだいいねした募集がありません。</h3>
+										<h3>まだ応募した募集がありません。</h3>
 										<Image
-											src={"/undraw_engineering-team_13ax.svg"}
+											src={"/undraw_job-offers_55y0.svg"}
 											width={300}
 											height={300}
 											alt="no-recruits"

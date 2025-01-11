@@ -1,4 +1,4 @@
-import { Application } from './../../node_modules/.prisma/client/index.d';
+import { Application } from '.prisma/client';
 import { Like } from "@prisma/client";
 import { ReactNode } from "react";
 
@@ -60,6 +60,8 @@ export type DashBoardRecruits = {
 		// name: string;
 		// image: string;
 	};
+	likes: Like[];
+	applications: Application[];
 	createdAt: string;
 	updatedAt: string;
 	// applicantId: string;

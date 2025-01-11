@@ -27,6 +27,16 @@ export const GET = async (req: NextRequest) => {
 						id: true,
 					},
 				},
+				likes: {
+					select: {
+						userId: true,
+					},
+				},
+				applications: {
+					select: {
+						userId: true,
+					},
+				},
 			},
 		});
 
