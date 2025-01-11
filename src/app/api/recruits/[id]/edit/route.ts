@@ -13,6 +13,7 @@ export const GET = async (
 	try {
 		// ログインしているユーザーが投稿したものでなければエラー
 		const token = await getToken({ req });
+		console.log(token)
 
 		if (!token) {
 			return NextResponse.json("unauthorized", { status: 403 });
