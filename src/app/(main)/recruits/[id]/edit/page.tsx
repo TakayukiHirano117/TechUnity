@@ -48,6 +48,8 @@ const EditRecruitPage = () => {
   } = useSWR(`/api/recruits/${id}/edit`, getRecruitDetail, {
     onSuccess: (data) => {
       // データ取得成功後にフォームの初期値を設定
+      // 画像をアップロードしようとすると、MDEditorへ入れた値が初期値に戻ってしまう。
+      // 直前に何か入力していたとしても、編集を行う前の初期値に戻る。
       reset({
         title: data.title,
         content: data.content,
@@ -78,8 +80,7 @@ const EditRecruitPage = () => {
     const content = watch("content");
     const imageLink = `![${name}](${url})`;
     setValue("content", content + imageLink);
-    // 呼ばれてはいるが、その後に画像のパスが入ったかと思えば直前の値に戻る。
-    // 直前の値ではなく、初期値に戻る。
+    // console.log("inserted") このconsole.logは呼ばれており、エラーも出ていない。
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -144,10 +145,14 @@ const EditRecruitPage = () => {
                       )}
                     />
                   </div>
+                  {/* 画像をアップロードさせるウィジェット */}
                   <ImageUpload folder="recruits" onInsertImage={onInsertImage}>
                     {(open) => (
                       <MainButton
                         className="rounded-full font-bold flex gap-1"
+                        // 画像を挿入ボタンをクリックしたときに画像アップロードウィジェットを開く
+                        // もともとイベントは受け取っていなかったが、今回の挙動を調べるためe.preventDefault()を追加してみたが特に効果なし。
+                        // やはりreact-hook-formやresetの挙動の問題だと思われる。
                         onClick={(e) => {
                           e.preventDefault();
                           open()
