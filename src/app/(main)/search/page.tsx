@@ -1,9 +1,7 @@
-import React from 'react'
-
-const page = () => {
+const SearchResultRecruits = () => {
   return (
-    <div>page</div>
+    <div>SearchResultRecruits</div>
   )
 }
 
-export default page
+export default SearchResultRecruits

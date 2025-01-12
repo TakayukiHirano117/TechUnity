@@ -78,6 +78,8 @@ const EditRecruitPage = () => {
     const content = watch("content");
     const imageLink = `![${name}](${url})`;
     setValue("content", content + imageLink);
+    // 呼ばれてはいるが、その後に画像のパスが入ったかと思えば直前の値に戻る。
+    // 直前の値ではなく、初期値に戻る。
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -146,7 +148,10 @@ const EditRecruitPage = () => {
                     {(open) => (
                       <MainButton
                         className="rounded-full font-bold flex gap-1"
-                        onClick={() => open()}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          open()
+                        }}
                         variant={"outline"}
                       >
                         <ImageIcon size={24} />
