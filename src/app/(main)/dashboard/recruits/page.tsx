@@ -7,11 +7,18 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import useSWR from "swr";
 
+import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import MainButton from "@/components/atoms/button/MainButton";
+import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
 import MainDialog from "@/components/molecules/dialog/MainDialog";
 import { Badge } from "@/components/ui/badge";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
 import { deleteRecruit } from "@/lib/apiFetch";
 import { DashBoardRecruits } from "@/types/types";
@@ -37,6 +44,8 @@ const RecruitsCreatedByMe = () => {
   );
 
   // if (isLoading) return <p>loading...</p>;
+
+  console.log(recruits);
 
   if (error) return <p>エラーが発生しました: {error.message}</p>;
 
@@ -70,13 +79,62 @@ const RecruitsCreatedByMe = () => {
                               {recruit.title}
                             </Link>
                           </h3>
-                          <span className="text-sm text-slate-600">
-                            {recruit.isPublished ? (
-                              <Badge>公開中</Badge>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-slate-600">
+                              {recruit.isPublished ? (
+                                <Badge>公開中</Badge>
+                              ) : (
+                                <Badge variant="outline">非公開</Badge>
+                              )}
+                            </span>
+                            {/* 募集人数を表示 */}
+                            {recruit.applications.length > 0 ? (
+                              <HoverCard>
+                                <HoverCardTrigger>
+                                  <div className="flex items-center gap-1 cursor-pointer border px-2 rounded-full">
+                                    <ApplyIcon width="20" height="20" />
+                                    {recruit.applications.length}
+                                  </div>
+                                </HoverCardTrigger>
+                                <HoverCardContent>
+                                  <div className="flex flex-col gap-2">
+                                    {recruit.applications.map((application) => (
+                                      <div key={application.user.id}>
+                                        <div className="text-sm text-slate-600 flex flex-col">
+                                          <div className="flex justify-between">
+                                            <div className="flex items-center gap-1">
+                                              <AvatarIcon
+                                                ImageSrc={
+                                                  application.user.image
+                                                }
+                                                fallbackText={
+                                                  application.user.name
+                                                }
+                                                className="w-5 h-5"
+                                              />
+                                              <Link
+                                                href={`/profiles/${application.user.id}`}
+                                              >
+                                                {application.user.name}
+                                              </Link>
+                                            </div>
+                                            <button className="border rounded-full px-2 py-1 hover:bg-slate-700 duration-300 hover:text-slate-50">
+                                              ✅ 採用する
+                                            </button>
+                                          </div>
+                                          <hr className="my-1" />
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </HoverCardContent>
+                              </HoverCard>
                             ) : (
-                              <Badge variant="outline">非公開</Badge>
+                              <div className="text-sm text-slate-600">
+                                まだ誰も応募していません。
+                              </div>
                             )}
-                          </span>
+                          </div>
                         </div>
                         <div className="flex gap-4 items-center">
                           <Link href={`/recruits/${recruit.id}/edit`}>
