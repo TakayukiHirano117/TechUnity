@@ -316,7 +316,7 @@ const RecruitDetailPage = () => {
                   <AvatarIcon
                     ImageSrc={recruit?.creator.image}
                     fallbackText={recruit?.creator.name}
-                    className="w-12 h-12"
+                    className="w-12 h-12 border"
                   />
                   <div>
                     <h4 className="font-bold text-lg hover:underline">
@@ -335,7 +335,7 @@ const RecruitDetailPage = () => {
                   <AvatarIcon
                     ImageSrc={recruit?.creator.image}
                     fallbackText={recruit?.creator.name}
-                    className="w-12 h-12"
+                    className="w-12 h-12 border"
                   />
                   <div className="flex flex-col gap-1">
                     <Link
