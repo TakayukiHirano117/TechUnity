@@ -6,7 +6,7 @@ import Credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
-const prisma = new PrismaClient();
+import prisma from "./db";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -21,8 +21,7 @@ export const authOptions: NextAuthOptions = {
     Credentials({
       name: "credentials",
       credentials: {
-        email: { label: "Email", type: "text" },
-        username: { label: "Username", type: "text" },
+        email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
@@ -33,9 +32,10 @@ export const authOptions: NextAuthOptions = {
         const user = await prisma.user.findUnique({
           where: {
             email: credentials?.email,
-            // password: credentials.password,
           },
         });
+
+        console.log(user);
 
         if (!user || !user?.hashedPassword) {
           throw new Error("ユーザーが存在しません");
