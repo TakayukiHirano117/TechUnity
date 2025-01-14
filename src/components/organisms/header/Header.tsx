@@ -39,7 +39,7 @@ const signUpFormSchema = z.object({
 });
 
 // propsを受け取ってないのでmemo化する意味はないが今後渡すかもしれないので忘れないうちにとりあえずやっとく。
-const Header: React.FC = memo(({user}) => {
+const Header: React.FC = memo(() => {
   // console.log("header: " + user.name)
   const router = useRouter();
 
@@ -288,7 +288,7 @@ const Header: React.FC = memo(({user}) => {
                     />
                   </button>
                 </MainDropdown>
-                <MainButton className="rounded-full font-bold">
+                <MainButton className="rounded-full font-bold hidden sm:block">
                   <Link href={"/recruits/create"}>募集する</Link>
                 </MainButton>
               </div>

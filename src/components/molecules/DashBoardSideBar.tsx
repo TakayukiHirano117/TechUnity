@@ -16,7 +16,7 @@ const DashBoardSideBar = memo(
 		const pathname = usePathname();
 
 		return (
-			<div className="flex flex-col gap-4 sticky top-[120px]">
+			<div className="hidden sm:flex flex-col gap-4 sticky top-[120px]">
 				{items.map((item) => (
 					<Link
 						key={item.id}

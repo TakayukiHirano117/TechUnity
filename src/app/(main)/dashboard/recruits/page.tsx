@@ -63,8 +63,13 @@ const RecruitsCreatedByMe = () => {
         ) : (
           <>
             <DashBoardSideBar items={items} />
-            <div className="flex flex-col gap-4 w-9/12">
-              <h1 className="font-bold text-3xl">募集の管理</h1>
+            <div className="flex flex-col gap-4 sm:w-9/12 w-full">
+              <div className="flex justify-between items-center">
+                <h1 className="font-bold text-3xl">募集の管理</h1>
+                <MainButton className="rounded-full font-bold sm:hidden">
+                  <Link href={"/recruits/create"}>募集する</Link>
+                </MainButton>
+              </div>
               <div className="flex flex-col gap-4">
                 {recruits.length > 0 ? (
                   recruits?.map((recruit) => (

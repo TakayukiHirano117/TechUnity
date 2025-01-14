@@ -69,24 +69,17 @@ const CreateRecruitPage = () => {
             className="bg-slate-100 focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
             {...register("title")}
           />
-          {/* {formState.errors.title && (
-						<p className="text-red-500 text-sm mt-1">
-							{formState.errors.title.message}
-						</p>
-					)} */}
-          {/* <Input
-						type="number"
-						placeholder="募集人数"
-						className="bg-slate-100 focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
-					/> */}
           <Tabs defaultValue="write" className="max-w-[960px] mt-4">
             <TabsList className="grid w-full grid-cols-2 border">
               <TabsTrigger value="write">募集を書く</TabsTrigger>
               <TabsTrigger value="preview">プレビュー</TabsTrigger>
             </TabsList>
-            <div className="flex gap-4 mt-4">
-              <div className="w-4/5">
-                <TabsContent value="write">
+            <div className="flex flex-col lg:flex-row gap-4 mt-4">
+              <div className="w-full lg:w-4/5">
+                <TabsContent
+                  value="write"
+                  className="min-h-[540px] md:min-h-[720px]"
+                >
                   <MDEditor
                     value={content}
                     onChange={(value) => setValue("content", value || "")}
@@ -106,11 +99,12 @@ const CreateRecruitPage = () => {
                     source={content}
                     remarkPlugins={[remarkGfm, remarkBreaks]}
                     rehypePlugins={[rehypeSanitize]}
-                    className="min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-6 rounded-lg max-w-full"
+                    className=" min-h-[540px] md:min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-6 rounded-lg max-w-full"
                   />
                 </TabsContent>
               </div>
-              <aside className="mt-2 z-10 w-1/5">
+              {/* 768px以下の場合に非表示 */}
+              <aside className="hidden lg:block mt-2 z-10 lg:w-1/5">
                 <div className="bg-slate-300 border sticky top-[120px] flex flex-col gap-4 p-4 rounded-sm">
                   <div className="flex items-center space-x-2">
                     <Controller
