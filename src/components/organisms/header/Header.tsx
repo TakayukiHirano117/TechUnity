@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import React, { memo } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 import { z } from "zod";
 
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
@@ -38,7 +39,8 @@ const signUpFormSchema = z.object({
 });
 
 // propsを受け取ってないのでmemo化する意味はないが今後渡すかもしれないので忘れないうちにとりあえずやっとく。
-const Header: React.FC = memo(() => {
+const Header: React.FC = memo(({user}) => {
+  // console.log("header: " + user.name)
   const router = useRouter();
 
   // DBから取得する方式に変える。
@@ -63,13 +65,22 @@ const Header: React.FC = memo(() => {
 
   const onSignInSubmit: SubmitHandler<FieldValues> = async (data) => {
     // ログイン
-    console.log(data)
-    await signIn("credentials", {
-      ...data,
-      redirect: false,
-    });
+    try {
+      const res = await signIn("credentials", {
+        ...data,
+        redirect: false,
+      });
 
-    router.refresh();
+      // console.log(res);
+
+      if (!res?.ok) {
+        toast.error(res!.error);
+      }
+
+      router.refresh();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const onSignUpSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -152,14 +163,6 @@ const Header: React.FC = memo(() => {
                       <MainButton
                         type="submit"
                         className="rounded-full font-bold"
-                        // onClick={() => {
-                        //   signIn("credentials", {
-                        //     ...data,
-                        //     redirect: false,
-                        //   });
-
-                        //   router.refresh();
-                        // }}
                       >
                         ログインする
                       </MainButton>
@@ -291,6 +294,7 @@ const Header: React.FC = memo(() => {
               </div>
             )}
           </div>
+          <Toaster />
         </div>
       </div>
     </header>
