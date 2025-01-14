@@ -37,7 +37,7 @@ const RecruitCard = memo(
 					{/* <CardDescription className="truncate">{description}</CardDescription> */}
 				</CardHeader>
 				<CardContent className="flex gap-4">
-					<AvatarIcon ImageSrc={avatarImageSrc} fallbackText="アバター" />
+					<AvatarIcon ImageSrc={avatarImageSrc} fallbackText="アバター" className="border" />
 					<div>
 						<Link href={`/profiles/${authorId}`} className="hover:underline">
 							<p>{authorName}</p>

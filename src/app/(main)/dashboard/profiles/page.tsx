@@ -1,8 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 import useSWR from "swr";
 import { z } from "zod";
 
@@ -39,6 +41,8 @@ const getProfile = async () => {
 type ProfileFormValues = z.infer<typeof editProfileSchema>;
 
 const ProfileSettingsPage = () => {
+  const router = useRouter();
+
   const {
     data: profile,
     error,
@@ -83,9 +87,10 @@ const ProfileSettingsPage = () => {
         },
         body: JSON.stringify(data),
       });
-      alert("プロフィールが更新されました！");
+      toast.success("プロフィールを更新しました。");
+      router.refresh();
     } catch (err) {
-      alert("プロフィールの更新に失敗しました。");
+      toast.error("プロフィールを更新に失敗しました");
     }
   };
 
@@ -103,13 +108,13 @@ const ProfileSettingsPage = () => {
         ) : (
           <>
             <DashBoardSideBar items={items} />
-            <div className="flex flex-col gap-4 w-9/12">
+            <div className="flex flex-col gap-4 sm:w-9/12 w-full">
               <h1 className="font-bold text-3xl">プロフィール</h1>
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col gap-8"
               >
-                <div className="flex gap-8 mt-4">
+                <div className="flex flex-col sm:flex-row gap-8 mt-4">
                   <ImageUpload folder="recruits" onInsertImage={onInsertImage}>
                     {(open) => (
                       <button
@@ -175,6 +180,7 @@ const ProfileSettingsPage = () => {
             </div>
           </>
         )}
+        <Toaster />
       </div>
     </div>
   );

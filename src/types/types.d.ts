@@ -30,8 +30,8 @@ export type AvatarIconProps = {
 };
 
 export type MainDialogProps = {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   trigger: ReactNode;
   children: ReactNode;
   onOpenChange?(open: boolean): void;

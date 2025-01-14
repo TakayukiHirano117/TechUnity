@@ -23,7 +23,7 @@ export const GET = async (
 		},
 	});
 
-	console.log(profile);
+	// console.log(profile);
 
 	return NextResponse.json(profile);
 };

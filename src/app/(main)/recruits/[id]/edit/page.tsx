@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor from "@uiw/react-md-editor";
 import { ImageIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import React from "react";
+import React, { useCallback, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import rehypeSanitize from "rehype-sanitize";
 import remarkBreaks from "remark-breaks";
@@ -31,6 +31,9 @@ const EditRecruitPage = () => {
   const router = useRouter();
   const { id } = useParams();
 
+  // 初回リセット済みを追跡するフラグ
+  const isInitialResetDone = useRef(false);
+
   const { register, handleSubmit, setValue, watch, control, formState, reset } =
     useForm<z.infer<typeof editRecruitSchema>>({
       resolver: zodResolver(editRecruitSchema),
@@ -47,12 +50,15 @@ const EditRecruitPage = () => {
     isLoading,
   } = useSWR(`/api/recruits/${id}/edit`, getRecruitDetail, {
     onSuccess: (data) => {
-      // データ取得成功後にフォームの初期値を設定
-      reset({
-        title: data.title,
-        content: data.content,
-        isPublished: data.isPublished,
-      });
+      if (!isInitialResetDone.current) {
+        // 初回のみフォームの値をリセット
+        reset({
+          title: data.title,
+          content: data.content,
+          isPublished: data.isPublished,
+        });
+        isInitialResetDone.current = true; // フラグを立てる
+      }
     },
   });
 
@@ -74,13 +80,14 @@ const EditRecruitPage = () => {
     router.push("/dashboard/recruits");
   };
 
-  const onInsertImage = (name: string, url: string) => {
-    const content = watch("content");
-    const imageLink = `![${name}](${url})`;
-    setValue("content", content + imageLink);
-    // 呼ばれてはいるが、その後に画像のパスが入ったかと思えば直前の値に戻る。
-    // 直前の値ではなく、初期値に戻る。
-  };
+  const onInsertImage = useCallback(
+    (name: string, url: string) => {
+      const currentContent = watch("content");
+      const imageLink = `![${name}](${url})`;
+      setValue("content", currentContent + imageLink, { shouldDirty: true });
+    },
+    [setValue, watch],
+  );
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -147,10 +154,10 @@ const EditRecruitPage = () => {
                   <ImageUpload folder="recruits" onInsertImage={onInsertImage}>
                     {(open) => (
                       <MainButton
+                        type="button"
                         className="rounded-full font-bold flex gap-1"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          open()
+                        onClick={() => {
+                          open();
                         }}
                         variant={"outline"}
                       >
