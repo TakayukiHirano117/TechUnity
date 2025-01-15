@@ -1,6 +1,6 @@
 "use client";
 
-import { DeleteIcon, PencilIcon } from "lucide-react";
+import { DeleteIcon, PencilIcon, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -14,6 +14,17 @@ import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
 import MainDialog from "@/components/molecules/dialog/MainDialog";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { DialogClose } from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   HoverCard,
   HoverCardContent,
@@ -94,19 +105,66 @@ const RecruitsCreatedByMe = () => {
                             </span>
                             {/* 募集人数を表示 */}
                             {recruit.applications.length > 0 ? (
-                              <HoverCard>
-                                <HoverCardTrigger>
-                                  <div className="flex items-center gap-1 cursor-pointer border px-2 rounded-full">
+                              // <HoverCard>
+                              //   <HoverCardTrigger>
+                              //     {/* trigger */}
+                              //     <div className="flex items-center gap-1 cursor-pointer border px-2 rounded-full">
+                              //       <ApplyIcon width="20" height="20" />
+                              //       {recruit.applications.length}
+                              //     </div>
+                              //   </HoverCardTrigger>
+                              //   <HoverCardContent>
+                              //     {/* content */}
+                              //     <div className="flex flex-col gap-2">
+                              //       {recruit.applications.map((application) => (
+                              //         <div key={application.user.id}>
+                              //           <div className="text-sm text-slate-600 flex flex-col">
+                              //             <div className="flex justify-between">
+                              //               <div className="flex items-center gap-1">
+                              //                 <AvatarIcon
+                              //                   ImageSrc={
+                              //                     application.user.image
+                              //                   }
+                              //                   fallbackText={
+                              //                     application.user.name
+                              //                   }
+                              //                   className="w-5 h-5"
+                              //                 />
+                              //                 <Link
+                              //                   href={`/profiles/${application.user.id}`}
+                              //                 >
+                              //                   {application.user.name}
+                              //                 </Link>
+                              //               </div>
+                              //               <button className="border rounded-full px-2 py-1 hover:bg-slate-700 duration-300 hover:text-slate-50">
+                              //                 ✅ 採用する
+                              //               </button>
+                              //             </div>
+                              //             <hr className="my-1" />
+                              //           </div>
+                              //         </div>
+                              //       ))}
+                              //     </div>
+                              //   </HoverCardContent>
+                              // </HoverCard>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <button className="flex items-center gap-1 cursor-pointer border px-2 rounded-full">
                                     <ApplyIcon width="20" height="20" />
                                     {recruit.applications.length}
-                                  </div>
-                                </HoverCardTrigger>
-                                <HoverCardContent>
+                                  </button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent className="w-56">
+                                  <DropdownMenuLabel>
+                                    応募しているユーザー
+                                  </DropdownMenuLabel>
+                                  <DropdownMenuSeparator />
+
                                   <div className="flex flex-col gap-2">
                                     {recruit.applications.map((application) => (
                                       <div key={application.user.id}>
                                         <div className="text-sm text-slate-600 flex flex-col">
-                                          <div className="flex justify-between">
+                                          <div className="flex gap-4 justify-between">
                                             <div className="flex items-center gap-1">
                                               <AvatarIcon
                                                 ImageSrc={
@@ -119,21 +177,63 @@ const RecruitsCreatedByMe = () => {
                                               />
                                               <Link
                                                 href={`/profiles/${application.user.id}`}
+                                                className="hover:underline"
                                               >
                                                 {application.user.name}
                                               </Link>
                                             </div>
-                                            <button className="border rounded-full px-2 py-1 hover:bg-slate-700 duration-300 hover:text-slate-50">
-                                              ✅ 採用する
-                                            </button>
+                                            {/* すでに採用しているかどうかで表示を変える。recruit/id/page.tsxを参照 */}
+                                            <MainDialog
+                                              title="採用しますか？"
+                                              description={`${application.user.name}を採用して、ともに開発をしましょう！`}
+                                              trigger={
+                                                <button className="border rounded-full px-2 py-1 hover:bg-slate-700 duration-300 hover:text-slate-50">
+                                                  ✅ 採用する
+                                                </button>
+                                              }
+                                            >
+                                              <div className="flex flex-col items-center justify-center gap-4">
+                                                <Image
+                                                  src={
+                                                    "/undraw_team-up_qeem.svg"
+                                                  }
+                                                  width={200}
+                                                  height={200}
+                                                  alt="resume"
+                                                />
+                                                <div className="flex justify-center gap-4">
+                                                  <DialogClose asChild>
+                                                    <MainButton
+                                                      className="rounded-full font-bold"
+                                                      variant={"outline"}
+                                                    >
+                                                      キャンセル
+                                                    </MainButton>
+                                                  </DialogClose>
+                                                  <MainButton
+                                                    type="button"
+                                                    className="rounded-full font-bold"
+                                                    // onClick={handleApply}
+                                                    // disabled={isApplyMutating}
+                                                  >
+                                                    {/* {isApplyMutating
+                                                      ? "取り下げています.."
+                                                      : "取り下げる"} */}
+                                                    採用する
+                                                  </MainButton>
+                                                </div>
+                                              </div>
+                                            </MainDialog>
                                           </div>
                                           <hr className="my-1" />
                                         </div>
                                       </div>
                                     ))}
                                   </div>
-                                </HoverCardContent>
-                              </HoverCard>
+
+                                  <DropdownMenuSeparator />
+                                </DropdownMenuContent>
+                              </DropdownMenu>
                             ) : (
                               <div className="text-sm text-slate-600">
                                 まだ誰も応募していません。

@@ -42,7 +42,7 @@ const RecruitCard = memo(
 						<Link href={`/profiles/${authorId}`} className="hover:underline">
 							<p>{authorName}</p>
 						</Link>
-						<div className="flex justify-between gap-2 items-center">
+						<div className="flex  gap-2 items-center">
 							<div className="text-sm text-slate-700">
 								{format(publishedAt, "yyyy/MM/dd")}
 							</div>

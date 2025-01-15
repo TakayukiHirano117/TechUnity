@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getAllRecruits } from "@/lib/fetcher/getAllRecruits";
+import { getAllRecruits } from "@/lib/fetcher/recruit";
 
 import RecruitList from "../../molecules/RecruitList";
 

@@ -69,7 +69,7 @@ const RecruitDetailPage = () => {
         <>
           <div className="container mx-auto">
             <div className="flex flex-col items-center py-[4rem] gap-4">
-              <h1 className="text-4xl font-bold">{recruit?.title}</h1>
+              <h1 className="text-4xl font-bold px-8">{recruit?.title}</h1>
               <div className="flex gap-4 items-center">
                 <p className="text-slate-600 text-sm">
                   {format(recruit?.createdAt, "yyyy/MM/dd")}
