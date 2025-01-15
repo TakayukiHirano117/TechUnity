@@ -52,7 +52,7 @@ export type RecruitCardProps = {
 };
 
 export type DashBoardRecruits = {
-  id: number;
+  id: string;
   title: string;
   // content: string;
   creator: {

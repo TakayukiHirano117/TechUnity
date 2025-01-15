@@ -46,3 +46,14 @@ export const getRecruitDetail = async (id: string) => {
   });
   return response.json();
 };
+
+
+// ユーザーを採用する
+// export const hireUser = async (recruitId: string, userId: string) => {
+//   await fetch(`/api/recruit/${recruitId}/hire`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
+// };
