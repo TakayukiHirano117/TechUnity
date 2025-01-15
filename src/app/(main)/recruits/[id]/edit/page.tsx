@@ -21,6 +21,7 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
 import { editRecruitSchema } from "@/lib/formSchema";
+import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 
 const getRecruitDetail = async (url: string) => {
   const response = await fetch(url, { cache: "no-store" });
@@ -34,15 +35,22 @@ const EditRecruitPage = () => {
   // 初回リセット済みを追跡するフラグ
   const isInitialResetDone = useRef(false);
 
-  const { register, handleSubmit, setValue, watch, control, formState, reset } =
-    useForm<z.infer<typeof editRecruitSchema>>({
-      resolver: zodResolver(editRecruitSchema),
-      defaultValues: {
-        title: "",
-        content: "",
-        isPublished: false,
-      },
-    });
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    control,
+    formState: { isSubmitting, errors },
+    reset,
+  } = useForm<z.infer<typeof editRecruitSchema>>({
+    resolver: zodResolver(editRecruitSchema),
+    defaultValues: {
+      title: "",
+      content: "",
+      isPublished: false,
+    },
+  });
 
   const {
     data: recruit,
@@ -89,25 +97,35 @@ const EditRecruitPage = () => {
     [setValue, watch],
   );
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return (
+    <div className="flex justify-between">
+      <div className="mx-auto space-y-3 h-screen mt-3">
+        <LoadingIcon
+          width="40"
+          height="40"
+          className="animate-spin text-slate-600"
+        />
+      </div>
+    </div>
+  );
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="bg-slate-100">
+    <div className="bg-slate-100 w-full">
       <div className="max-w-[960px] mx-auto p-8 container">
         <form onSubmit={handleSubmit(onSubmit)} method="POST">
           <Input
             placeholder="タイトル"
-            className="bg-slate-100 focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
+            className="bg-slate-100 text-2xl focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
             {...register("title")}
           />
-          <Tabs defaultValue="write" className="w-[960px] mt-4">
+          <Tabs defaultValue="write" className="max-w-[960px] mt-4">
             <TabsList className="grid w-full grid-cols-2 border">
               <TabsTrigger value="write">募集を書く</TabsTrigger>
               <TabsTrigger value="preview">プレビュー</TabsTrigger>
             </TabsList>
             <div className="flex gap-4 mt-4">
-              <div className="w-4/5">
+              <div className="w-full md:w-4/5">
                 <TabsContent value="write">
                   <MDEditor
                     value={content}
@@ -131,9 +149,71 @@ const EditRecruitPage = () => {
                     className="min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-4 rounded-lg max-w-full"
                   />
                 </TabsContent>
+                <div className="bg-slate-200 rounded-lg mt-2 py-2 md:hidden sticky bottom-10 left-0 w-full flex justify-center items-center gap-4">
+                  <div className="">
+                    <Controller
+                      name="isPublished"
+                      control={control}
+                      render={({ field }) => (
+                        <div className="flex items-center space-x-2 bg-white p-2 rounded-full">
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            className="shadow-md"
+                          />
+                          <Label className="font-bold text-slate-700">
+                            {field.value ? "公開" : "非公開"}
+                          </Label>
+                        </div>
+                      )}
+                    />
+                  </div>
+                  <div>
+                    <ImageUpload
+                      folder="recruits"
+                      onInsertImage={onInsertImage}
+                    >
+                      {(open) => (
+                        <MainButton
+                          type="button"
+                          className="rounded-full w-10 h-10 shadow-md"
+                          onClick={() => open()}
+                          variant={"outline"}
+                        >
+                          <ImageIcon />
+                        </MainButton>
+                      )}
+                    </ImageUpload>
+                  </div>
+                  <div>
+                    <Button
+                      variant={"outline"}
+                      className="rounded-full shadow-md"
+                      onClick={() => {
+                        if (errors.title || errors.content) {
+                          // バリデーションエラーがある場合、toastを表示
+                          Object.values(errors).forEach((error) => {
+                            toast({
+                              title: "エラー",
+                              description:
+                                error.message || "エラーが発生しました。",
+                              variant: "destructive",
+                              duration: 3000,
+                            });
+                          });
+
+                          return;
+                        }
+                      }}
+                      disabled={isSubmitting || !content}
+                    >
+                      {isSubmitting ? "更新中..." : "更新する"}
+                    </Button>
+                  </div>
+                </div>
               </div>
-              <div className="mt-2 z-10 w-1/5">
-                <aside className="bg-slate-300 border sticky top-[120px] flex flex-col gap-4 p-4 rounded-sm">
+              <aside className="hidden md:block mt-2 z-10 md:w-1/5">
+                <div className="bg-slate-300 border sticky top-[120px] flex flex-col gap-4 p-4 rounded-sm">
                   <div className="flex items-center space-x-2">
                     <Controller
                       name="isPublished"
@@ -170,8 +250,8 @@ const EditRecruitPage = () => {
                     variant={"outline"}
                     className="rounded-full"
                     onClick={() => {
-                      if (formState.errors.title || formState.errors.content) {
-                        Object.values(formState.errors).forEach((error) => {
+                      if (errors.title || errors.content) {
+                        Object.values(errors).forEach((error) => {
                           toast({
                             title: "エラー",
                             description:
@@ -184,12 +264,12 @@ const EditRecruitPage = () => {
                         return;
                       }
                     }}
-                    disabled={formState.isSubmitting || !content}
+                    disabled={isSubmitting || !content}
                   >
-                    {formState.isSubmitting ? "更新中..." : "保存する"}
+                    {isSubmitting ? "更新中..." : "更新する"}
                   </Button>
-                </aside>
-              </div>
+                </div>
+              </aside>
             </div>
           </Tabs>
         </form>

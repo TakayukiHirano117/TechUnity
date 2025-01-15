@@ -123,7 +123,7 @@ const ProfileSettingsPage = () => {
                         onClick={() => open()}
                       >
                         <AvatarIcon
-                          className="w-20 h-20"
+                          className="w-20 h-20 border"
                           ImageSrc={uploadedImage || profile.image}
                           fallbackText={profile.name}
                         />
