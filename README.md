@@ -18,9 +18,18 @@
 - 募集詳細
 - 募集作成(react-hook-form, react-md-editor, Cloudinary)
 - 募集編集(react-hook-form, react-md-editor, Cloudinary)
+- 募集削除
 - 募集へのいいね
 - 募集へのコメント
 - 募集への応募
 - 応募してきたユーザーの採用
 - いいねした募集一覧
 - 応募した募集一覧
+
+## デモ動画
+
+## 追加予定の機能
+- DM機能
+- 作成したポートフォリオをもとに企業からオファーが来る機能
+- 利用規約・aboutページなどの作成
+
