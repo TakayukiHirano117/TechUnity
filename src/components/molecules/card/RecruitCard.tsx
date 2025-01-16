@@ -60,9 +60,9 @@ const RecruitCard = memo(
 									</>
 								)}
 							</div>
-							<p className="text-end text-xs text-slate-600 font-extralight">
+							{/* <p className="text-end text-xs text-slate-600 font-extralight">
 								あと{remainingCount || "n"}人募集中
-							</p>
+							</p> */}
 						</div>
 					</div>
 				</CardContent>
