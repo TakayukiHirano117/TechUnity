@@ -16,8 +16,8 @@
 - フォームバリデーション(zod)
 - 募集一覧
 - 募集詳細
-- 募集作成(react-hook-form, react-md-editor, Supabase Storage)
-- 募集編集(react-hook-form, react-md-editor, Supabase Storage)
+- 募集作成(react-hook-form, react-md-editor, Cloudinary)
+- 募集編集(react-hook-form, react-md-editor, Cloudinary)
 - 募集へのいいね
 - 募集へのコメント
 - 募集への応募
