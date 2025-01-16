@@ -37,12 +37,12 @@ const RecruitCard = memo(
 					{/* <CardDescription className="truncate">{description}</CardDescription> */}
 				</CardHeader>
 				<CardContent className="flex gap-4">
-					<AvatarIcon ImageSrc={avatarImageSrc} fallbackText="アバター" />
+					<AvatarIcon ImageSrc={avatarImageSrc} fallbackText="アバター" className="border" />
 					<div>
 						<Link href={`/profiles/${authorId}`} className="hover:underline">
 							<p>{authorName}</p>
 						</Link>
-						<div className="flex justify-between gap-2 items-center">
+						<div className="flex  gap-2 items-center">
 							<div className="text-sm text-slate-700">
 								{format(publishedAt, "yyyy/MM/dd")}
 							</div>

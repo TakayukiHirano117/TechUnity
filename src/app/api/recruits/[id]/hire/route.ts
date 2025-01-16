@@ -14,22 +14,23 @@ export const POST = async (
       return NextResponse.json("unauthorized", { status: 403 });
     }
 
-    const userId = token.id;
+    // token.idではなく、応募してきたユーザーのidを使用。
+    const { userId } = await req.json();
     const recruitId = params.id;
 
-    const existingLike = await prisma.like.findFirst({
+    const existingHire = await prisma.hire.findFirst({
       where: {
         userId,
         recruitId,
       },
     });
 
-    if (existingLike) {
-      await prisma.like.delete({
-        where: { id: existingLike.id },
+    if (existingHire) {
+      await prisma.hire.delete({
+        where: { id: existingHire.id },
       });
     } else {
-      const res = await prisma.like.create({
+      const res = await prisma.hire.create({
         data: {
           userId: userId,
           recruitId: recruitId,
@@ -37,11 +38,11 @@ export const POST = async (
       });
     }
 
-    const isLiked = existingLike ? false : true;
+    const isHired = existingHire ? false : true;
 
-    return NextResponse.json({ success: true, isLiked }, { status: 200 });
+    return NextResponse.json({ success: true, isHired }, { status: 200 });
   } catch (error) {
-    console.error("Error in POST /api/recruits/:id/like:", error); // ログに出力
+    console.error("Error in POST /api/recruits/:id/hire:", error); // ログに出力
     return NextResponse.json(
       { error: error instanceof Error ? error.message : String(error) }, // エラー内容をレスポンスに含める
       { status: 500 },

@@ -50,6 +50,7 @@ model User {
   email            String?       @unique
   emailVerified    DateTime?
   image            String?
+  hashedPassword   String?
   createdAt        DateTime      @default(now()) @map(name: "created_at")
   updatedAt        DateTime      @updatedAt @map(name: "updated_at")
   accounts         Account[]
@@ -57,6 +58,7 @@ model User {
   recruits_creator Recruit[]     @relation("creator")
   Like             Like[]
   Application      Application[]
+  Hire             Hire[]
 
   @@map(name: "users")
 }
@@ -71,16 +73,17 @@ model VerificationToken {
 }
 
 model Recruit {
-  id          String        @id @default(cuid())
-  title       String
-  content     String
-  createdAt   DateTime      @default(now()) @map(name: "created_at")
-  updatedAt   DateTime      @updatedAt @map(name: "updated_at")
-  isPublished Boolean       @default(false) @map(name: "is_published")
-  creator     User          @relation(fields: [creatorId], references: [id], name: "creator")
-  creatorId   String
-  likes       Like[]
+  id           String        @id @default(cuid())
+  title        String
+  content      String
+  createdAt    DateTime      @default(now()) @map(name: "created_at")
+  updatedAt    DateTime      @updatedAt @map(name: "updated_at")
+  isPublished  Boolean       @default(false) @map(name: "is_published")
+  creator      User          @relation(fields: [creatorId], references: [id], name: "creator")
+  creatorId    String
+  likes        Like[]
   applications Application[]
+  Hire         Hire[]
 
   @@map(name: "recruits")
 }
@@ -105,4 +108,15 @@ model Application {
 
   @@unique([userId, recruitId])
   @@map(name: "applications")
+}
+
+model Hire {
+  id        String  @id @default(cuid())
+  userId    String
+  recruitId String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recruit   Recruit @relation(fields: [recruitId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, recruitId])
+  @@map(name: "hires")
 }

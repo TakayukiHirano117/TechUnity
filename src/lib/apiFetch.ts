@@ -1,7 +1,7 @@
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export const deleteRecruit = async (
-	id: number,
+	id: string,
 	router: AppRouterInstance,
 	endpoint: string,
 ) => {
