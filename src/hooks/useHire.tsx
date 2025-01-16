@@ -1,7 +1,6 @@
 import { mutate } from "swr";
 import useSWRMutation from "swr/mutation";
 
-// APIリクエスト関数
 const hireUserForRecruit = async (
   url: string,
   { arg }: { arg: { userId: string } },
@@ -12,7 +11,7 @@ const hireUserForRecruit = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(arg), // 引数を直接渡す
+      body: JSON.stringify(arg),
     });
 
     if (!res.ok) {

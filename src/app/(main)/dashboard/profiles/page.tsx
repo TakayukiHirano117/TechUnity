@@ -17,26 +17,28 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
+import { getProfile } from "@/lib/fetcher/profile";
+import { editProfileSchema } from "@/lib/formSchema";
 
 const items = SidebarItems;
 
-const editProfileSchema = z.object({
-  name: z
-    .string()
-    .min(1, "名前は必須です")
-    .max(50, "名前は50文字以内で入力してください"),
-  description: z
-    .string()
-    .max(200, "自己紹介文は200文字以内で入力してください")
-    .optional(),
-  image: z.string().url("有効な画像URLを入力してください").optional(),
-});
+// const editProfileSchema = z.object({
+//   name: z
+//     .string()
+//     .min(1, "名前は必須です")
+//     .max(50, "名前は50文字以内で入力してください"),
+//   description: z
+//     .string()
+//     .max(200, "自己紹介文は200文字以内で入力してください")
+//     .optional(),
+//   image: z.string().url("有効な画像URLを入力してください").optional(),
+// });
 
-const getProfile = async () => {
-  const res = await fetch("/api/dashboard/profiles");
-  const profile = await res.json();
-  return profile;
-};
+// const getProfile = async () => {
+//   const res = await fetch("/api/dashboard/profiles");
+//   const profile = await res.json();
+//   return profile;
+// };
 
 type ProfileFormValues = z.infer<typeof editProfileSchema>;
 
@@ -94,94 +96,101 @@ const ProfileSettingsPage = () => {
     }
   };
 
-return (
-  <div className="bg-slate-100 min-h-screen">
-    <div className="px-8 py-14 flex justify-between container mx-auto gap-12 max-w-[1080px]">
-      {/* DashBoardSideBarを常に表示 */}
-      <DashBoardSideBar items={items} />
+  return (
+    <div className="bg-slate-100 min-h-screen">
+      <div className="px-8 py-14 flex justify-between container mx-auto gap-12 max-w-[1080px]">
+        {/* DashBoardSideBarを常に表示 */}
+        <DashBoardSideBar items={items} />
 
-      <div className="flex flex-col gap-4 sm:w-9/12 w-full">
-        <h1 className="font-bold text-3xl">プロフィール</h1>
+        <div className="flex flex-col gap-4 sm:w-9/12 w-full">
+          <h1 className="font-bold text-3xl">プロフィール</h1>
 
-        {/* ローディング状態を表示 */}
-        {!profile || isLoading ? (
-          <div className="mx-auto space-y-3 h-screen">
-            <LoadingIcon
-              width="40"
-              height="40"
-              className="animate-spin text-slate-600"
-            />
-          </div>
-        ) : (
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-8"
-          >
-            <div className="flex flex-col sm:flex-row gap-8 mt-4">
-              <ImageUpload folder="recruits" onInsertImage={onInsertImage}>
-                {(open) => (
-                  <button
-                    type="button"
-                    className="flex flex-col items-center gap-1"
-                    onClick={() => open()}
-                  >
-                    <AvatarIcon
-                      className="w-20 h-20 border"
-                      ImageSrc={uploadedImage || profile.image}
-                      fallbackText={profile.name}
+          {/* ローディング状態を表示 */}
+          {!profile || isLoading ? (
+            <div className="mx-auto space-y-3 h-screen">
+              <LoadingIcon
+                width="40"
+                height="40"
+                className="animate-spin text-slate-600"
+              />
+            </div>
+          ) : (
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col gap-8"
+            >
+              <div className="flex flex-col sm:flex-row gap-8 mt-4">
+                <ImageUpload
+                  folder="recruits"
+                  onInsertImage={onInsertImage}
+                  isCropping={true}
+                >
+                  {(open) => (
+                    <button
+                      type="button"
+                      className="flex flex-col items-center gap-1"
+                      onClick={() => open()}
+                    >
+                      <AvatarIcon
+                        className="w-20 h-20 border"
+                        ImageSrc={uploadedImage || profile.image}
+                        fallbackText={profile.name}
+                      />
+                      <span className="text-sm text-slate-600">変更する</span>
+                    </button>
+                  )}
+                </ImageUpload>
+
+                <div className="w-full flex flex-col gap-8">
+                  <div className="flex flex-col gap-2">
+                    <Label htmlFor="name" className="text-slate-600 font-bold">
+                      名前
+                    </Label>
+                    <Input
+                      {...register("name")}
+                      placeholder="ユーザー名"
+                      className={errors.name ? "border-red-500" : ""}
                     />
-                    <span className="text-sm text-slate-600">変更する</span>
-                  </button>
-                )}
-              </ImageUpload>
-
-              <div className="w-full flex flex-col gap-8">
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="name" className="text-slate-600 font-bold">
-                    名前
-                  </Label>
-                  <Input
-                    {...register("name")}
-                    placeholder="ユーザー名"
-                    className={errors.name ? "border-red-500" : ""}
-                  />
-                  {errors.name && (
-                    <span className="text-red-500 text-sm">
-                      {errors.name.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="bio" className="text-slate-600 font-bold">
-                    自己紹介
-                  </Label>
-                  <Textarea
-                    {...register("description")}
-                    placeholder="自己紹介文"
-                    className={`resize-none ${
-                      errors.description ? "border-red-500" : ""
-                    }`}
-                  />
-                  {errors.description && (
-                    <span className="text-red-500 text-sm">
-                      {errors.description.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex justify-center">
-                  <MainButton className="font-bold rounded-full" type="submit">
-                    更新する
-                  </MainButton>
+                    {errors.name && (
+                      <span className="text-red-500 text-sm">
+                        {errors.name.message}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Label htmlFor="bio" className="text-slate-600 font-bold">
+                      自己紹介
+                    </Label>
+                    <Textarea
+                      {...register("description")}
+                      placeholder="自己紹介文"
+                      className={`resize-none ${
+                        errors.description ? "border-red-500" : ""
+                      }`}
+                    />
+                    {errors.description && (
+                      <span className="text-red-500 text-sm">
+                        {errors.description.message}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex justify-center">
+                    <MainButton
+                      className="font-bold rounded-full"
+                      type="submit"
+                    >
+                      更新する
+                    </MainButton>
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
-        )}
+            </form>
+          )}
+        </div>
       </div>
+      <Toaster />
     </div>
-    <Toaster />
-  </div>
-);
+  );
 };
 
 export default ProfileSettingsPage;

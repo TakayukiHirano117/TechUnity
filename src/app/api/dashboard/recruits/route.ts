@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import prisma from "@/lib/db";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export const GET = async (req: NextRequest) => {
   try {
     const token = await getToken({ req });
+    const session = await getServerSession(authOptions);
+    console.log("session:" + session);
 
+    // ここに問題あり。 tokenが取れてない。
     if (!token) {
       return NextResponse.json("unauthorized", { status: 403 });
     }
@@ -46,7 +51,7 @@ export const GET = async (req: NextRequest) => {
       },
     });
 
-    // console.log(recruits);
+    console.log(recruits);
 
     return NextResponse.json(recruits);
   } catch (error) {

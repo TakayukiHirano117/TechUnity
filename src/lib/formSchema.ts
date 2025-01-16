@@ -19,3 +19,15 @@ export const editRecruitSchema = z.object({
 	isPublished: z.boolean(),
 	// 募集人数も追加すること
 });
+
+export const editProfileSchema = z.object({
+  name: z
+    .string()
+    .min(1, "名前は必須です")
+    .max(50, "名前は50文字以内で入力してください"),
+  description: z
+    .string()
+    .max(200, "自己紹介文は200文字以内で入力してください")
+    .optional(),
+  image: z.string().url("有効な画像URLを入力してください").optional(),
+});
