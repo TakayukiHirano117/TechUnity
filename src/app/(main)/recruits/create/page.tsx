@@ -104,7 +104,7 @@ const CreateRecruitPage = () => {
                     className=" min-h-[540px] md:min-h-[720px] text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-6 rounded-lg max-w-full"
                   />
                 </TabsContent>
-                <div className="bg-slate-200 rounded-lg mt-2 py-2 md:hidden sticky bottom-10 left-0 w-full flex justify-center items-center gap-4">
+                <div className="bg-slate-200 rounded-lg mt-2 py-2 md:hidden sticky bottom-12 left-0 w-full flex justify-center items-center gap-4">
                   <div className="">
                     <Controller
                       name="isPublished"

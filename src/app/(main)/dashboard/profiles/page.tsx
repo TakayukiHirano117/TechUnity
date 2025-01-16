@@ -94,9 +94,16 @@ const ProfileSettingsPage = () => {
     }
   };
 
-  return (
-    <div className="bg-slate-100 min-h-screen">
-      <div className="px-8 py-14 flex justify-between container mx-auto gap-12 max-w-[1080px]">
+return (
+  <div className="bg-slate-100 min-h-screen">
+    <div className="px-8 py-14 flex justify-between container mx-auto gap-12 max-w-[1080px]">
+      {/* DashBoardSideBarを常に表示 */}
+      <DashBoardSideBar items={items} />
+
+      <div className="flex flex-col gap-4 sm:w-9/12 w-full">
+        <h1 className="font-bold text-3xl">プロフィール</h1>
+
+        {/* ローディング状態を表示 */}
         {!profile || isLoading ? (
           <div className="mx-auto space-y-3 h-screen">
             <LoadingIcon
@@ -106,84 +113,75 @@ const ProfileSettingsPage = () => {
             />
           </div>
         ) : (
-          <>
-            <DashBoardSideBar items={items} />
-            <div className="flex flex-col gap-4 sm:w-9/12 w-full">
-              <h1 className="font-bold text-3xl">プロフィール</h1>
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col gap-8"
-              >
-                <div className="flex flex-col sm:flex-row gap-8 mt-4">
-                  <ImageUpload folder="recruits" onInsertImage={onInsertImage}>
-                    {(open) => (
-                      <button
-                        type="button"
-                        className="flex flex-col items-center gap-1"
-                        onClick={() => open()}
-                      >
-                        <AvatarIcon
-                          className="w-20 h-20 border"
-                          ImageSrc={uploadedImage || profile.image}
-                          fallbackText={profile.name}
-                        />
-                        <span className="text-sm text-slate-600">変更する</span>
-                      </button>
-                    )}
-                  </ImageUpload>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-8"
+          >
+            <div className="flex flex-col sm:flex-row gap-8 mt-4">
+              <ImageUpload folder="recruits" onInsertImage={onInsertImage}>
+                {(open) => (
+                  <button
+                    type="button"
+                    className="flex flex-col items-center gap-1"
+                    onClick={() => open()}
+                  >
+                    <AvatarIcon
+                      className="w-20 h-20 border"
+                      ImageSrc={uploadedImage || profile.image}
+                      fallbackText={profile.name}
+                    />
+                    <span className="text-sm text-slate-600">変更する</span>
+                  </button>
+                )}
+              </ImageUpload>
 
-                  <div className="w-full flex flex-col gap-8">
-                    <div className="flex flex-col gap-2">
-                      <Label
-                        htmlFor="name"
-                        className="text-slate-600 font-bold"
-                      >
-                        名前
-                      </Label>
-                      <Input
-                        {...register("name")}
-                        placeholder="ユーザー名"
-                        className={errors.name ? "border-red-500" : ""}
-                      />
-                      {errors.name && (
-                        <span className="text-red-500 text-sm">
-                          {errors.name.message}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <Label htmlFor="bio" className="text-slate-600 font-bold">
-                        自己紹介
-                      </Label>
-                      <Textarea
-                        {...register("description")}
-                        placeholder="自己紹介文"
-                        className={`resize-none ${errors.description ? "border-red-500" : ""}`}
-                      />
-                      {errors.description && (
-                        <span className="text-red-500 text-sm">
-                          {errors.description.message}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex justify-center">
-                      <MainButton
-                        className="font-bold rounded-full"
-                        type="submit"
-                      >
-                        更新する
-                      </MainButton>
-                    </div>
-                  </div>
+              <div className="w-full flex flex-col gap-8">
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="name" className="text-slate-600 font-bold">
+                    名前
+                  </Label>
+                  <Input
+                    {...register("name")}
+                    placeholder="ユーザー名"
+                    className={errors.name ? "border-red-500" : ""}
+                  />
+                  {errors.name && (
+                    <span className="text-red-500 text-sm">
+                      {errors.name.message}
+                    </span>
+                  )}
                 </div>
-              </form>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="bio" className="text-slate-600 font-bold">
+                    自己紹介
+                  </Label>
+                  <Textarea
+                    {...register("description")}
+                    placeholder="自己紹介文"
+                    className={`resize-none ${
+                      errors.description ? "border-red-500" : ""
+                    }`}
+                  />
+                  {errors.description && (
+                    <span className="text-red-500 text-sm">
+                      {errors.description.message}
+                    </span>
+                  )}
+                </div>
+                <div className="flex justify-center">
+                  <MainButton className="font-bold rounded-full" type="submit">
+                    更新する
+                  </MainButton>
+                </div>
+              </div>
             </div>
-          </>
+          </form>
         )}
-        <Toaster />
       </div>
     </div>
-  );
+    <Toaster />
+  </div>
+);
 };
 
 export default ProfileSettingsPage;

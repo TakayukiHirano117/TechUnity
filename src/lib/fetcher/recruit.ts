@@ -1,3 +1,5 @@
+import { DashBoardRecruits } from "@/types/types";
+
 export const createRecruit = async (data: {
   title: string;
   content: string;
@@ -57,3 +59,9 @@ export const getRecruitDetail = async (id: string) => {
 //     },
 //   });
 // };
+
+export const getRecruitsWithUser = async (): Promise<DashBoardRecruits[]> => {
+  const res = await fetch("/api/dashboard/recruits");
+  const recruits = await res.json();
+  return recruits;
+};
