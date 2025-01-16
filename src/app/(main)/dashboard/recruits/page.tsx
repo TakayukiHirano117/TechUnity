@@ -83,7 +83,9 @@ const RecruitsCreatedByMe = () => {
               </div>
             ) : recruits.length > 0 ? (
               // 募集がある場合の表示
+              // これをlistコンポーネントに分離する。
               recruits.map((recruit) => (
+                // これをcardコンポーネントに分離する。
                 <div
                   key={recruit.id}
                   className="flex items-center justify-between gap-4"
@@ -98,9 +100,11 @@ const RecruitsCreatedByMe = () => {
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-slate-600">
                           {recruit.isPublished ? (
-                            <Badge>公開中</Badge>
+                            <Badge className="text-xs">公開中</Badge>
                           ) : (
-                            <Badge variant="outline">非公開</Badge>
+                            <Badge variant="outline" className="text-xs">
+                              非公開
+                            </Badge>
                           )}
                         </span>
                         {/* 応募者の情報を表示 */}
@@ -121,8 +125,8 @@ const RecruitsCreatedByMe = () => {
                                 {recruit.applications.map((application) => (
                                   <div key={application.user.id}>
                                     <div className="text-sm text-slate-600 flex flex-col">
-                                      <div className="flex gap-4 justify-between">
-                                        <div className="flex items-center gap-1">
+                                      <div className="flex gap-4 justify-between w-full">
+                                        <div className="flex items-center gap-1 truncate">
                                           <AvatarIcon
                                             ImageSrc={application.user.image}
                                             fallbackText={application.user.name}
@@ -141,7 +145,7 @@ const RecruitsCreatedByMe = () => {
                                           trigger={
                                             <button
                                               type="button"
-                                              className="border rounded-full px-2 py-1 hover:bg-slate-700 duration-300 hover:text-slate-50"
+                                              className="whitespace-nowrap border rounded-full px-2 py-1 hover:bg-slate-700 duration-300 hover:text-slate-50"
                                             >
                                               ✅ 採用する
                                             </button>

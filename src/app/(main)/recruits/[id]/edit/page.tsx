@@ -98,8 +98,8 @@ const EditRecruitPage = () => {
   );
 
   if (isLoading) return (
-    <div className="flex justify-between">
-      <div className="mx-auto space-y-3 h-screen mt-3">
+    <div className="flex space-y-3 justify-between">
+      <div className="mx-auto  h-screen mt-3">
         <LoadingIcon
           width="40"
           height="40"
