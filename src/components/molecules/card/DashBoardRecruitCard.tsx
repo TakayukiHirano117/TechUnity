@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import MainButton from "@/components/atoms/button/MainButton";
@@ -26,8 +26,20 @@ import { DashBoardRecruits } from "@/types/types";
 import MainDialog from "../dialog/MainDialog";
 
 const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruits }) => {
+  const [dialogStates, setDialogStates] = useState<Record<string, boolean>>({});
+
   const { toggleHire, isHireMutating } = useHire(recruit.id);
   const router = useRouter();
+
+  const handleHire = async (userId: string) => {
+    await toggleHire({ arg: { userId } });
+    setDialogStates((prev) => ({ ...prev, [userId]: false }));
+    router.refresh();
+  };
+
+  const toggleDialog = (userId: string, isOpen: boolean) => {
+    setDialogStates((prev) => ({ ...prev, [userId]: isOpen }));
+  };
 
   return (
     <div key={recruit.id} className="flex items-center justify-between gap-4">
@@ -76,49 +88,107 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruits }) => {
                                 {application.user.name}
                               </Link>
                             </div>
-                            <MainDialog
-                              title="採用しますか？"
-                              description={`${application.user.name}を採用して、ともに開発をしましょう！`}
-                              trigger={
-                                <button
-                                  type="button"
-                                  className="whitespace-nowrap border rounded-full px-2 py-1 hover:bg-slate-700 duration-300 hover:text-slate-50"
-                                >
-                                  ✅ 採用する
-                                </button>
-                              }
-                            >
-                              <div className="flex flex-col items-center justify-center gap-4">
-                                <Image
-                                  src="/undraw_team-up_qeem.svg"
-                                  width={200}
-                                  height={200}
-                                  alt="resume"
-                                />
-                                <div className="flex justify-center gap-4">
-                                  <DialogClose asChild>
-                                    <MainButton
-                                      className="rounded-full font-bold"
-                                      variant={"outline"}
-                                    >
-                                      キャンセル
-                                    </MainButton>
-                                  </DialogClose>
-                                  <MainButton
+                            {/* isHired次第で変える */}
+                            {/* もしくはhiresにapplication.user.idが入っているかとかで判定 */}
+                            {recruit.hires.some(
+                              (hire) => hire.userId === application.user.id,
+                            ) ? (
+                              <MainDialog
+                                title="採用を取り消しますか？"
+                                description={`${application.user.name}はすでに採用されています。`}
+                                trigger={
+                                  <button
                                     type="button"
-                                    className="rounded-full font-bold"
-                                    onClick={() =>
-                                      toggleHire({
-                                        arg: { userId: application.user.id },
-                                      })
-                                    }
-                                    disabled={isHireMutating}
+                                    className="bg-blue-300 hover:opacity-70 whitespace-nowrap border rounded-full px-2 py-1 duration-300"
+                                  >
+                                    採用済み
+                                  </button>
+                                }
+                                onOpenChange={(isOpen) =>
+                                  toggleDialog(application.user.id, isOpen)
+                                }
+                                isOpen={
+                                  dialogStates[application.user.id] || false
+                                }
+                              >
+                                <div className="flex flex-col items-center justify-center gap-4">
+                                  <Image
+                                    src="/undraw_feeling-blue_8si6.svg"
+                                    width={200}
+                                    height={200}
+                                    alt="resume"
+                                  />
+                                  <div className="flex justify-center gap-4">
+                                    <DialogClose asChild>
+                                      <MainButton
+                                        className="rounded-full font-bold"
+                                        variant={"outline"}
+                                      >
+                                        キャンセル
+                                      </MainButton>
+                                    </DialogClose>
+                                    <MainButton
+                                      type="button"
+                                      className="rounded-full font-bold"
+                                      onClick={() =>
+                                        handleHire(application.user.id)
+                                      }
+                                      disabled={isHireMutating}
+                                    >
+                                      取り消す
+                                    </MainButton>
+                                  </div>
+                                </div>
+                              </MainDialog>
+                            ) : (
+                              <MainDialog
+                                title="採用しますか？"
+                                description={`${application.user.name}を採用して、ともに開発をしましょう！`}
+                                trigger={
+                                  <button
+                                    type="button"
+                                    className="whitespace-nowrap border rounded-full px-2 py-1 hover:bg-slate-700 duration-300 hover:text-slate-50"
                                   >
                                     採用する
-                                  </MainButton>
+                                  </button>
+                                }
+                                onOpenChange={(isOpen) =>
+                                  toggleDialog(application.user.id, isOpen)
+                                }
+                                isOpen={
+                                  dialogStates[application.user.id] || false
+                                }
+                              >
+                                <div className="flex flex-col items-center justify-center gap-4">
+                                  <Image
+                                    src="/undraw_team-up_qeem.svg"
+                                    width={200}
+                                    height={200}
+                                    alt="resume"
+                                  />
+                                  <div className="flex justify-center gap-4">
+                                    <DialogClose asChild>
+                                      <MainButton
+                                        className="rounded-full font-bold"
+                                        variant={"outline"}
+                                      >
+                                        キャンセル
+                                      </MainButton>
+                                    </DialogClose>
+                                    <MainButton
+                                      type="button"
+                                      className="rounded-full font-bold"
+                                      onClick={() =>
+                                        handleHire(application.user.id)
+                                      }
+                                      disabled={isHireMutating}
+                                    >
+                                      採用する
+                                    </MainButton>
+                                  </div>
                                 </div>
-                              </div>
-                            </MainDialog>
+                              </MainDialog>
+                            )}
                           </div>
                           <hr className="my-1" />
                         </div>
@@ -145,16 +215,18 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruits }) => {
               />
             </div>
           </Link>
-          <div className="p-2 rounded-full hover:bg-slate-200 border cursor-pointer">
+          <div className="rounded-full hover:bg-slate-200 border p-2 cursor-pointer flex items-center justify-center">
             <MainDialog
               title="削除しますか？"
               description={`${recruit.title}を削除します、この操作は取り消せません`}
               trigger={
-                <DeleteIcon
-                  width="20"
-                  height="20"
-                  className="hover:opacity-70 text-slate-600"
-                />
+                <button type="button" className="w-5 h-5 rounded-full">
+                  <DeleteIcon
+                    width="20"
+                    height="20"
+                    className="hover:opacity-70 text-slate-600"
+                  />
+                </button>
               }
             >
               <div className="flex gap-4 justify-around">
@@ -167,9 +239,7 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruits }) => {
                 <MainButton
                   className="rounded-full py-2 px-4"
                   variant={"destructive"}
-                  onClick={() =>
-                    deleteRecruit(recruit.id, router, "/dashboard/recruits")
-                  }
+                  onClick={() => deleteRecruit(recruit.id, router)}
                 >
                   削除
                 </MainButton>

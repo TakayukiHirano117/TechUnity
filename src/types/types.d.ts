@@ -1,4 +1,4 @@
-import { Application, User } from ".prisma/client";
+import { Application, Hire, User } from ".prisma/client";
 import { Like } from "@prisma/client";
 import { ReactNode } from "react";
 
@@ -65,11 +65,12 @@ export type DashBoardRecruits = {
     user: {
       id: string;
       name: string;
-	  image: string;
+      image: string;
     };
   }[];
   createdAt: string;
   updatedAt: string;
   // applicantId: string;
   isPublished: boolean;
+  hires: Hire[];
 };

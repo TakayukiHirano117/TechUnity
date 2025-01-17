@@ -15,12 +15,13 @@ export const POST = async (
     }
 
     // token.idではなく、応募してきたユーザーのidを使用。
-    const { userId } = await req.json();
+    // const { userId } = await req.json();
     const recruitId = params.id;
 
     const existingHire = await prisma.hire.findFirst({
       where: {
-        userId,
+        // userId,
+        userId: token.id,
         recruitId,
       },
     });
@@ -32,7 +33,7 @@ export const POST = async (
     } else {
       const res = await prisma.hire.create({
         data: {
-          userId: userId,
+          userId: token.id,
           recruitId: recruitId,
         },
       });

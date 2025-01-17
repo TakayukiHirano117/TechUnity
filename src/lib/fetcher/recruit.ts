@@ -1,5 +1,4 @@
 import { DashBoardRecruits } from "@/types/types";
-import { headers } from "next/headers";
 
 export const createRecruit = async (data: {
   title: string;
@@ -27,10 +26,9 @@ export const getAllRecruits = async () => {
   const res = await fetch("http://localhost:3000/api/recruits", {
     cache: "no-store",
   });
-  
+
   return res.json();
 };
-
 
 export const getEditRecruitDetail = async (id: string) => {
   const response = await fetch(`/api/recruit/${id}/edit`, {
@@ -50,7 +48,6 @@ export const getRecruitDetail = async (id: string) => {
   return response.json();
 };
 
-
 // ユーザーを採用する
 // export const hireUser = async (recruitId: string, userId: string) => {
 //   await fetch(`/api/recruit/${recruitId}/hire`, {
@@ -60,13 +57,3 @@ export const getRecruitDetail = async (id: string) => {
 //     },
 //   });
 // };
-
-export const getRecruitsWithUser = async () => {
-  const res = await fetch("http://localhost:3000/api/dashboard/recruits", {
-    // headers情報がないからgetTokenできなかったっぽい。
-    headers: Object.fromEntries(headers()),
-  });
-  const recruits = await res.json();
-  console.log(recruits)
-  return recruits;
-};

@@ -120,26 +120,28 @@ const ProfileSettingsPage = () => {
               className="flex flex-col gap-8"
             >
               <div className="flex flex-col sm:flex-row gap-8 mt-4">
-                <ImageUpload
-                  folder="recruits"
-                  onInsertImage={onInsertImage}
-                  isCropping={true}
-                >
-                  {(open) => (
-                    <button
-                      type="button"
-                      className="flex flex-col items-center gap-1"
-                      onClick={() => open()}
-                    >
-                      <AvatarIcon
-                        className="w-20 h-20 border"
-                        ImageSrc={uploadedImage || profile.image}
-                        fallbackText={profile.name}
-                      />
-                      <span className="text-sm text-slate-600">変更する</span>
-                    </button>
-                  )}
-                </ImageUpload>
+                <div>
+                  <ImageUpload
+                    folder="recruits"
+                    onInsertImage={onInsertImage}
+                    isCropping={true}
+                  >
+                    {(open) => (
+                      <button
+                        type="button"
+                        className="flex flex-col items-center gap-1"
+                        onClick={() => open()}
+                      >
+                        <AvatarIcon
+                          className="w-20 h-20 border"
+                          ImageSrc={uploadedImage || profile.image}
+                          fallbackText={profile.name}
+                        />
+                        <span className="text-sm text-slate-600">変更する</span>
+                      </button>
+                    )}
+                  </ImageUpload>
+                </div>
 
                 <div className="w-full flex flex-col gap-8">
                   <div className="flex flex-col gap-2">

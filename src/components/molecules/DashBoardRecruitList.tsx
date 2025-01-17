@@ -7,7 +7,7 @@ import DashBoardRecruitCard from "./card/DashBoardRecruitCard";
 const DashBoardRecruitList = ({
   recruits,
 }) => {
-  console.log(recruits);
+  // console.log(recruits);
   return (
     <>
       {recruits.map((recruit) => (
