@@ -32,6 +32,8 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruits }) => {
   const router = useRouter();
 
   const handleHire = async (userId: string) => {
+     console.log("Sending userId:", userId); 
+
     await toggleHire({ arg: { userId } });
     setDialogStates((prev) => ({ ...prev, [userId]: false }));
     router.refresh();
@@ -230,12 +232,14 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruits }) => {
               }
             >
               <div className="flex gap-4 justify-around">
-                <MainButton
-                  className="rounded-full py-2 px-4"
-                  variant={"outline"}
-                >
-                  キャンセル
-                </MainButton>
+                <DialogClose asChild>
+                  <MainButton
+                    className="rounded-full py-2 px-4"
+                    variant={"outline"}
+                  >
+                    キャンセル
+                  </MainButton>
+                </DialogClose>
                 <MainButton
                   className="rounded-full py-2 px-4"
                   variant={"destructive"}

@@ -18,6 +18,8 @@ const hireUserForRecruit = async (
       throw new Error(`Failed to hire user: ${res.statusText}`);
     }
 
+    console.log("ToggleHire called with:", arg);
+
     return await res.json();
   } catch (error) {
     console.error(error);
