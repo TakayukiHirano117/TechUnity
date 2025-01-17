@@ -84,7 +84,7 @@ const LikedRecruitsDashboardPage = () => {
                         <AvatarIcon
                           ImageSrc={recruit.creator.image}
                           fallbackText="アバター"
-                          className="w-8 h-8 rounded-full"
+                          className="w-8 h-8 rounded-full border"
                         />
                         <Link
                           href={`/profiles/${recruit.creator.id}`}

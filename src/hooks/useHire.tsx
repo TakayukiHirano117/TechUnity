@@ -1,10 +1,9 @@
 import { mutate } from "swr";
 import useSWRMutation from "swr/mutation";
 
-// APIリクエスト関数
 const hireUserForRecruit = async (
   url: string,
-  { arg }: { arg: { userId: string } },
+  { arg }: { arg: { userId: string } }, // SWRMutation が期待する型に合わせる
 ) => {
   try {
     const res = await fetch(url, {
@@ -12,7 +11,7 @@ const hireUserForRecruit = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(arg), // 引数を直接渡す
+      body: JSON.stringify(arg), // arg のまま送信
     });
 
     if (!res.ok) {
@@ -22,22 +21,22 @@ const hireUserForRecruit = async (
     return await res.json();
   } catch (error) {
     console.error(error);
-    throw error; // エラーを上位でキャッチ
+    throw error;
   }
 };
 
 // カスタムフック
 export const useHire = (id: string) => {
-  const { trigger: toggleHire, isMutating: isHireMutating } = useSWRMutation(
-    `/api/recruits/${id}/hire`,
-    hireUserForRecruit,
-    {
-      onSuccess: () => {
-        mutate(`/api/dashboard/recruits`); // 成功時にキャッシュを更新
-      },
+  const { trigger: toggleHire, isMutating: isHireMutating } = useSWRMutation<
+    any,
+    any,
+    `/api/recruits/${string}/hire`,
+    { userId: string }
+  >(`/api/recruits/${id}/hire`, hireUserForRecruit, {
+    onSuccess: () => {
+      mutate(`/api/dashboard/recruits`);
     },
-  );
+  });
 
-  // 関数と状態を返す
   return { toggleHire, isHireMutating };
 };

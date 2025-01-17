@@ -1,9 +1,20 @@
-import React from 'react'
+import React from "react";
 
-const DashBoardRecruitList = () => {
+import { DashBoardRecruits } from "@/types/types";
+
+import DashBoardRecruitCard from "./card/DashBoardRecruitCard";
+
+const DashBoardRecruitList = ({
+  recruits,
+}) => {
+  // console.log(recruits);
   return (
-    <div>DashBoardRecruitList</div>
-  )
-}
+    <>
+      {recruits.map((recruit) => (
+        <DashBoardRecruitCard key={recruit.id} recruit={recruit} />
+      ))}
+    </>
+  );
+};
 
-export default DashBoardRecruitList
+export default DashBoardRecruitList;

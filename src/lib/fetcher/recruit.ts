@@ -26,10 +26,9 @@ export const getAllRecruits = async () => {
   const res = await fetch("http://localhost:3000/api/recruits", {
     cache: "no-store",
   });
-  
+
   return res.json();
 };
-
 
 export const getEditRecruitDetail = async (id: string) => {
   const response = await fetch(`/api/recruit/${id}/edit`, {
@@ -49,7 +48,6 @@ export const getRecruitDetail = async (id: string) => {
   return response.json();
 };
 
-
 // ユーザーを採用する
 // export const hireUser = async (recruitId: string, userId: string) => {
 //   await fetch(`/api/recruit/${recruitId}/hire`, {
@@ -59,9 +57,3 @@ export const getRecruitDetail = async (id: string) => {
 //     },
 //   });
 // };
-
-export const getRecruitsWithUser = async (): Promise<DashBoardRecruits[]> => {
-  const res = await fetch("/api/dashboard/recruits");
-  const recruits = await res.json();
-  return recruits;
-};

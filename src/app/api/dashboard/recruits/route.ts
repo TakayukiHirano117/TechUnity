@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
 import { getToken } from "next-auth/jwt";
+
+import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/db";
 
 export const GET = async (req: NextRequest) => {
   try {
     const token = await getToken({ req });
+    // const session = await getServerSession(authOptions);
+    // console.log("session:" + session);
 
+    // ここに問題あり。 tokenが取れてない。
+    // サーバーコンポーネントでheaders()メソッドを用いることでcookieを取得できる。
     if (!token) {
       return NextResponse.json("unauthorized", { status: 403 });
     }
@@ -38,7 +45,20 @@ export const GET = async (req: NextRequest) => {
               select: {
                 id: true,
                 name: true,
-				image: true,
+                image: true,
+              },
+            },
+          },
+        },
+        hires: {
+          select: {
+            id: true,
+            userId: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                image: true,
               },
             },
           },
@@ -50,7 +70,7 @@ export const GET = async (req: NextRequest) => {
 
     return NextResponse.json(recruits);
   } catch (error) {
-	console.log(error)
+    console.log(error);
     return NextResponse.json(error, { status: 500 });
   }
 };
