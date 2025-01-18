@@ -6,6 +6,7 @@ export const GET = async (
   req: NextRequest,
   { params }: { params: { id: string } },
 ) => {
+  
   const profile = await prisma.user.findUnique({
     where: { id: params.id },
     include: {

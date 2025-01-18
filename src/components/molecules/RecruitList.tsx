@@ -22,6 +22,7 @@ const RecruitList = ({
 		remainingCount: number;
 	}[];
 }) => {
+	console.log(recruits)
 	return (
 		<div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
 			{recruits.map((recruit) => (
