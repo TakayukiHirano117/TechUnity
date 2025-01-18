@@ -19,8 +19,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "@/hooks/use-toast";
-import { createRecruitSchema } from "@/lib/formSchema";
 import { createRecruit } from "@/lib/fetcher/recruit";
+import { createRecruitSchema } from "@/lib/formSchema";
 
 const CreateRecruitPage = () => {
   const router = useRouter();
@@ -68,7 +68,7 @@ const CreateRecruitPage = () => {
           <Input
             placeholder="タイトル"
             value={title}
-            className="bg-slate-100 text-2xl focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
+            className="bg-slate-100 font-bold text-2xl focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
             {...register("title")}
           />
           <div className="flex flex-col md:flex-row gap-4 mt-4">
