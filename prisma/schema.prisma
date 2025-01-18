@@ -83,7 +83,7 @@ model Recruit {
   creatorId    String
   likes        Like[]
   applications Application[]
-  Hire         Hire[]
+  hires         Hire[]
 
   @@map(name: "recruits")
 }

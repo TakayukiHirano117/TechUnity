@@ -1,5 +1,4 @@
-import { Application, User } from ".prisma/client";
-import { Like } from "@prisma/client";
+import { Application, Hire, Like } from ".prisma/client";
 import { ReactNode } from "react";
 
 export type MainButtonProps = {
@@ -65,11 +64,39 @@ export type DashBoardRecruits = {
     user: {
       id: string;
       name: string;
-	  image: string;
+      image: string;
     };
   }[];
   createdAt: string;
   updatedAt: string;
   // applicantId: string;
   isPublished: boolean;
+  hires: Hire[];
+};
+
+export type ProfilesRecruitListProps = {
+  recruits: {
+    id: string;
+    title: string;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+    isPublished: boolean;
+    likes: Like[];
+    applications: Application[];
+    hires: Hire[];
+  }[];
+};
+
+export type UserProfileHeaderProps = {
+  profile: {
+    id: string;
+    name: string;
+    description: string;
+    email: string;
+    image: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  className?: string;
 };

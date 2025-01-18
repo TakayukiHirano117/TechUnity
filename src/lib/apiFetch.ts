@@ -3,7 +3,6 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 export const deleteRecruit = async (
 	id: string,
 	router: AppRouterInstance,
-	endpoint: string,
 ) => {
 	await fetch(`/api/recruits/${id}`, {
 		method: "DELETE",
@@ -12,5 +11,5 @@ export const deleteRecruit = async (
 		},
 	});
 
-	router.push(endpoint);
+	router.refresh();
 };

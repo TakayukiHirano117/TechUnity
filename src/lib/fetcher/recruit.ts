@@ -1,3 +1,5 @@
+import { DashBoardRecruits } from "@/types/types";
+
 export const createRecruit = async (data: {
   title: string;
   content: string;
@@ -20,14 +22,32 @@ export const deleteRecruit = async (id: string) => {
   return response.json();
 };
 
+export const updateRecruit = async (
+  id: string,
+  data: {
+    title: string;
+    content: string;
+    isPublished: boolean;
+  },
+) => {
+  const res = await fetch(`/api/recruits/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  return res.json();
+};
+
 export const getAllRecruits = async () => {
   const res = await fetch("http://localhost:3000/api/recruits", {
     cache: "no-store",
   });
-  
+
   return res.json();
 };
-
 
 export const getEditRecruitDetail = async (id: string) => {
   const response = await fetch(`/api/recruit/${id}/edit`, {
@@ -46,14 +66,3 @@ export const getRecruitDetail = async (id: string) => {
   });
   return response.json();
 };
-
-
-// ユーザーを採用する
-// export const hireUser = async (recruitId: string, userId: string) => {
-//   await fetch(`/api/recruit/${recruitId}/hire`, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
-// };

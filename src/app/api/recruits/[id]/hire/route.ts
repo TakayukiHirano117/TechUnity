@@ -10,16 +10,22 @@ export const POST = async (
   try {
     const token = await getToken({ req });
 
+    // console.log('req json:', req.json())
+
     if (!token) {
       return NextResponse.json("unauthorized", { status: 403 });
     }
-
+    const body = await req.json();
+    
     // token.idではなく、応募してきたユーザーのidを使用。
-    const { userId } = await req.json();
+    const userId = body?.arg?.userId;
     const recruitId = params.id;
+
+    // console.log(body)
 
     const existingHire = await prisma.hire.findFirst({
       where: {
+        // userId,
         userId,
         recruitId,
       },
@@ -32,8 +38,8 @@ export const POST = async (
     } else {
       const res = await prisma.hire.create({
         data: {
-          userId: userId,
-          recruitId: recruitId,
+          userId,
+          recruitId,
         },
       });
     }

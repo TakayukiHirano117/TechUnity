@@ -1,9 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import React from "react";
+import React, { ReactNode } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import { z } from "zod";
 
 import MainButton from "@/components/atoms/button/MainButton";
@@ -17,39 +16,37 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signInFormSchema } from "@/lib/formSchema";
+import { signUpFormSchema } from "@/lib/formSchema";
 
 import MainDialog from "./MainDialog";
 
-const LoginDialog = ({ trigger }: { trigger: React.ReactNode }) => {
+const SignUpDialog = ({ trigger }: { trigger: ReactNode }) => {
   const router = useRouter();
 
-  const signInForm = useForm<z.infer<typeof signInFormSchema>>({
-    resolver: zodResolver(signInFormSchema),
+  const signUpForm = useForm<z.infer<typeof signUpFormSchema>>({
+    resolver: zodResolver(signUpFormSchema),
     defaultValues: {
       email: "",
+      username: "",
       password: "",
     },
   });
 
-  const onSignInSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // ログイン
-    try {
-      const res = await signIn("credentials", {
-        ...data,
-        redirect: false,
-      });
+  const onSignUpSubmit: SubmitHandler<FieldValues> = async (data) => {
+    await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-      // console.log(res);
+    await signIn("credentials", {
+      ...data,
+      redirect: false,
+    });
 
-      if (!res?.ok) {
-        toast.error(res!.error);
-      }
-
-      router.refresh();
-    } catch (e) {
-      console.error(e);
-    }
+    router.refresh();
   };
 
   return (
@@ -58,16 +55,14 @@ const LoginDialog = ({ trigger }: { trigger: React.ReactNode }) => {
       description="TechUnityはチーム開発メンバーの募集をお手伝いする、チーム開発メンバー募集プラットフォームです。"
       trigger={trigger}
     >
-      <h3 className="text-center font-bold text-2xl">
-        メールアドレスでログイン
-      </h3>
-      <Form {...signInForm}>
+      <h3 className="text-center font-bold text-2xl">メールアドレスで登録</h3>
+      <Form {...signUpForm}>
         <form
-          onSubmit={signInForm.handleSubmit(onSignInSubmit)}
+          onSubmit={signUpForm.handleSubmit(onSignUpSubmit)}
           className="flex flex-col gap-2"
         >
           <FormField
-            control={signInForm.control}
+            control={signUpForm.control}
             name="email"
             render={({ field }) => (
               <FormItem>
@@ -83,7 +78,19 @@ const LoginDialog = ({ trigger }: { trigger: React.ReactNode }) => {
             )}
           />
           <FormField
-            control={signInForm.control}
+            control={signUpForm.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>ユーザー名</FormLabel>
+                <FormControl>
+                  <Input placeholder="Taro Yamada" type="text" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={signUpForm.control}
             name="password"
             render={({ field }) => (
               <FormItem>
@@ -95,7 +102,7 @@ const LoginDialog = ({ trigger }: { trigger: React.ReactNode }) => {
             )}
           />
           <MainButton type="submit" className="rounded-full font-bold">
-            ログインする
+            新規登録する
           </MainButton>
         </form>
       </Form>
@@ -106,7 +113,7 @@ const LoginDialog = ({ trigger }: { trigger: React.ReactNode }) => {
         onClick={() => signIn("github")}
       >
         <GitHubIcon />
-        GitHubでログイン
+        GitHubで登録
       </MainButton>
       <MainButton
         className="rounded-full font-bold"
@@ -114,10 +121,10 @@ const LoginDialog = ({ trigger }: { trigger: React.ReactNode }) => {
         onClick={() => signIn("google")}
       >
         <GoogleIcon />
-        Googleでログイン
+        Googleで登録
       </MainButton>
     </MainDialog>
   );
 };
 
-export default LoginDialog;
+export default SignUpDialog;
