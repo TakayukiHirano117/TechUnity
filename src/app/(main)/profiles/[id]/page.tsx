@@ -1,78 +1,43 @@
-"use client";
-
 import { Recruit } from "@prisma/client";
-import { useParams } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 import useSWR from "swr";
+
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
-import RecruitList from "@/components/molecules/RecruitList";
 
 const getUserProfile = async (url: string) => {
-	const response = await fetch(url);
+  const response = await fetch(url);
 
-	if (!response.ok) {
-		throw new Error("Failed to fetch user profile");
-	}
+  if (!response.ok) {
+    throw new Error("Failed to fetch user profile");
+  }
 
-	const data = await response.json();
-	return data;
+  const data = await response.json();
+  return data;
 };
 
+const ProfileWithRecruits = React.lazy(
+  () => import("@/components/organisms/profiles/ProfileWithRecruits"),
+);
+
 type UserProfile = {
-	image?: string;
-	name?: string;
-	description?: string;
-	recruits_creator: Recruit[];
+  image?: string;
+  name?: string;
+  description?: string;
+  recruits_creator: Recruit[];
 };
 
 const ProfilePage = ({ params }: { params: { id: string } }) => {
-	const id = params.id;
+  const id = params.id;
 
-	const {
-		data: profile,
-		error,
-		isLoading,
-	} = useSWR<UserProfile>(`/api/profiles/${id}`, getUserProfile);
-
-	if (isLoading) {
-		return <div>Loading...</div>;
-	}
-
-	if (error) {
-		return <div>Error loading profile: {error.message}</div>;
-	}
-
-	return (
-		<div className="bg-slate-100 min-h-screen py-4">
-			<div className="container mx-auto max-w-[960px] p-8">
-				{/* ユーザー情報 */}
-				<div className="flex items-center gap-8 justify-center">
-					<AvatarIcon
-						ImageSrc={profile?.image || ""}
-						fallbackText={profile?.name || "No Name"}
-						className="w-20 h-20"
-					/>
-					<div>
-						<h1 className="text-4xl font-bold text-slate-900">
-							{profile?.name || "Anonymous User"}
-						</h1>
-						<div>{profile?.description}</div>
-					</div>
-				</div>
-			</div>
-			<div className="container mx-auto max-w-[960px]">
-				<h2 className="text-2xl font-semibold text-slate-700">Recruits</h2>
-				<div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-					{profile?.recruits_creator.map((recruit) => (
-						<div key={recruit.id} className="truncate">
-							{recruit.title}aaaaaaaaaaaaaaaaaaaaaaa
-						</div>
-					))}
-					{/* <RecruitList recruits={profile?.recruits_creator} /> */}
-				</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className="bg-slate-100 min-h-screen py-4 p-8">
+      <div className="container mx-auto max-w-[960px]">
+        <Suspense fallback={<div>Loading...</div>}>
+          <ProfileWithRecruits id={id} />
+        </Suspense>
+      </div>
+    </div>
+  );
 };
 
 export default ProfilePage;

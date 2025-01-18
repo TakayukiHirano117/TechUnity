@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 import prisma from "@/lib/db";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 
 export const GET = async (
   req: NextRequest,
@@ -13,12 +11,6 @@ export const GET = async (
     const id = params.id;
 
     const token = await getToken({ req });
-
-    // console.log(req)
-
-    // const session = await getServerSession(authOptions);
-
-    // console.log("session: " + session)
 
     const userId = token?.id || null;
 
@@ -59,16 +51,6 @@ export const GET = async (
       isLiked,
       isApplied,
     };
-
-    // console.log("id: " + id)
-
-	// console.log( "userId: " + userId)
-
-  // console.log( "token: " + token)
-
-	// console.log(recruit.likes.some((like) => console.log(like.userId)));
-
-	console.log(response);
 
     return NextResponse.json(response);
   } catch (error) {

@@ -13,14 +13,15 @@ import useSWR from "swr";
 import { z } from "zod";
 
 import MainButton from "@/components/atoms/button/MainButton";
+import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import ImageUpload from "@/components/molecules/ImageUpload";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "@/hooks/use-toast";
+import { updateRecruit } from "@/lib/fetcher/recruit";
 import { editRecruitSchema } from "@/lib/formSchema";
-import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 
 const getRecruitDetail = async (url: string) => {
   const response = await fetch(url, { cache: "no-store" });
@@ -30,7 +31,7 @@ const getRecruitDetail = async (url: string) => {
 const EditRecruitPage = () => {
   const router = useRouter();
   const { id } = useParams();
-  const isInitialResetDone = useRef(false); // 初回リセット済みを追跡するフラグ
+  const isInitialResetDone = useRef(false);
   const [isPreview, setIsPreview] = useState(false); // プレビュー切り替え用
 
   const {
@@ -69,26 +70,22 @@ const EditRecruitPage = () => {
 
   const content = watch("content");
 
+  // フォーム送信時の処理、募集内容を更新して、/dashboard/recruits に遷移する
   const onSubmit = async (data: {
     title: string;
     content: string;
     isPublished: boolean;
   }) => {
-    await fetch(`/api/recruits/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    updateRecruit(id as string, data);
 
     router.push("/dashboard/recruits");
+    router.refresh();
   };
 
   const onInsertImage = useCallback(
     (name: string, url: string) => {
       const currentContent = watch("content");
-      const imageLink = `![${name}](${url})`;
+      const imageLink = `\n![${name}](${url})\n`;
       setValue("content", currentContent + imageLink, { shouldDirty: true });
     },
     [setValue, watch],
@@ -237,6 +234,22 @@ const EditRecruitPage = () => {
                   variant={"outline"}
                   className="rounded-full"
                   disabled={isSubmitting || !content}
+                  onClick={() => {
+                    if (errors.title || errors.content) {
+                      // バリデーションエラーがある場合、toastを表示
+                      Object.values(errors).forEach((error) => {
+                        toast({
+                          title: "エラー",
+                          description:
+                            error.message || "エラーが発生しました。",
+                          variant: "destructive",
+                          duration: 3000,
+                        });
+                      });
+
+                      return;
+                    }
+                  }}
                 >
                   {isSubmitting ? "更新中..." : "更新する"}
                 </Button>
