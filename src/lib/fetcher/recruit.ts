@@ -1,3 +1,5 @@
+const baseURL = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
+
 export const createRecruit = async (data: {
   title: string;
   content: string;
@@ -40,12 +42,9 @@ export const updateRecruit = async (
 };
 
 export const getAllRecruits = async () => {
-  const res = await fetch(
-    process.env.NEXT_PUBLIC_URL + "api/recruits" || "http://localhost:3000/api/recruits",
-    {
-      cache: "no-store",
-    },
-  );
+  const res = await fetch(`${baseURL}/api/recruits`, {
+    cache: "no-store",
+  });
 
   return res.json();
 };
@@ -62,12 +61,8 @@ export const getEditRecruitDetail = async (id: string) => {
 };
 
 export const getRecruitDetail = async (id: string) => {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_URL + `api/recruits/${id}` ||
-      `http://localhost:3000/api/recruits/${id}`,
-    {
-      cache: "no-cache",
-    },
-  );
+  const response = await fetch(`${baseURL}/api/recruits/${id}`, {
+    cache: "no-cache",
+  });
   return response.json();
 };
