@@ -1,3 +1,4 @@
+import { Application, Hire, Like } from "@prisma/client";
 import { format } from "date-fns";
 import Link from "next/link";
 import React from "react";
@@ -7,7 +8,21 @@ import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
 import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const ProfilesRecruitCard = ({ recruit }) => {
+const ProfilesRecruitCard = ({
+  recruit,
+}: {
+  recruit: {
+    id: string;
+    title: string;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+    isPublished: boolean;
+    likes: Like[];
+    applications: Application[];
+    hires: Hire[];
+  };
+}) => {
   return (
     <Card className="shadow-none border-none">
       <CardHeader>
