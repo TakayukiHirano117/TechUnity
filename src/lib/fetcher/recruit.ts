@@ -1,5 +1,3 @@
-import { DashBoardRecruits } from "@/types/types";
-
 export const createRecruit = async (data: {
   title: string;
   content: string;

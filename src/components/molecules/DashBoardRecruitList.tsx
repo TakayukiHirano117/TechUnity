@@ -33,7 +33,6 @@ const DashBoardRecruitList = ({
     }[];
   }[];
 }) => {
-  console.log(recruits);
   return (
     <>
       {recruits.map((recruit) => (
