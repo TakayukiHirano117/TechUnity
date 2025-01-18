@@ -3,32 +3,27 @@
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React from "react";
 import useSWR from "swr";
 
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
+import MainButton from "@/components/atoms/button/MainButton";
 import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
 import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
 import { DashBoardRecruits } from "@/types/types";
-import MainButton from "@/components/atoms/button/MainButton";
-import { Button } from "@/components/ui/button";
 
 const items = SidebarItems;
 
 const getLikedRecruits = async (): Promise<DashBoardRecruits[]> => {
   const res = await fetch("/api/dashboard/liked-recruits");
   const recruits = await res.json();
-  // console.log(recruits);
   return recruits;
 };
 
 const LikedRecruitsDashboardPage = () => {
-  // const router = useRouter();
-
   const {
     data: recruits,
     error,
@@ -128,7 +123,6 @@ const LikedRecruitsDashboardPage = () => {
       </div>
     </div>
   );
-
 };
 
 export default LikedRecruitsDashboardPage;
