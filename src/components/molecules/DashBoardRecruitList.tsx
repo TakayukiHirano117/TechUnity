@@ -1,4 +1,3 @@
-import { Application, Hire, Like } from "@prisma/client";
 import React from "react";
 
 import DashBoardRecruitCard from "./card/DashBoardRecruitCard";

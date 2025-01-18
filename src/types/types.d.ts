@@ -56,8 +56,8 @@ export type DashBoardRecruits = {
   // content: string;
   creator: {
     id: string;
-    // name: string;
-    // image: string;
+    name: string;
+    image: string;
   };
   likes: Like[];
   applications: {
