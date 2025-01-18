@@ -2,7 +2,8 @@ import { headers } from "next/headers";
 
 export const getRecruitsWithUser = async () => {
   const res = await fetch(
-    "https://tech-unity.vercel.app/api/dashboard/recruits",
+    process.env.NEXT_PUBLIC_URL ||
+      "http://localhost:3000/api/dashboard/recruits",
     {
       // headers情報がないからgetTokenできなかったっぽい。
       headers: Object.fromEntries(headers()),

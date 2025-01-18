@@ -40,9 +40,12 @@ export const updateRecruit = async (
 };
 
 export const getAllRecruits = async () => {
-  const res = await fetch("https://tech-unity.vercel.app/api/recruits", {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_URL || "http://localhost:3000/api/recruits",
+    {
+      cache: "no-store",
+    },
+  );
 
   return res.json();
 };
@@ -60,7 +63,7 @@ export const getEditRecruitDetail = async (id: string) => {
 
 export const getRecruitDetail = async (id: string) => {
   const response = await fetch(
-    `https://tech-unity.vercel.app/api/recruits/${id}`,
+    process.env.NEXT_PUBLIC_URL || `http://localhost:3000/api/recruits/${id}`,
     {
       cache: "no-cache",
     },
