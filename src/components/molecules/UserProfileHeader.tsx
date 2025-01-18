@@ -1,22 +1,10 @@
 import React from "react";
 
+import { UserProfileHeaderProps } from "@/types/types";
+
 import AvatarIcon from "../atoms/avatar/AvatarIcon";
 
-const UserProfileHeader = ({
-  profile,
-  className,
-}: {
-  profile: {
-    id: string;
-    name: string;
-    description: string;
-    email: string;
-    image: string;
-    createdAt: string;
-    updatedAt: string;
-  };
-  className?: string;
-}) => {
+const UserProfileHeader = ({ profile, className }: UserProfileHeaderProps) => {
   return (
     <div
       className={`${className} flex items-center gap-8 justify-center bg-white max-w-max mx-auto p-4 rounded-lg shadow-sm`}

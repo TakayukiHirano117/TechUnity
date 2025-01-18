@@ -1,23 +1,13 @@
-import { Application, Hire, Like } from "@prisma/client";
 import React from "react";
+
+import { ProfilesRecruitListProps } from "@/types/types";
 
 import ProfilesRecruitCard from "./card/ProfilesRecruitCard";
 
-// propsでpropsを受け取る。
 const ProfilesRecruitList = ({
   recruits,
 }: {
-  recruits: {
-    id: string;
-    title: string;
-    content: string;
-    createdAt: string;
-    updatedAt: string;
-    isPublished: boolean;
-    likes: Like[];
-    applications: Application[];
-    hires: Hire[];
-  }[];
+  recruits: ProfilesRecruitListProps["recruits"];
 }) => {
   return (
     <div>
@@ -28,7 +18,6 @@ const ProfilesRecruitList = ({
         ))}
       </div>
     </div>
-    // mapでrecruitsをループさせてそのなかでProfilesRecruitCardを呼び出す
   );
 };
 
