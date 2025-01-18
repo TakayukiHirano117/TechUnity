@@ -1,13 +1,39 @@
 import React from "react";
 
-import { DashBoardRecruits } from "@/types/types";
-
 import DashBoardRecruitCard from "./card/DashBoardRecruitCard";
 
 const DashBoardRecruitList = ({
   recruits,
+}: {
+  recruits: {
+    id: string;
+    title: string;
+    createdAt: string;
+    isPublished: boolean;
+    creator: {
+      id: string;
+    };
+    likes: {
+      userId: string;
+    }[];
+    applications: {
+      user: {
+        id: string;
+        name: string;
+        image: string | null;
+      };
+    }[];
+    hires: {
+      userId: string;
+      user: {
+        id: string;
+        name: string;
+        image: string | null;
+      };
+    }[];
+  }[];
 }) => {
-  // console.log(recruits);
+  console.log(recruits);
   return (
     <>
       {recruits.map((recruit) => (

@@ -21,20 +21,47 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useHire } from "@/hooks/useHire";
 import { deleteRecruit } from "@/lib/apiFetch";
-import { DashBoardRecruits } from "@/types/types";
 
 import MainDialog from "../dialog/MainDialog";
 
-const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruits }) => {
+export type DashBoardRecruit = {
+  id: string;
+  title: string;
+  createdAt: string;
+  isPublished: boolean;
+  creator: {
+    id: string;
+  };
+  likes: {
+    userId: string;
+  }[];
+  applications: {
+    user: {
+      id: string;
+      name: string;
+      image: string | null;
+    };
+  }[];
+  hires: {
+    userId: string;
+    user: {
+      id: string;
+      name: string;
+      image: string | null;
+    };
+  }[];
+};
+
+const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
   const [dialogStates, setDialogStates] = useState<Record<string, boolean>>({});
 
   const { toggleHire, isHireMutating } = useHire(recruit.id);
   const router = useRouter();
 
   const handleHire = async (userId: string) => {
-     console.log("Sending userId:", userId); 
+    console.log("Sending userId:", userId);
 
-    await toggleHire({ arg: { userId } });
+    await toggleHire({ userId });
     setDialogStates((prev) => ({ ...prev, [userId]: false }));
     router.refresh();
   };
@@ -79,7 +106,7 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruits }) => {
                           <div className="flex gap-4 justify-between w-full">
                             <div className="flex items-center gap-1 truncate">
                               <AvatarIcon
-                                ImageSrc={application.user.image}
+                                ImageSrc={application.user.image || ""}
                                 fallbackText={application.user.name}
                                 className="w-5 h-5 border"
                               />
