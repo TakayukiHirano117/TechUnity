@@ -1,5 +1,3 @@
-import { DashBoardRecruits } from "@/types/types";
-
 export const createRecruit = async (data: {
   title: string;
   content: string;
@@ -42,9 +40,12 @@ export const updateRecruit = async (
 };
 
 export const getAllRecruits = async () => {
-  const res = await fetch("http://localhost:3000/api/recruits", {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    "https://tech-unity-mfceb5s69-takayukihirano117s-projects-caaa37ec.vercel.app/api/recruits",
+    {
+      cache: "no-store",
+    },
+  );
 
   return res.json();
 };
@@ -61,8 +62,11 @@ export const getEditRecruitDetail = async (id: string) => {
 };
 
 export const getRecruitDetail = async (id: string) => {
-  const response = await fetch(`http://localhost:3000/api/recruits/${id}`, {
-    cache: "no-cache",
-  });
+  const response = await fetch(
+    `https://tech-unity-mfceb5s69-takayukihirano117s-projects-caaa37ec.vercel.app/api/recruits/${id}`,
+    {
+      cache: "no-cache",
+    },
+  );
   return response.json();
 };
