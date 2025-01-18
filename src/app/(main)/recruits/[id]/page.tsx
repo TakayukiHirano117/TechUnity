@@ -18,6 +18,7 @@ import GitHubIcon from "@/components/atoms/Icon/GitHubIcon";
 import GoogleIcon from "@/components/atoms/Icon/GoogleIcon";
 import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
+import LoginDialog from "@/components/molecules/dialog/LoginDialog";
 import MainDialog from "@/components/molecules/dialog/MainDialog";
 import { DialogClose } from "@/components/ui/dialog";
 import { useApply } from "@/hooks/useApply";
@@ -197,10 +198,7 @@ const RecruitDetailPage = () => {
                             </MainDialog>
                           )
                         ) : (
-                          // <LoginDialog />
-                          <MainDialog
-                            title="TechUnity"
-                            description="TechUnityはチーム開発メンバーの募集をお手伝いする、チーム開発メンバー募集プラットフォームです。"
+                          <LoginDialog
                             trigger={
                               <button
                                 type="button"
@@ -218,24 +216,7 @@ const RecruitDetailPage = () => {
                                 />
                               </button>
                             }
-                          >
-                            <MainButton
-                              className="rounded-full font-bold"
-                              variant="outline"
-                              onClick={() => signIn("github")}
-                            >
-                              <GitHubIcon />
-                              GitHubでログイン
-                            </MainButton>
-                            <MainButton
-                              className="rounded-full font-bold"
-                              variant="outline"
-                              onClick={() => signIn("google")}
-                            >
-                              <GoogleIcon />
-                              Googleでログイン
-                            </MainButton>
-                          </MainDialog>
+                          />
                         )}
                       </div>
                       <span className="text-slate-500 text-sm">
@@ -246,28 +227,24 @@ const RecruitDetailPage = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       {session ? (
-                        <>
-                          <button
-                            type="button"
-                            className={`rounded-full p-2 hover:bg-red-300 cursor-pointer ${recruit.isLiked ? "bg-red-300" : "bg-slate-200"}`}
-                            onClick={() => toggleRecruitLike()}
-                            disabled={isLikeRecruitMutating}
-                          >
-                            <HeartIcon
-                              width="24"
-                              height="24"
-                              className={`${
-                                recruit.isLiked
-                                  ? "text-red-600"
-                                  : "text-slate-600"
-                              }`}
-                            />
-                          </button>
-                        </>
+                        <button
+                          type="button"
+                          className={`rounded-full p-2 hover:bg-red-300 cursor-pointer ${recruit.isLiked ? "bg-red-300" : "bg-slate-200"}`}
+                          onClick={() => toggleRecruitLike()}
+                          disabled={isLikeRecruitMutating}
+                        >
+                          <HeartIcon
+                            width="24"
+                            height="24"
+                            className={`${
+                              recruit.isLiked
+                                ? "text-red-600"
+                                : "text-slate-600"
+                            }`}
+                          />
+                        </button>
                       ) : (
-                        <MainDialog
-                          title="TechUnity"
-                          description="TechUnityはチーム開発メンバーの募集をお手伝いする、チーム開発メンバー募集プラットフォームです。"
+                        <LoginDialog
                           trigger={
                             <button
                               type="button"
@@ -286,24 +263,7 @@ const RecruitDetailPage = () => {
                               />
                             </button>
                           }
-                        >
-                          <MainButton
-                            className="rounded-full font-bold"
-                            variant="outline"
-                            onClick={() => signIn("github")}
-                          >
-                            <GitHubIcon />
-                            GitHubでログイン
-                          </MainButton>
-                          <MainButton
-                            className="rounded-full font-bold"
-                            variant="outline"
-                            onClick={() => signIn("google")}
-                          >
-                            <GoogleIcon />
-                            Googleでログイン
-                          </MainButton>
-                        </MainDialog>
+                        />
                       )}
                       <span className="text-slate-500 text-sm">
                         {recruit.likes.length > 0 && recruit.likes.length}

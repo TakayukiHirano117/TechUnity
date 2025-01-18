@@ -24,7 +24,7 @@ import { createRecruitSchema } from "@/lib/formSchema";
 
 const CreateRecruitPage = () => {
   const router = useRouter();
-  const [isPreview, setIsPreview] = useState(false); // Switchでプレビュー状態を管理
+  const [isPreview, setIsPreview] = useState(false);
 
   const {
     register,
@@ -57,7 +57,7 @@ const CreateRecruitPage = () => {
 
   const onInsertImage = (name: string, url: string) => {
     const content = watch("content");
-    const imageLink = `![${name}](${url})\n`;
+    const imageLink = `\n![${name}](${url})\n`;
     setValue("content", content + imageLink);
   };
 
@@ -192,6 +192,7 @@ const CreateRecruitPage = () => {
                   <ImageUpload folder="recruits" onInsertImage={onInsertImage}>
                     {(open) => (
                       <MainButton
+                        type="button"
                         className="rounded-full font-bold flex gap-1"
                         onClick={() => open()}
                         variant={"outline"}
