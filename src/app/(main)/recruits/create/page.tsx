@@ -53,6 +53,7 @@ const CreateRecruitPage = () => {
     createRecruit(data);
 
     router.push("/dashboard/recruits");
+    router.refresh();
   };
 
   const onInsertImage = (name: string, url: string) => {
