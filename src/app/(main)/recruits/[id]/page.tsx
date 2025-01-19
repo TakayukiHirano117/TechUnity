@@ -79,15 +79,15 @@ const RecruitDetailPage = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-between gap-8 max-w-[1200px] mx-auto p-8">
+          <div className="flex justify-between gap-8 max-w-[1200px] mx-auto sm:p-8 py-8">
             <div className="lg:w-4/5 w-full">
               <MDEditor.Markdown
                 source={recruit?.content}
                 remarkPlugins={[remarkGfm, remarkBreaks]}
                 rehypePlugins={[rehypeSanitize]}
-                className="text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-10 rounded-t-lg max-w-full"
+                className="text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-10 sm:rounded-t-lg max-w-full"
               />
-              <div className="rounded-b-lg bg-white border p-8 w-full flex flex-col justify-between">
+              <div className="sm:rounded-b-lg bg-white border p-8 w-full flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-4 ">
                     <div className="flex items-center gap-2">

@@ -12,13 +12,16 @@ import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import { z } from "zod";
 
+import toast, { Toaster } from "react-hot-toast";
+
+const success = () => toast("募集を作成しました", { icon: "🎉" });
+
 import MainButton from "@/components/atoms/button/MainButton";
 import ImageUpload from "@/components/molecules/ImageUpload";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { toast } from "@/hooks/use-toast";
 import { createRecruit } from "@/lib/fetcher/recruit";
 import { createRecruitSchema } from "@/lib/formSchema";
 
@@ -34,7 +37,7 @@ const CreateRecruitPage = () => {
     setValue,
     watch,
     control,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors, isSubmitSuccessful },
   } = useForm<z.infer<typeof createRecruitSchema>>({
     resolver: zodResolver(createRecruitSchema),
     defaultValues: {
@@ -53,7 +56,12 @@ const CreateRecruitPage = () => {
     content: string;
     isPublished: boolean;
   }) => {
-    createRecruit(data);
+    try {
+      createRecruit(data);
+      toast.success("募集を作成しました");
+    } catch (error) {
+      toast.error("エラーが発生しました");
+    }
 
     router.push("/dashboard/recruits");
     router.refresh();
@@ -68,7 +76,7 @@ const CreateRecruitPage = () => {
 
   return (
     <div className="bg-slate-100 w-full">
-      <div className="max-w-[960px] mx-auto p-8 container">
+      <div className="max-w-[960px] mx-auto sm:p-8 p-2 container">
         <form onSubmit={handleSubmit(onSubmit)} method="POST">
           {/* タイトル入力欄 */}
           <Input
@@ -156,25 +164,26 @@ const CreateRecruitPage = () => {
                 </div>
                 <div>
                   <Button
+                    type="submit"
                     variant={"outline"}
                     className="rounded-full shadow-md"
                     disabled={isSubmitting || !content || !title}
-                    onClick={() => {
-                      if (errors.title || errors.content) {
-                        // バリデーションエラーがある場合、toastを表示
-                        Object.values(errors).forEach((error) => {
-                          toast({
-                            title: "エラー",
-                            description:
-                              error.message || "エラーが発生しました。",
-                            variant: "destructive",
-                            duration: 3000,
-                          });
-                        });
+                    // onClick={() => {
+                    //   if (errors.title || errors.content) {
+                    //     // バリデーションエラーがある場合、toastを表示
+                    //     Object.values(errors).forEach((error) => {
+                    //       toast({
+                    //         title: "エラー",
+                    //         description:
+                    //           error.message || "エラーが発生しました。",
+                    //         variant: "destructive",
+                    //         duration: 3000,
+                    //       });
+                    //     });
 
-                        return;
-                      }
-                    }}
+                    //     return;
+                    //   }
+                    // }}
                   >
                     {isSubmitting ? "作成中..." : "作成する"}
                   </Button>
@@ -229,22 +238,22 @@ const CreateRecruitPage = () => {
                   variant={"outline"}
                   className="rounded-full"
                   disabled={isSubmitting || !content || !title}
-                  onClick={() => {
-                    if (errors.title || errors.content) {
-                      // バリデーションエラーがある場合、toastを表示
-                      Object.values(errors).forEach((error) => {
-                        toast({
-                          title: "エラー",
-                          description:
-                            error.message || "エラーが発生しました。",
-                          variant: "destructive",
-                          duration: 3000,
-                        });
-                      });
+                  // onClick={() => {
+                  //   if (errors.title || errors.content) {
+                  //     // バリデーションエラーがある場合、toastを表示
+                  //     Object.values(errors).forEach((error) => {
+                  //       toast({
+                  //         title: "エラー",
+                  //         description:
+                  //           error.message || "エラーが発生しました。",
+                  //         variant: "destructive",
+                  //         duration: 3000,
+                  //       });
+                  //     });
 
-                      return;
-                    }
-                  }}
+                  //     return;
+                  //   }
+                  // }}
                 >
                   {isSubmitting ? "作成中..." : "作成する"}
                 </Button>
@@ -253,6 +262,7 @@ const CreateRecruitPage = () => {
           </div>
         </form>
       </div>
+      {/* {isSubmitSuccessful && <Toaster />} */}
     </div>
   );
 };

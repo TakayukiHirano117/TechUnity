@@ -6,7 +6,7 @@ import EditRecruitIndex from "@/components/organisms/recruits/EditRecruitIndex";
 const EditRecruitPage = ({ params }: { params: { id: string } }) => {
   return (
     <div className="bg-slate-100 w-full">
-      <div className="max-w-[960px] mx-auto p-8 container">
+      <div className="max-w-[960px] mx-auto sm:p-8 p-2 container">
         <Suspense
           fallback={
             <div className="flex space-y-3 justify-between">
