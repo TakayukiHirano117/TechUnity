@@ -4,7 +4,7 @@ import { updateRecruit } from "@/lib/fetcher/recruit";
 import { editRecruitSchema } from "@/lib/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Input } from "../ui/input";
@@ -20,9 +20,19 @@ import { ImageIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { toast } from "@/hooks/use-toast";
 
-const EditRecruit = ({ recruit }) => {
+const EditRecruit = ({
+  recruit,
+}: {
+  recruit: {
+    id: string;
+    title: string;
+    content: string;
+    isPublished: boolean;
+  };
+}) => {
   const [isPreview, setIsPreview] = useState(false);
   const router = useRouter();
+  const isInitialResetDone = useRef(false);
 
   const {
     register,
@@ -43,12 +53,23 @@ const EditRecruit = ({ recruit }) => {
 
   const content = watch("content");
 
+  useEffect(() => {
+    if (!isInitialResetDone.current) {
+      reset({
+        title: recruit.title,
+        content: recruit.content,
+        isPublished: recruit.isPublished,
+      });
+      isInitialResetDone.current = true;
+    }
+  }, [recruit, reset]);
+
   const onSubmit = async (data: {
     title: string;
     content: string;
     isPublished: boolean;
   }) => {
-    updateRecruit(id as string, data);
+    updateRecruit(recruit.id as string, data);
 
     router.push("/dashboard/recruits");
     router.refresh();
@@ -176,6 +197,7 @@ const EditRecruit = ({ recruit }) => {
             <ImageUpload folder="recruits" onInsertImage={onInsertImage}>
               {(open) => (
                 <MainButton
+                  type="button"
                   className="rounded-full font-bold flex gap-1"
                   onClick={() => open()}
                   variant={"outline"}

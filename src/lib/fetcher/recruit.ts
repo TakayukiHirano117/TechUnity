@@ -56,8 +56,9 @@ export const getAllRecruits = async () => {
 
 // 編集対象の募集詳細を取得
 export const getEditRecruitDetail = async (id: string) => {
-  const response = await fetch(`/api/recruit/${id}/edit`, {
+  const response = await fetch(`${baseURL}/api/recruit/${id}/edit`, {
     cache: "no-store",
+    // headers: Object.fromEntries(headers()),
   });
   return response.json();
 };
