@@ -5,6 +5,7 @@ import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
 
+
 const items = SidebarItems;
 
 const DashBoardProfilesIndex = React.lazy(

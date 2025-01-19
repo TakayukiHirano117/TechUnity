@@ -18,7 +18,8 @@ import ImageUpload from "./ImageUpload";
 import MainButton from "../atoms/button/MainButton";
 import { ImageIcon } from "lucide-react";
 import { Button } from "../ui/button";
-import { toast } from "@/hooks/use-toast";
+import toast from "react-hot-toast";
+
 
 const EditRecruit = ({
   recruit,
@@ -69,10 +70,16 @@ const EditRecruit = ({
     content: string;
     isPublished: boolean;
   }) => {
-    updateRecruit(recruit.id as string, data);
 
-    router.push("/dashboard/recruits");
-    router.refresh();
+    try {
+      updateRecruit(recruit.id as string, data);
+      toast.success("更新しました");
+    } catch (error) {
+      toast.error("更新に失敗しました");
+    }
+
+    // router.push("/dashboard/recruits");
+    // router.refresh();
   };
 
   const onInsertImage = useCallback(
@@ -211,21 +218,21 @@ const EditRecruit = ({
               variant={"outline"}
               className="rounded-full"
               disabled={isSubmitting || !content}
-              onClick={() => {
-                if (errors.title || errors.content) {
-                  // バリデーションエラーがある場合、toastを表示
-                  Object.values(errors).forEach((error) => {
-                    toast({
-                      title: "エラー",
-                      description: error.message || "エラーが発生しました。",
-                      variant: "destructive",
-                      duration: 3000,
-                    });
-                  });
+              // onClick={() => {
+              //   if (errors.title || errors.content) {
+              //     // バリデーションエラーがある場合、toastを表示
+              //     Object.values(errors).forEach((error) => {
+              //       toast({
+              //         title: "エラー",
+              //         description: error.message || "エラーが発生しました。",
+              //         variant: "destructive",
+              //         duration: 3000,
+              //       });
+              //     });
 
-                  return;
-                }
-              }}
+              //     return;
+              //   }
+              // }}
             >
               {isSubmitting ? "更新中..." : "更新する"}
             </Button>
