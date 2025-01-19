@@ -145,6 +145,16 @@ const EditRecruitPage = () => {
               )}
               <div className="bg-slate-200 rounded-lg mt-2 py-2 md:hidden sticky bottom-10 left-0 w-full flex justify-center items-center gap-4">
                 <div className="flex items-center space-x-2 bg-white p-2 rounded-full">
+                  <Switch
+                    checked={isPreview}
+                    onCheckedChange={setIsPreview}
+                    className="shadow-md"
+                  />
+                  <Label className="font-bold text-slate-700">
+                    {isPreview ? "プレビュー" : "編集"}
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2 bg-white p-2 rounded-full">
                   <Controller
                     name="isPublished"
                     control={control}
@@ -161,16 +171,6 @@ const EditRecruitPage = () => {
                       </>
                     )}
                   />
-                </div>
-                <div className="flex items-center space-x-2 bg-white p-2 rounded-full">
-                  <Switch
-                    checked={isPreview}
-                    onCheckedChange={setIsPreview}
-                    className="shadow-md"
-                  />
-                  <Label className="font-bold text-slate-700">
-                    {isPreview ? "プレビュー" : "編集"}
-                  </Label>
                 </div>
                 <ImageUpload folder="recruits" onInsertImage={onInsertImage}>
                   {(open) => (

@@ -7,8 +7,6 @@ import DashBoardProfiles from "../molecules/DashBoardProfiles";
 const DashBoardProfilesIndex = async () => {
   const profile = await getProfile();
 
-  console.log(profile)
-
   return <DashBoardProfiles profile={profile} />;
 };
 
