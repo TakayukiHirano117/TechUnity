@@ -23,6 +23,7 @@ import MainDialog from "@/components/molecules/dialog/MainDialog";
 import { DialogClose } from "@/components/ui/dialog";
 import { useApply } from "@/hooks/useApply";
 import { useRecruitLike } from "@/hooks/useRecruitLike";
+import remarkBreaks from "remark-breaks";
 
 const getRecruitDetail = async (url: string) => {
   const response = await fetch(url, { cache: "no-store" });
@@ -82,7 +83,7 @@ const RecruitDetailPage = () => {
             <div className="lg:w-4/5 w-full">
               <MDEditor.Markdown
                 source={recruit?.content}
-                remarkPlugins={[remarkGfm]}
+                remarkPlugins={[remarkGfm, remarkBreaks]}
                 rehypePlugins={[rehypeSanitize]}
                 className="text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-10 rounded-t-lg max-w-full"
               />
