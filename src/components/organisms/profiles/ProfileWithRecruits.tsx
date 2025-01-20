@@ -7,8 +7,6 @@ import { getRecruitsWithProfile } from "@/lib/fetcher/profile";
 const ProfileWithRecruits = async ({ id }: { id: string }) => {
   const profile = await getRecruitsWithProfile(id);
 
-  console.log(profile);
-
   return (
     <>
       <UserProfileHeader profile={profile} className="my-8" />

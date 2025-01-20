@@ -27,8 +27,6 @@ export const GET = async (req: NextRequest) => {
 			},
 		});
 
-		console.log(likedRecruits);
-
 		return NextResponse.json(likedRecruits);
 	} catch (error) {
 		console.error("Error fetching liked recruits:", error);

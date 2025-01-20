@@ -11,7 +11,6 @@ export const GET = async (
     const id = params.id;
 
     const token = await getToken({ req });
-    // console.log(token);
 
     const userId = token?.id || null;
 
