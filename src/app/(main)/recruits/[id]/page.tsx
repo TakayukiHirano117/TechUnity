@@ -71,7 +71,7 @@ const RecruitDetailPage = () => {
         <>
           <div className="container mx-auto">
             <div className="flex flex-col items-center py-[4rem] gap-4">
-              <h1 className="text-4xl font-bold px-8">{recruit?.title}</h1>
+              <h1 className="text-3xl sm:text-4xl font-bold px-8">{recruit?.title}</h1>
               <div className="flex gap-4 items-center">
                 <p className="text-slate-600 text-sm">
                   {format(recruit?.createdAt, "yyyy/MM/dd")}
@@ -79,7 +79,7 @@ const RecruitDetailPage = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-between gap-8 max-w-[1200px] mx-auto sm:p-8 py-8">
+          <div className="flex justify-between gap-8 max-w-[1200px] mx-auto sm:p-8 pb-8">
             <div className="lg:w-4/5 w-full">
               <MDEditor.Markdown
                 source={recruit?.content}
