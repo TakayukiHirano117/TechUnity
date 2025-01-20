@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 import useSWR from "swr";
 
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
+import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 
 const getUserProfile = async (url: string) => {
   const response = await fetch(url);
@@ -32,7 +33,17 @@ const ProfilePage = ({ params }: { params: { id: string } }) => {
   return (
     <div className="bg-slate-100 min-h-screen py-4 p-8">
       <div className="container mx-auto max-w-[960px]">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+          fallback={
+            <div className="mx-auto space-y-3 h-screen">
+              <LoadingIcon
+                width="40"
+                height="40"
+                className="animate-spin text-slate-600"
+              />
+            </div>
+          }
+        >
           <ProfileWithRecruits id={id} />
         </Suspense>
       </div>
