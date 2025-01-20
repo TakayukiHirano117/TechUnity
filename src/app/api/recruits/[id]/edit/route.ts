@@ -13,8 +13,6 @@ export const GET = async (
 	try {
 		// ログインしているユーザーが投稿したものでなければエラー
 		const token = await getToken({ req });
-		console.log(token)
-
 		if (!token) {
 			return NextResponse.json("unauthorized", { status: 403 });
 		}
@@ -24,14 +22,12 @@ export const GET = async (
 		const recruit = await prisma.recruit.findUnique({
 			where: { id: id },
 			select: {
-				// id: true,
+				id: true,
 				title: true,
 				content: true,
 				isPublished: true,
 			},
 		});
-
-		// console.log(recruit);
 
 		return NextResponse.json(recruit);
 	} catch (error) {

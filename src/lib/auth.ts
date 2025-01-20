@@ -35,8 +35,6 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
-        console.log(user);
-
         if (!user || !user?.hashedPassword) {
           throw new Error("ユーザーが存在しません");
         }

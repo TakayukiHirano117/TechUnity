@@ -8,6 +8,11 @@ export const GET = async (req: NextRequest) => {
   // ユーザーデータを取得
   const session = await getServerSession(authOptions);
 
+  // これがないとログインしてない場合はエラーになるので要修正
+  if(!session) {
+    return NextResponse.json(session);
+  }
+
   const user = await prisma.user.findUnique({
     where: { id: session?.user.id },
     select: {

@@ -40,8 +40,6 @@ const LoginDialog = ({ trigger }: { trigger: React.ReactNode }) => {
         redirect: false,
       });
 
-      // console.log(res);
-
       if (!res?.ok) {
         toast.error(res!.error);
       }

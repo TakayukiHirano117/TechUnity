@@ -10,8 +10,6 @@ export const getRecruitsWithUser = async () => {
       headers: Object.fromEntries(headers()),
     },
   );
-  // console.log(Object.fromEntries(headers()));
   const recruits = await res.json();
-  // console.log(recruits)
   return recruits;
 };

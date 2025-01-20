@@ -7,13 +7,15 @@ export const createRecruit = async (data: {
   content: string;
   isPublished: boolean;
 }) => {
-  await fetch("/api/recruits", {
+  const res = await fetch("/api/recruits", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
+
+  return res.json();
 };
 
 // 募集を削除
@@ -56,12 +58,9 @@ export const getAllRecruits = async () => {
 
 // 編集対象の募集詳細を取得
 export const getEditRecruitDetail = async (id: string) => {
-  const response = await fetch(`/api/recruit/${id}/edit`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-cache",
+  const response = await fetch(`${baseURL}/api/recruit/${id}/edit`, {
+    cache: "no-store",
+    // headers: Object.fromEntries(headers()),
   });
   return response.json();
 };

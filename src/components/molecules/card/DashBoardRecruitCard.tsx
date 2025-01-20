@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import MainButton from "@/components/atoms/button/MainButton";
@@ -20,7 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useHire } from "@/hooks/useHire";
-import { deleteRecruit } from "@/lib/apiFetch";
+import { deleteRecruit } from "@/lib/fetcher/recruit";
 
 import MainDialog from "../dialog/MainDialog";
 
@@ -59,8 +60,6 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
   const router = useRouter();
 
   const handleHire = async (userId: string) => {
-    console.log("Sending userId:", userId);
-
     await toggleHire({ userId });
     setDialogStates((prev) => ({ ...prev, [userId]: false }));
     router.refresh();
@@ -68,6 +67,16 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
 
   const toggleDialog = (userId: string, isOpen: boolean) => {
     setDialogStates((prev) => ({ ...prev, [userId]: isOpen }));
+  };
+
+  const handleDeleteRecruit = () => {
+    try {
+      deleteRecruit(recruit.id);
+      toast.success("削除しました。");
+      router.refresh();
+    } catch (error) {
+      toast.error("削除に失敗しました。");
+    }
   };
 
   return (
@@ -236,23 +245,23 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
         </div>
         <div className="flex gap-4 items-center">
           <Link href={`/recruits/${recruit.id}/edit`}>
-            <div className="p-2 rounded-full hover:bg-slate-200 border">
+            <button className="p-1 rounded-full hover:bg-slate-200 border">
               <PencilIcon
-                width="20"
-                height="20"
+                width="28"
+                height="28"
                 className="hover:opacity-70 text-slate-600"
               />
-            </div>
+            </button>
           </Link>
-          <div className="rounded-full hover:bg-slate-200 border p-2 cursor-pointer flex items-center justify-center">
+          <div className="rounded-full hover:bg-slate-200 border p-1 cursor-pointer flex items-center justify-center">
             <MainDialog
               title="削除しますか？"
               description={`${recruit.title}を削除します、この操作は取り消せません`}
               trigger={
-                <button type="button" className="w-5 h-5 rounded-full">
+                <button type="button" className="w-7 h-7 rounded-full flex flex-col items-center justify-center">
                   <DeleteIcon
-                    width="20"
-                    height="20"
+                    width="25"
+                    height="25"
                     className="hover:opacity-70 text-slate-600"
                   />
                 </button>
@@ -268,9 +277,10 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
                   </MainButton>
                 </DialogClose>
                 <MainButton
+                  type="submit"
                   className="rounded-full py-2 px-4"
                   variant={"destructive"}
-                  onClick={() => deleteRecruit(recruit.id, router)}
+                  onClick={handleDeleteRecruit}
                 >
                   削除
                 </MainButton>

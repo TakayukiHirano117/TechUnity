@@ -6,7 +6,7 @@ import NextAuthSessionProvider from "@/components/atoms/auth/NextAuthSessionProv
 import ProgressBar from "@/components/atoms/progress/ProgressBar";
 import Footer from "@/components/organisms/footer/Footer";
 import Header from "@/components/organisms/header/Header";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

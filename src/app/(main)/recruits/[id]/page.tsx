@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import React, { useState } from "react";
 import rehypeSanitize from "rehype-sanitize";
+import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import useSWR from "swr";
 
@@ -23,6 +24,7 @@ import MainDialog from "@/components/molecules/dialog/MainDialog";
 import { DialogClose } from "@/components/ui/dialog";
 import { useApply } from "@/hooks/useApply";
 import { useRecruitLike } from "@/hooks/useRecruitLike";
+import toast from "react-hot-toast";
 
 const getRecruitDetail = async (url: string) => {
   const response = await fetch(url, { cache: "no-store" });
@@ -39,6 +41,7 @@ const RecruitDetailPage = () => {
 
   const handleApply = async () => {
     await toggleApply();
+    // toast.success("応募しました。");
     setIsDialogOpen(false);
   };
 
@@ -70,7 +73,9 @@ const RecruitDetailPage = () => {
         <>
           <div className="container mx-auto">
             <div className="flex flex-col items-center py-[4rem] gap-4">
-              <h1 className="text-4xl font-bold px-8">{recruit?.title}</h1>
+              <h1 className="text-3xl sm:text-4xl font-bold px-8">
+                {recruit?.title}
+              </h1>
               <div className="flex gap-4 items-center">
                 <p className="text-slate-600 text-sm">
                   {format(recruit?.createdAt, "yyyy/MM/dd")}
@@ -78,15 +83,15 @@ const RecruitDetailPage = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-between gap-8 max-w-[1200px] mx-auto p-8">
+          <div className="flex justify-between gap-8 max-w-[1200px] mx-auto sm:p-8 pb-8">
             <div className="lg:w-4/5 w-full">
               <MDEditor.Markdown
                 source={recruit?.content}
-                remarkPlugins={[remarkGfm]}
+                remarkPlugins={[remarkGfm, remarkBreaks]}
                 rehypePlugins={[rehypeSanitize]}
-                className="text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-10 rounded-t-lg max-w-full"
+                className="text-[20px] prose-img:max-w-full prose prose-img:h-auto prose-img:mx-auto prose-img:block prose-code:text-slate-900 border p-10 sm:rounded-t-lg max-w-full"
               />
-              <div className="rounded-b-lg bg-white border p-8 w-full flex flex-col justify-between">
+              <div className="sm:rounded-b-lg bg-white border p-8 w-full flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-4 ">
                     <div className="flex items-center gap-2">
