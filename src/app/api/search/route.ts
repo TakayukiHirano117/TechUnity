@@ -22,7 +22,7 @@ export const GET = async (req: NextRequest) => {
     const results = await prisma.recruit.findMany({
       where: {
         isPublished: true, // 公開されているもののみを対象
-        AND: [
+        OR: [
           {
             title: {
               contains: q,
