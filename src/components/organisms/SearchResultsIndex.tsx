@@ -1,14 +1,12 @@
 import React from "react";
 
+import { searchRecruits } from "@/lib/fetcher/search";
+
 import RecruitList from "../molecules/RecruitList";
 
 const SearchResultsIndex = async ({ q }: { q: string }) => {
   // APIたたく
-  const res = await fetch(
-    `http://localhost:3000/api/search?q=${encodeURIComponent(q)}`,
-  );
-
-  const results = await res.json();
+  const results = await searchRecruits(encodeURIComponent(q));
 
   return <RecruitList recruits={results} />;
 };
