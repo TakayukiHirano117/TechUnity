@@ -20,7 +20,9 @@ const Top = () => {
           <h1 className="text-4xl font-bold">Recruits</h1>
           <HoverCard>
             <HoverCardTrigger asChild>
-              <TipsIcon className="mb-2 hover:opacity-70 cursor-pointer" />
+              <button type="button">
+                <TipsIcon className="mb-2 hover:opacity-70 cursor-pointer" />
+              </button>
             </HoverCardTrigger>
             <HoverCardContent className="p-2 text-sm text-slate-600">
               ユーザーが投稿した募集一覧です。
