@@ -24,7 +24,7 @@ const RecruitList = ({
     // remainingCount: number;
   }[];
 }) => {
-  console.log(recruits);
+  // console.log(recruits);
 
   return (
     <>
