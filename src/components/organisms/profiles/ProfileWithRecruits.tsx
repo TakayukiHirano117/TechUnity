@@ -1,10 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 
 import ProfilesRecruitList from "@/components/molecules/ProfilesRecruitList";
 import UserProfileHeader from "@/components/molecules/UserProfileHeader";
 import { getRecruitsWithProfile } from "@/lib/fetcher/profile";
 
-const ProfileWithRecruits = async ({ id }: { id: string }) => {
+const ProfileWithRecruits = memo(async ({ id }: { id: string }) => {
   const profile = await getRecruitsWithProfile(id);
 
   return (
@@ -13,6 +13,8 @@ const ProfileWithRecruits = async ({ id }: { id: string }) => {
       <ProfilesRecruitList recruits={profile.recruits_creator} />
     </>
   );
-};
+});
+
+ProfileWithRecruits.displayName = "ProfileWithRecruits";
 
 export default ProfileWithRecruits;

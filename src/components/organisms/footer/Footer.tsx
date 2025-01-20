@@ -36,7 +36,12 @@ const Footer: React.FC = memo(() => {
             {/* Links */}
             <div className="flex flex-col items-center sm:items-start">
               <h4 className="font-bold text-lg">Links</h4>
-              <Link href={"/about"} className="hover:underline text-sm">
+              <Link
+                href={"https://github.com/TakayukiHirano117/TechUnity"}
+                className="hover:underline text-sm"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 GitHub
               </Link>
             </div>

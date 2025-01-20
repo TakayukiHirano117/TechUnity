@@ -4,8 +4,8 @@ import RecruitTopPage from "@/components/pages/RecruitTopPage";
 import { server } from "./mocks/server";
 
 describe(RecruitTopPage, () => {
-	test("テスト", () => {
-		render(<RecruitTopPage />);
-	});
-	server.listen();
+  test("テスト", () => {
+    render(<RecruitTopPage />);
+  });
+  server.listen();
 });

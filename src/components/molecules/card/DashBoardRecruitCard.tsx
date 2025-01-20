@@ -258,7 +258,10 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
               title="削除しますか？"
               description={`${recruit.title}を削除します、この操作は取り消せません`}
               trigger={
-                <button type="button" className="w-7 h-7 rounded-full flex flex-col items-center justify-center">
+                <button
+                  type="button"
+                  className="w-7 h-7 rounded-full flex flex-col items-center justify-center"
+                >
                   <DeleteIcon
                     width="25"
                     height="25"

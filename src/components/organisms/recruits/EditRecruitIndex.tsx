@@ -1,6 +1,7 @@
-import EditRecruit from "@/components/molecules/EditRecruit";
 import { headers } from "next/headers";
-import React from "react";
+import React, { memo } from "react";
+
+import EditRecruit from "@/components/molecules/EditRecruit";
 
 const baseURL = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
 
@@ -12,10 +13,12 @@ export const getEditRecruitDetail = async (id: string) => {
   return response.json();
 };
 
-const EditRecruitIndex = async ({ id }: { id: string }) => {
+const EditRecruitIndex = memo(async ({ id }: { id: string }) => {
   const recruit = await getEditRecruitDetail(id);
 
   return <EditRecruit recruit={recruit} />;
-};
+});
+
+EditRecruitIndex.displayName = "EditRecruitIndex";
 
 export default EditRecruitIndex;

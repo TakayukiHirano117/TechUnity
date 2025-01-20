@@ -1,45 +1,49 @@
-import React from "react";
+import React, { memo } from "react";
 
 import DashBoardRecruitCard from "./card/DashBoardRecruitCard";
 
-const DashBoardRecruitList = ({
-  recruits,
-}: {
-  recruits: {
-    id: string;
-    title: string;
-    createdAt: string;
-    isPublished: boolean;
-    creator: {
+const DashBoardRecruitList = memo(
+  ({
+    recruits,
+  }: {
+    recruits: {
       id: string;
-    };
-    likes: {
-      userId: string;
-    }[];
-    applications: {
-      user: {
+      title: string;
+      createdAt: string;
+      isPublished: boolean;
+      creator: {
         id: string;
-        name: string;
-        image: string | null;
       };
+      likes: {
+        userId: string;
+      }[];
+      applications: {
+        user: {
+          id: string;
+          name: string;
+          image: string | null;
+        };
+      }[];
+      hires: {
+        userId: string;
+        user: {
+          id: string;
+          name: string;
+          image: string | null;
+        };
+      }[];
     }[];
-    hires: {
-      userId: string;
-      user: {
-        id: string;
-        name: string;
-        image: string | null;
-      };
-    }[];
-  }[];
-}) => {
-  return (
-    <>
-      {recruits.map((recruit) => (
-        <DashBoardRecruitCard key={recruit.id} recruit={recruit} />
-      ))}
-    </>
-  );
-};
+  }) => {
+    return (
+      <>
+        {recruits.map((recruit) => (
+          <DashBoardRecruitCard key={recruit.id} recruit={recruit} />
+        ))}
+      </>
+    );
+  },
+);
+
+DashBoardRecruitList.displayName = "DashBoardRecruitList";
 
 export default DashBoardRecruitList;

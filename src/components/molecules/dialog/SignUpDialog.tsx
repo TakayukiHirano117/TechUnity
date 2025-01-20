@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import React, { ReactNode } from "react";
+import React, { memo, ReactNode } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -20,7 +20,7 @@ import { signUpFormSchema } from "@/lib/formSchema";
 
 import MainDialog from "./MainDialog";
 
-const SignUpDialog = ({ trigger }: { trigger: ReactNode }) => {
+const SignUpDialog = memo(({ trigger }: { trigger: ReactNode }) => {
   const router = useRouter();
 
   const signUpForm = useForm<z.infer<typeof signUpFormSchema>>({
@@ -125,6 +125,8 @@ const SignUpDialog = ({ trigger }: { trigger: ReactNode }) => {
       </MainButton>
     </MainDialog>
   );
-};
+});
+
+SignUpDialog.displayName = "SignUpDialog";
 
 export default SignUpDialog;
