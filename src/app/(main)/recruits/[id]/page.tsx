@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import React, { useState } from "react";
 import rehypeSanitize from "rehype-sanitize";
+import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import useSWR from "swr";
 
@@ -23,7 +24,7 @@ import MainDialog from "@/components/molecules/dialog/MainDialog";
 import { DialogClose } from "@/components/ui/dialog";
 import { useApply } from "@/hooks/useApply";
 import { useRecruitLike } from "@/hooks/useRecruitLike";
-import remarkBreaks from "remark-breaks";
+import toast from "react-hot-toast";
 
 const getRecruitDetail = async (url: string) => {
   const response = await fetch(url, { cache: "no-store" });
@@ -40,6 +41,7 @@ const RecruitDetailPage = () => {
 
   const handleApply = async () => {
     await toggleApply();
+    // toast.success("応募しました。");
     setIsDialogOpen(false);
   };
 
@@ -71,7 +73,9 @@ const RecruitDetailPage = () => {
         <>
           <div className="container mx-auto">
             <div className="flex flex-col items-center py-[4rem] gap-4">
-              <h1 className="text-3xl sm:text-4xl font-bold px-8">{recruit?.title}</h1>
+              <h1 className="text-3xl sm:text-4xl font-bold px-8">
+                {recruit?.title}
+              </h1>
               <div className="flex gap-4 items-center">
                 <p className="text-slate-600 text-sm">
                   {format(recruit?.createdAt, "yyyy/MM/dd")}

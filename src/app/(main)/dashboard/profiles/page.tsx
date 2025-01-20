@@ -1,10 +1,8 @@
-import React, { Suspense, useEffect, useState } from "react";
-import { Toaster } from "react-hot-toast";
+import React, { Suspense } from "react";
 
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
-
 
 const items = SidebarItems;
 
@@ -34,7 +32,6 @@ const ProfileSettingsPage = () => {
           </Suspense>
         </div>
       </div>
-      <Toaster />
     </div>
   );
 };
