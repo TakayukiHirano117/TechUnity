@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import React from "react";
+import React, { memo } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -21,7 +21,7 @@ import { signInFormSchema } from "@/lib/formSchema";
 
 import MainDialog from "./MainDialog";
 
-const LoginDialog = ({ trigger }: { trigger: React.ReactNode }) => {
+const LoginDialog = memo(({ trigger }: { trigger: React.ReactNode }) => {
   const router = useRouter();
 
   const signInForm = useForm<z.infer<typeof signInFormSchema>>({
@@ -116,6 +116,8 @@ const LoginDialog = ({ trigger }: { trigger: React.ReactNode }) => {
       </MainButton>
     </MainDialog>
   );
-};
+});
+
+LoginDialog.displayName = "LoginDialog";
 
 export default LoginDialog;

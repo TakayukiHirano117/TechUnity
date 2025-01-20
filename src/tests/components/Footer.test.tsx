@@ -4,7 +4,7 @@ import Footer from "@/components/organisms/footer/Footer";
 import { server } from "../mocks/server";
 
 describe(Footer, () => {
-	test("テスト", () => {
-		render(<Footer />);
-	});
+  test("テスト", () => {
+    render(<Footer />);
+  });
 });

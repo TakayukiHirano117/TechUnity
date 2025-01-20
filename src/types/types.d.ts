@@ -47,6 +47,7 @@ export type RecruitCardProps = {
   publishedAt: string;
   likes: Like[];
   applications: Application[];
+  hires: Hire[];
   // remainingCount: number;
 };
 
@@ -67,6 +68,7 @@ export type DashBoardRecruits = {
       image: string;
     };
   }[];
+  hires: Hire[];
   createdAt: string;
   updatedAt: string;
   // applicantId: string;

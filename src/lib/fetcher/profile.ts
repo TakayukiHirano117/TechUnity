@@ -11,6 +11,8 @@ export const getProfile = async () => {
 };
 
 export const getRecruitsWithProfile = async (id: string) => {
-  const res = await fetch(`${baseURL}/api/profiles/${id}`);
+  const res = await fetch(`${baseURL}/api/profiles/${id}`, {
+    cache: "no-cache",
+  });
   return res.json();
 };

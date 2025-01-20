@@ -10,12 +10,11 @@ export const POST = async (
   try {
     const token = await getToken({ req });
 
-
     if (!token) {
       return NextResponse.json("unauthorized", { status: 403 });
     }
     const body = await req.json();
-    
+
     // token.idではなく、応募してきたユーザーのidを使用。
     const userId = body?.arg?.userId;
     const recruitId = params.id;

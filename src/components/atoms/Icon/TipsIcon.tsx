@@ -1,8 +1,6 @@
-import React from 'react'
+import React from "react";
 
-const TipsIcon = ({className}: {
-    className?: string
-}) => {
+const TipsIcon = ({ className }: { className?: string }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,6 +15,6 @@ const TipsIcon = ({className}: {
       />
     </svg>
   );
-}
+};
 
-export default TipsIcon
+export default TipsIcon;

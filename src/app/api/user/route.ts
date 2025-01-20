@@ -9,7 +9,7 @@ export const GET = async (req: NextRequest) => {
   const session = await getServerSession(authOptions);
 
   // これがないとログインしてない場合はエラーになるので要修正
-  if(!session) {
+  if (!session) {
     return NextResponse.json(session);
   }
 

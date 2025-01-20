@@ -3,12 +3,12 @@ import { signOut } from "next-auth/react";
 import React, { memo, ReactNode } from "react";
 import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import RecruitIcon from "@/components/atoms/Icon/RecruitIcon";
 import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
@@ -16,8 +16,8 @@ import GearIcon from "@/components/atoms/Icon/GearIcon";
 import LogoutIcon from "@/components/atoms/Icon/LogoutIcon";
 
 const MainDropdown = memo(
-	({ children, username }: { children: ReactNode; username: string }) => {
-		return (
+  ({ children, username }: { children: ReactNode; username: string }) => {
+    return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
@@ -69,7 +69,7 @@ const MainDropdown = memo(
         </DropdownMenuContent>
       </DropdownMenu>
     );
-	},
+  },
 );
 
 MainDropdown.displayName = "MainDropdown";

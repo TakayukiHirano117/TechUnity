@@ -37,7 +37,7 @@ const CreateRecruitPage = () => {
     setValue,
     watch,
     control,
-    formState: { isSubmitting, errors, isSubmitSuccessful },
+    formState: { isSubmitting},
   } = useForm<z.infer<typeof createRecruitSchema>>({
     resolver: zodResolver(createRecruitSchema),
     defaultValues: {
@@ -77,6 +77,7 @@ const CreateRecruitPage = () => {
   return (
     <div className="bg-slate-100 w-full">
       <div className="max-w-[960px] mx-auto sm:p-8 p-2 container">
+        {/* ここ別のコンポーネントにできるよね */}
         <form onSubmit={handleSubmit(onSubmit)} method="POST">
           {/* タイトル入力欄 */}
           <Input
