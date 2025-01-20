@@ -24,6 +24,7 @@ export const GET = async (req: NextRequest) => {
         creator: true, // 投稿の作成者の情報を取得
         likes: true, // いいねの情報を取得（必要に応じて削除可能）
         applications: true, // 応募の情報を取得（必要に応じて削除可能）
+        hires: true, // 採用の情報を取得（必要に応じて削除可能）
       },
     });
 

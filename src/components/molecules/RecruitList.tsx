@@ -1,4 +1,4 @@
-import { Application, Like } from "@prisma/client";
+import { Application, Hire, Like } from "@prisma/client";
 import Image from "next/image";
 import React, { memo } from "react";
 
@@ -22,6 +22,7 @@ const RecruitList = memo(
       isPublished: boolean;
       likes: Like[];
       applications: Application[];
+      hires: Hire[];
       // remainingCount: number;
     }[];
   }) => {
@@ -43,6 +44,7 @@ const RecruitList = memo(
                 publishedAt={recruit.createdAt}
                 likes={recruit.likes}
                 applications={recruit.applications}
+                hires={recruit.hires}
                 // remainingCount={recruit?.remainingCount}
               />
             ))}

@@ -24,6 +24,7 @@ export const GET = async (req: NextRequest) => {
         creator: true,
         likes: true,
         applications: true,
+        hires: true,
       },
     });
 
