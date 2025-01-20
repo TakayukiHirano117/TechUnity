@@ -27,8 +27,6 @@ export const GET = async (req: NextRequest) => {
 			},
 		});
 
-		console.log(appliedRecruits);
-
 		return NextResponse.json(appliedRecruits);
 	} catch (error) {
 		console.error("Error fetching applied recruits:", error);

@@ -20,7 +20,6 @@ const items = SidebarItems;
 const getAppliedRecruits = async (): Promise<DashBoardRecruits[]> => {
   const res = await fetch("/api/dashboard/applied-recruits");
   const recruits = await res.json();
-  console.log(recruits);
   return recruits;
 };
 
