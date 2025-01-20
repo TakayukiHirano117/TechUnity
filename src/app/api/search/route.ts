@@ -5,6 +5,9 @@ import prisma from "@/lib/db";
 export const GET = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url);
   const q = searchParams.get("q") || "";
+  // const q = decodeURIComponent(rawQuery.trim());
+  
+  console.log(q)
 
   // 検索ワードが指定されていない場合
   if (!q) {
@@ -13,6 +16,7 @@ export const GET = async (req: NextRequest) => {
       { status: 400 },
     );
   }
+
 
   try {
     const results = await prisma.recruit.findMany({
