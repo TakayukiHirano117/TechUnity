@@ -47,7 +47,7 @@ model User {
   id               String        @id @default(cuid())
   name             String?
   description      String?
-  github_url       String?
+  githubUrl        String?       @map(name: "github_url")
   email            String?       @unique
   emailVerified    DateTime?
   image            String?
