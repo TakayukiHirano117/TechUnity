@@ -8,6 +8,8 @@ export const GET = async (req: NextRequest) => {
   // ユーザーデータを取得
   const session = await getServerSession(authOptions);
 
+  console.log("session : " + session);
+
   // これがないとログインしてない場合はエラーになるので要修正
   if (!session) {
     return NextResponse.json(session);
