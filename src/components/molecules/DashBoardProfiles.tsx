@@ -27,12 +27,14 @@ const DashBoardProfiles = memo(
     profile: {
       id: string;
       name: string;
-      github_url: string;
+      githubUrl: string;
       description: string;
       image: string;
     };
   }) => {
     const router = useRouter();
+
+    console.log(profile)
 
     const {
       register,
@@ -43,7 +45,7 @@ const DashBoardProfiles = memo(
       resolver: zodResolver(editProfileSchema),
       defaultValues: {
         name: profile?.name || "",
-        github_url: profile?.github_url || "",
+        githubUrl: profile?.githubUrl || "",
         description: profile?.description || "",
         image: profile?.image || "",
       },
@@ -59,7 +61,7 @@ const DashBoardProfiles = memo(
     useEffect(() => {
       if (profile) {
         setValue("name", profile.name || "");
-        setValue("github_url", profile.github_url || "");
+        setValue("githubUrl", profile.githubUrl || "");
         setValue("description", profile.description || "");
         setValue("image", profile.image || "");
       }
@@ -133,13 +135,13 @@ const DashBoardProfiles = memo(
                 <span>GitHub URL</span>
               </Label>
               <Input
-                {...register("github_url")}
+                {...register("githubUrl")}
                 placeholder="GitHub URL"
-                className={errors.github_url ? "border-red-500" : ""}
+                className={errors.githubUrl ? "border-red-500" : ""}
               />
-              {errors.github_url && (
+              {errors.githubUrl && (
                 <span className="text-red-500 text-sm">
-                  {errors.github_url.message}
+                  {errors.githubUrl.message}
                 </span>
               )}
             </div>
