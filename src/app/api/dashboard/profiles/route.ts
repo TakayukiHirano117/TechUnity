@@ -20,7 +20,7 @@ export const GET = async (req: NextRequest) => {
       select: {
         id: true,
         name: true,
-        github_url: true,
+        githubUrl: true,
         description: true,
         image: true,
       },
@@ -56,7 +56,7 @@ export const PUT = async (req: NextRequest) => {
       },
       data: {
         name,
-        github_url,
+        githubUrl: github_url,
         description,
         image,
       },
