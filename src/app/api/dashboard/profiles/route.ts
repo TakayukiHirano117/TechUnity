@@ -48,7 +48,7 @@ export const PUT = async (req: NextRequest) => {
 
     const userId = token.id;
 
-    const { name, github_url, description, image } = await req.json();
+    const { name, githubUrl, description, image } = await req.json();
 
     const profile = await prisma.user.update({
       where: {
@@ -56,11 +56,13 @@ export const PUT = async (req: NextRequest) => {
       },
       data: {
         name,
-        githubUrl: github_url,
+        githubUrl,
         description,
         image,
       },
     });
+
+    console.log(profile)
 
     return NextResponse.json(profile);
   } catch (error) {
