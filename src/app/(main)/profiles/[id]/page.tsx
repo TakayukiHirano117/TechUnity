@@ -33,7 +33,7 @@ const ProfilePage = ({ params }: { params: { id: string } }) => {
       <div className="container mx-auto max-w-[960px]">
         <Suspense
           fallback={
-            <div className="mx-auto space-y-3 h-screen">
+            <div className="flex flex-col space-y-3 z-50 h-screen items-center mt-3">
               <LoadingIcon
                 width="40"
                 height="40"

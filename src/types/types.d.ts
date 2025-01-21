@@ -94,6 +94,7 @@ export type UserProfileHeaderProps = {
   profile: {
     id: string;
     name: string;
+    githubUrl: string;
     description: string;
     email: string;
     image: string;
