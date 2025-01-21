@@ -20,7 +20,7 @@ export const createRecruit = async (data: {
 
 // 募集を削除
 export const deleteRecruit = async (id: string) => {
-  const response = await fetch(`/api/recruit/${id}`, {
+  const response = await fetch(`/api/recruits/${id}`, {
     method: "DELETE",
     cache: "no-cache",
   });
