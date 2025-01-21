@@ -128,7 +128,7 @@ const DashBoardProfiles = memo(
             </div>
             <div className="flex flex-col gap-2">
               <Label
-                htmlFor="github_url"
+                htmlFor="githubUrl"
                 className="text-slate-600 font-bold flex items-center gap-2"
               >
                 <GitHubIcon width="20" height="20" />
