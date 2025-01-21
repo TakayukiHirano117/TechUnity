@@ -23,6 +23,7 @@ export const editProfileSchema = z.object({
     .string()
     .min(1, "名前は必須です")
     .max(50, "名前は50文字以内で入力してください"),
+  github_url: z.string().url("有効なURLを入力してください").optional(),
   description: z
     .string()
     .max(200, "自己紹介文は200文字以内で入力してください")

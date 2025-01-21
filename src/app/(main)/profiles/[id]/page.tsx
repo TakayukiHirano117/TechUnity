@@ -1,8 +1,6 @@
 import { Recruit } from "@prisma/client";
 import React, { Suspense } from "react";
-import useSWR from "swr";
 
-import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 
 const getUserProfile = async (url: string) => {

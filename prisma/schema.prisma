@@ -47,6 +47,7 @@ model User {
   id               String        @id @default(cuid())
   name             String?
   description      String?
+  github_url       String?
   email            String?       @unique
   emailVerified    DateTime?
   image            String?
@@ -83,7 +84,7 @@ model Recruit {
   creatorId    String
   likes        Like[]
   applications Application[]
-  hires         Hire[]
+  hires        Hire[]
 
   @@map(name: "recruits")
 }

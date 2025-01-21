@@ -20,6 +20,7 @@ export const GET = async (req: NextRequest) => {
       select: {
         id: true,
         name: true,
+        github_url: true,
         description: true,
         image: true,
       },
@@ -47,7 +48,7 @@ export const PUT = async (req: NextRequest) => {
 
     const userId = token.id;
 
-    const { name, description, image } = await req.json();
+    const { name, github_url, description, image } = await req.json();
 
     const profile = await prisma.user.update({
       where: {
@@ -55,6 +56,7 @@ export const PUT = async (req: NextRequest) => {
       },
       data: {
         name,
+        github_url,
         description,
         image,
       },
