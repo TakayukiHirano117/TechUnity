@@ -11,6 +11,7 @@ import { editProfileSchema } from "@/lib/formSchema";
 
 import AvatarIcon from "../atoms/avatar/AvatarIcon";
 import MainButton from "../atoms/button/MainButton";
+import GitHubIcon from "../atoms/Icon/GitHubIcon";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
@@ -26,6 +27,7 @@ const DashBoardProfiles = memo(
     profile: {
       id: string;
       name: string;
+      github_url: string;
       description: string;
       image: string;
     };
@@ -41,6 +43,7 @@ const DashBoardProfiles = memo(
       resolver: zodResolver(editProfileSchema),
       defaultValues: {
         name: profile?.name || "",
+        github_url: profile?.github_url || "",
         description: profile?.description || "",
         image: profile?.image || "",
       },
@@ -56,6 +59,7 @@ const DashBoardProfiles = memo(
     useEffect(() => {
       if (profile) {
         setValue("name", profile.name || "");
+        setValue("github_url", profile.github_url || "");
         setValue("description", profile.description || "");
         setValue("image", profile.image || "");
       }
@@ -63,6 +67,7 @@ const DashBoardProfiles = memo(
 
     const onSubmit = async (data: ProfileFormValues) => {
       try {
+        // 分離したい
         await fetch("/api/dashboard/profiles", {
           method: "PUT",
           headers: {
@@ -116,6 +121,25 @@ const DashBoardProfiles = memo(
               {errors.name && (
                 <span className="text-red-500 text-sm">
                   {errors.name.message}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label
+                htmlFor="github_url"
+                className="text-slate-600 font-bold flex items-center gap-2"
+              >
+                <GitHubIcon width="20" height="20" />
+                <span>GitHub URL</span>
+              </Label>
+              <Input
+                {...register("github_url")}
+                placeholder="GitHub URL"
+                className={errors.github_url ? "border-red-500" : ""}
+              />
+              {errors.github_url && (
+                <span className="text-red-500 text-sm">
+                  {errors.github_url.message}
                 </span>
               )}
             </div>
