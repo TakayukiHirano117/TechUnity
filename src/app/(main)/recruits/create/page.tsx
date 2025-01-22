@@ -5,16 +5,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor from "@uiw/react-md-editor";
 import { ImageIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import rehypeSanitize from "rehype-sanitize";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import { z } from "zod";
-
-import toast, { Toaster } from "react-hot-toast";
-
-const success = () => toast("募集を作成しました", { icon: "🎉" });
 
 import MainButton from "@/components/atoms/button/MainButton";
 import ImageUpload from "@/components/molecules/ImageUpload";
@@ -37,7 +34,7 @@ const CreateRecruitPage = () => {
     setValue,
     watch,
     control,
-    formState: { isSubmitting},
+    formState: { isSubmitting },
   } = useForm<z.infer<typeof createRecruitSchema>>({
     resolver: zodResolver(createRecruitSchema),
     defaultValues: {
@@ -58,20 +55,43 @@ const CreateRecruitPage = () => {
   }) => {
     try {
       createRecruit(data);
-      toast.success("募集を作成しました");
+      toast.success("募集を作成しました", { icon: "🎉" });
     } catch (error) {
-      toast.error("エラーが発生しました");
+      toast.error("エラーが発生しました", { icon: "❌" });
     }
 
     router.push("/dashboard/recruits");
     router.refresh();
   };
 
+  // マークダウンエディター内のカーソル位置を保持するためのRef
+  const cursorPositionRef = useRef<number>(0);
+
+  // カーソルの位置に画像のパスを挿入する関数
+  const insertTextToContent = (text: string) => {
+    const currentContent = watch("content"); // 現在の content を取得
+    const before = currentContent.slice(0, cursorPositionRef.current);
+    const after = currentContent.slice(cursorPositionRef.current);
+
+    // 挿入後の新しいコンテンツを作成
+    const newContent = `${before}${text}${after}`;
+
+    setValue("content", newContent);
+  };
+
+  const handleCursorChange = (
+    event:
+      | React.MouseEvent<HTMLTextAreaElement>
+      | React.KeyboardEvent<HTMLTextAreaElement>,
+  ) => {
+    const textarea = event.target as HTMLTextAreaElement;
+    cursorPositionRef.current = textarea.selectionStart;
+  };
+
   // 画像をCloudinaryに保存し、パスをcontentに追加する関数
   const onInsertImage = (name: string, url: string) => {
-    const content = watch("content");
     const imageLink = `\n![${name}](${url})\n`;
-    setValue("content", content + imageLink);
+    insertTextToContent(imageLink);
   };
 
   return (
@@ -100,6 +120,8 @@ const CreateRecruitPage = () => {
                     height={720}
                     className="p-4 border"
                     textareaProps={{
+                      onClick: handleCursorChange,
+                      onKeyUp: handleCursorChange,
                       placeholder: "Markdownで募集を書いてください",
                     }}
                     style={{ boxShadow: "none", borderRadius: "0.5rem" }}
@@ -169,22 +191,6 @@ const CreateRecruitPage = () => {
                     variant={"outline"}
                     className="rounded-full shadow-md"
                     disabled={isSubmitting || !content || !title}
-                    // onClick={() => {
-                    //   if (errors.title || errors.content) {
-                    //     // バリデーションエラーがある場合、toastを表示
-                    //     Object.values(errors).forEach((error) => {
-                    //       toast({
-                    //         title: "エラー",
-                    //         description:
-                    //           error.message || "エラーが発生しました。",
-                    //         variant: "destructive",
-                    //         duration: 3000,
-                    //       });
-                    //     });
-
-                    //     return;
-                    //   }
-                    // }}
                   >
                     {isSubmitting ? "作成中..." : "作成する"}
                   </Button>
@@ -239,22 +245,6 @@ const CreateRecruitPage = () => {
                   variant={"outline"}
                   className="rounded-full"
                   disabled={isSubmitting || !content || !title}
-                  // onClick={() => {
-                  //   if (errors.title || errors.content) {
-                  //     // バリデーションエラーがある場合、toastを表示
-                  //     Object.values(errors).forEach((error) => {
-                  //       toast({
-                  //         title: "エラー",
-                  //         description:
-                  //           error.message || "エラーが発生しました。",
-                  //         variant: "destructive",
-                  //         duration: 3000,
-                  //       });
-                  //     });
-
-                  //     return;
-                  //   }
-                  // }}
                 >
                   {isSubmitting ? "作成中..." : "作成する"}
                 </Button>
@@ -263,7 +253,6 @@ const CreateRecruitPage = () => {
           </div>
         </form>
       </div>
-      {/* {isSubmitSuccessful && <Toaster />} */}
     </div>
   );
 };
