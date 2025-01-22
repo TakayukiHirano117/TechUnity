@@ -23,10 +23,8 @@ const RecruitList = memo(
       likes: Like[];
       applications: Application[];
       hires: Hire[];
-      // remainingCount: number;
     }[];
   }) => {
-    // console.log(recruits);
 
     return (
       <>
@@ -45,7 +43,6 @@ const RecruitList = memo(
                 likes={recruit.likes}
                 applications={recruit.applications}
                 hires={recruit.hires}
-                // remainingCount={recruit?.remainingCount}
               />
             ))}
           </div>
