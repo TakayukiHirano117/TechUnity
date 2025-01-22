@@ -1,8 +1,7 @@
 import React from "react";
 
+import RecruitList from "@/components/molecules/recruits/RecruitList";
 import { searchRecruits } from "@/lib/fetcher/search";
-
-import RecruitList from "../molecules/RecruitList";
 
 const SearchResultsIndex = async ({ q }: { q: string }) => {
   // APIたたく

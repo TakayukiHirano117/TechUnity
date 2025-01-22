@@ -2,7 +2,7 @@ import React from "react";
 
 import { UserProfileHeaderProps } from "@/types/types";
 
-import AvatarIcon from "../atoms/avatar/AvatarIcon";
+import AvatarIcon from "../../atoms/avatar/AvatarIcon";
 
 const UserProfileHeader = ({ profile, className }: UserProfileHeaderProps) => {
   return (

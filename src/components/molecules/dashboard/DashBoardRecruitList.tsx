@@ -1,6 +1,6 @@
 import React from "react";
+import DashBoardRecruitCard from "../card/DashBoardRecruitCard";
 
-import DashBoardRecruitCard from "./card/DashBoardRecruitCard";
 
 const DashBoardRecruitList = ({
   recruits,
