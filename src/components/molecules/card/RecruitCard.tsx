@@ -64,7 +64,7 @@ const RecruitCard = memo(
                     <span>{likes.length}</span>
                   </>
                 )}
-                {/* {hires.length > 0 && (
+                {hires.length > 0 && (
                   <>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +79,7 @@ const RecruitCard = memo(
                     </svg>
                     <span>{hires.length}</span>
                   </>
-                )} */}
+                )}
               </div>
               {/* <p className="text-end text-xs text-slate-600 font-extralight">
 								あと{remainingCount || "n"}人募集中
