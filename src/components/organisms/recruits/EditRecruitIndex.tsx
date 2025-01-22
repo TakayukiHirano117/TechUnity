@@ -1,6 +1,7 @@
-import EditRecruit from "@/components/molecules/EditRecruit";
 import { headers } from "next/headers";
 import React from "react";
+
+import EditRecruit from "@/components/molecules/recruits/EditRecruit";
 
 const baseURL = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
 

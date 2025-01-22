@@ -1,25 +1,25 @@
 "use client";
 
-import { updateRecruit } from "@/lib/fetcher/recruit";
-import { editRecruitSchema } from "@/lib/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import MDEditor from "@uiw/react-md-editor";
+import { ImageIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
-import { Input } from "../ui/input";
-import MDEditor from "@uiw/react-md-editor";
-import remarkGfm from "remark-gfm";
-import remarkBreaks from "remark-breaks";
-import rehypeSanitize from "rehype-sanitize";
-import { Switch } from "../ui/switch";
-import { Label } from "../ui/label";
-import ImageUpload from "./ImageUpload";
-import MainButton from "../atoms/button/MainButton";
-import { ImageIcon } from "lucide-react";
-import { Button } from "../ui/button";
 import toast from "react-hot-toast";
+import rehypeSanitize from "rehype-sanitize";
+import remarkBreaks from "remark-breaks";
+import remarkGfm from "remark-gfm";
+import { z } from "zod";
 
+import { updateRecruit } from "@/lib/fetcher/recruit";
+import { editRecruitSchema } from "@/lib/formSchema";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import ImageUpload from "../ImageUpload";
+import MainButton from "@/components/atoms/button/MainButton";
+import { Button } from "@/components/ui/button";
 
 const EditRecruit = ({
   recruit,
@@ -70,7 +70,6 @@ const EditRecruit = ({
     content: string;
     isPublished: boolean;
   }) => {
-
     try {
       updateRecruit(recruit.id as string, data);
       toast.success("更新しました");
@@ -218,21 +217,6 @@ const EditRecruit = ({
               variant={"outline"}
               className="rounded-full"
               disabled={isSubmitting || !content}
-              // onClick={() => {
-              //   if (errors.title || errors.content) {
-              //     // バリデーションエラーがある場合、toastを表示
-              //     Object.values(errors).forEach((error) => {
-              //       toast({
-              //         title: "エラー",
-              //         description: error.message || "エラーが発生しました。",
-              //         variant: "destructive",
-              //         duration: 3000,
-              //       });
-              //     });
-
-              //     return;
-              //   }
-              // }}
             >
               {isSubmitting ? "更新中..." : "更新する"}
             </Button>

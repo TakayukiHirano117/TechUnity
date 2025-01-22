@@ -11,7 +11,7 @@ import MainButton from "@/components/atoms/button/MainButton";
 import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
 import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
-import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
+import DashBoardSideBar from "@/components/molecules/dashboard/DashBoardSideBar";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
 import { DashBoardRecruits } from "@/types/types";
 

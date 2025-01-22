@@ -2,14 +2,13 @@
 
 import Link from "next/link";
 import React, { memo } from "react";
+import SearchBar from "../search/SearchBar";
+import LoginDialog from "../dialog/LoginDialog";
+import MainButton from "@/components/atoms/button/MainButton";
+import SignUpDialog from "../dialog/SignUpDialog";
+import MainDropdown from "../dropdown/MainDropdown";
+import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 
-import AvatarIcon from "../atoms/avatar/AvatarIcon";
-import MainButton from "../atoms/button/MainButton";
-
-import LoginDialog from "./dialog/LoginDialog";
-import SignUpDialog from "./dialog/SignUpDialog";
-import MainDropdown from "./dropdown/MainDropdown";
-import SearchBar from "./search/SearchBar";
 
 const HeaderContent = memo(
   ({

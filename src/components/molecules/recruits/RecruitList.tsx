@@ -24,8 +24,6 @@ const RecruitList = ({
     // remainingCount: number;
   }[];
 }) => {
-  console.log(recruits);
-
   return (
     <>
       {recruits.length > 0 ? (

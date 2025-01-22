@@ -1,7 +1,7 @@
 import React from "react";
 
-import ProfilesRecruitList from "@/components/molecules/ProfilesRecruitList";
-import UserProfileHeader from "@/components/molecules/UserProfileHeader";
+import ProfilesRecruitList from "@/components/molecules/profiles/ProfilesRecruitList";
+import UserProfileHeader from "@/components/molecules/profiles/UserProfileHeader";
 import { getRecruitsWithProfile } from "@/lib/fetcher/profile";
 
 const ProfileWithRecruits = async ({ id }: { id: string }) => {
