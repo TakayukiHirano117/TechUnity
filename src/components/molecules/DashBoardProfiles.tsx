@@ -100,7 +100,7 @@ const DashBoardProfiles = memo(
                   onClick={() => open()}
                 >
                   <AvatarIcon
-                    className="w-20 h-20 border"
+                    className="w-20 h-20 border bg-white"
                     ImageSrc={uploadedImage || profile.image}
                     fallbackText={profile.name}
                   />
