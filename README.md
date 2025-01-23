@@ -9,9 +9,10 @@
 - Nextjs 14.2.21
 - React 18.3.1
 - TypeScript ^5.7.2
-- DB(Supabase)
+- DB(Supabase(postgresql))
 - ORM(Prisma)
 - デプロイ(Vercel)
+- テスト(vitest, testing-library, msw)
 - UIライブラリ・フレームワーク(tailwindcss, shadcn/ui)
 - 認証(NextAuth.js v4(4.24.11))
 - ソーシャルログイン(GitHub, Google)
@@ -22,17 +23,21 @@
 - 募集編集(react-hook-form, react-md-editor, Cloudinary)
 - 募集削除
 - 募集へのいいね
-- 募集へのコメント
 - 募集への応募
 - 応募してきたユーザーの採用
 - いいねした募集一覧
 - 応募した募集一覧
+- プロフィール編集
+- 自分が作成した募集管理
 
 ## デモ動画
 
 ## 追加予定の機能
 
 - DM機能
-- 作成したポートフォリオをもとに企業からオファーが来る機能
+- コメント機能
+- 応募してきたユーザーの却下機能
+- 募集の締め切り機能
+- 募集の人数制限
 - 利用規約・aboutページなどの作成
 - トピック機能
