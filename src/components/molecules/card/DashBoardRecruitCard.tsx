@@ -54,12 +54,13 @@ export type DashBoardRecruit = {
 };
 
 const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
+  const router = useRouter();
   const [dialogStates, setDialogStates] = useState<Record<string, boolean>>({});
 
   const { toggleHire, isHireMutating } = useHire(recruit.id);
-  const router = useRouter();
 
   const handleHire = async (userId: string) => {
+    // console.log(userId);
     await toggleHire({ userId });
     setDialogStates((prev) => ({ ...prev, [userId]: false }));
     router.refresh();

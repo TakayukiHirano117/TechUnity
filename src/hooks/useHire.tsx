@@ -19,6 +19,7 @@ const hireUserForRecruit = async (
   url: string,
   { arg }: { arg: { userId: string } },
 ): Promise<HireResponse> => {
+  console.log(arg.userId)
   try {
     const res = await fetch(url, {
       method: "POST",
