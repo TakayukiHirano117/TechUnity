@@ -7,7 +7,9 @@ export const GET = async (req: NextRequest) => {
   const q = searchParams.get("q") || "";
   // const q = decodeURIComponent(rawQuery.trim());
 
-  console.log(q);
+  // console.log(req);
+
+  console.log(q)
 
   // 検索ワードが指定されていない場合
   if (!q) {
@@ -47,7 +49,7 @@ export const GET = async (req: NextRequest) => {
       },
     });
 
-    console.log(results)
+    // console.log(results)
 
     return NextResponse.json(results);
   } catch (error) {
