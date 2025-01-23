@@ -16,7 +16,7 @@ export const POST = async (
     const body = await req.json();
 
     // token.idではなく、応募してきたユーザーのidを使用。
-    const userId = body?.arg?.userId;
+    const userId = body?.userId;
     const recruitId = params.id;
 
     const existingHire = await prisma.hire.findFirst({

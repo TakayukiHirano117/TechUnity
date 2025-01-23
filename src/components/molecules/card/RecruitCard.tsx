@@ -17,7 +17,6 @@ const RecruitCard = memo(
   ({
     id,
     title,
-    description,
     authorName,
     avatarImageSrc,
     publishedAt,
@@ -25,7 +24,6 @@ const RecruitCard = memo(
     authorId,
     applications,
     hires,
-    // remainingCount,
   }: RecruitCardProps) => {
     return (
       <Card className="shadow-none border-none">
