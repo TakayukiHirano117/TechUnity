@@ -27,8 +27,19 @@ export const GET = async (req: NextRequest) => {
         hires: true,
       },
     });
+    // ログインしてるユーザーが採用されているかどうかの情報を追加したい。
+    const recruitsWithIsHired = appliedRecruits.map((recruit) => {
+      const isHired = recruit.hires.some((hire) => hire.userId === userId);
+      return {
+        ...recruit,
+        isHired, // isHiredプロパティを追加
+      };
+    });
 
-    return NextResponse.json(appliedRecruits);
+    // デバッグ用ログ
+    // console.log(recruitsWithIsHired);
+
+    return NextResponse.json(recruitsWithIsHired);
   } catch (error) {
     console.error("Error fetching applied recruits:", error);
     return NextResponse.json(

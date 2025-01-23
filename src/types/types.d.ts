@@ -74,6 +74,7 @@ export type DashBoardRecruits = {
   // applicantId: string;
   isPublished: boolean;
   hires: Hire[];
+  isHired: boolean;
 };
 
 export type ProfilesRecruitListProps = {

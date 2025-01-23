@@ -54,14 +54,16 @@ const CreateRecruitPage = () => {
     isPublished: boolean;
   }) => {
     try {
-      createRecruit(data);
-      toast.success("募集を作成しました", { icon: "🎉" });
+      const res = await createRecruit(data);
+
+      if (res) {
+        toast.success("募集を作成しました", { icon: "🎉" });
+        router.push("/dashboard/recruits");
+        router.refresh();
+      }
     } catch (error) {
       toast.error("エラーが発生しました", { icon: "❌" });
     }
-
-    router.push("/dashboard/recruits");
-    router.refresh();
   };
 
   // マークダウンエディター内のカーソル位置を保持するためのRef

@@ -120,6 +120,7 @@ const AppliedRecruitsPage = () => {
                       </div>
                     </div>
                   </div>
+                  {/* {recruit.isHired && <span>採用されています。</span>} */}
                 </div>
               ))}
             </div>
