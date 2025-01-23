@@ -47,6 +47,8 @@ export const GET = async (req: NextRequest) => {
       },
     });
 
+    console.log(results)
+
     return NextResponse.json(results);
   } catch (error) {
     console.error("Error fetching recruits: ", error);
