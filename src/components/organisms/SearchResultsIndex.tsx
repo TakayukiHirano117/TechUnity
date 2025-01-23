@@ -8,6 +8,8 @@ const SearchResultsIndex = memo(async ({ q }: { q: string }) => {
   const res = searchRecruits(q);
   const results = await res;
 
+  // console.log(results);
+
   return <RecruitList recruits={results} />;
 });
 
