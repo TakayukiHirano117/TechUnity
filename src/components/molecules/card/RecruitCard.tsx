@@ -52,19 +52,19 @@ const RecruitCard = memo(
                 {format(publishedAt, "yyyy/MM/dd")}
               </div>
               <div className="flex items-center text-sm text-slate-700 gap-1">
-                {applications.length > 0 && (
+                {applications?.length > 0 && (
                   <>
                     <ApplyIcon width="16" height="16" />
                     <span>{applications.length}</span>
                   </>
                 )}
-                {likes.length > 0 && (
+                {likes?.length > 0 && (
                   <>
                     <HeartIcon width="16" height="16" />
                     <span>{likes.length}</span>
                   </>
                 )}
-                {hires.length > 0 && (
+                {hires?.length > 0 && (
                   <>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
