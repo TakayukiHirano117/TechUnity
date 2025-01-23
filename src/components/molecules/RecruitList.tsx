@@ -28,7 +28,7 @@ const RecruitList = memo(
 
     return (
       <>
-        {recruits.length > 0 ? (
+        {recruits?.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {recruits.map((recruit) => (
               <RecruitCard
@@ -36,13 +36,15 @@ const RecruitList = memo(
                 id={recruit.id}
                 title={recruit.title}
                 description={recruit.content}
-                authorName={recruit?.creator.name}
-                authorId={recruit?.creator.id}
-                avatarImageSrc={recruit?.creator.image}
+                authorName={recruit?.creator?.name || "匿名"}
+                authorId={recruit?.creator?.id || ""}
+                avatarImageSrc={
+                  recruit?.creator?.image || "/default-avatar.png"
+                }
                 publishedAt={recruit.createdAt}
-                likes={recruit.likes}
-                applications={recruit.applications}
-                hires={recruit.hires}
+                likes={recruit.likes || []}
+                applications={recruit.applications || []}
+                hires={recruit.hires || []}
               />
             ))}
           </div>
