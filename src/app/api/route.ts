@@ -4,6 +4,7 @@ import prisma from "@/lib/db";
 export const GET = async (req: NextRequest) => {
   try {
     // select句で必要なカラムのみ返すように要修正
+
     const recruits = await prisma.recruit.findMany({
       where: {
         isPublished: true,
@@ -15,6 +16,7 @@ export const GET = async (req: NextRequest) => {
         creator: true,
         likes: true,
         applications: true,
+        hires: true,
       },
     });
 
