@@ -9,7 +9,7 @@ export const GET = async (req: NextRequest) => {
 
   // console.log(req);
 
-  console.log(q)
+  console.log("クエリ：　" + q)
 
   // 検索ワードが指定されていない場合
   if (!q) {
@@ -49,7 +49,7 @@ export const GET = async (req: NextRequest) => {
       },
     });
 
-    // console.log(results)
+    console.log(results)
 
     return NextResponse.json(results);
   } catch (error) {
