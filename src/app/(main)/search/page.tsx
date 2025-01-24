@@ -7,6 +7,7 @@ const SearchResultsIndex = React.lazy(
 );
 
 const SearchResults = ({ searchParams }: { searchParams: { q: string } }) => {
+  console.log("pageクエリ : " + searchParams.q);
   
   return (
     

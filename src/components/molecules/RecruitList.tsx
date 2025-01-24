@@ -26,6 +26,8 @@ const RecruitList = memo(
     }[];
   }) => {
 
+    console.log(recruits)
+
     return (
       <>
         {recruits?.length > 0 ? (

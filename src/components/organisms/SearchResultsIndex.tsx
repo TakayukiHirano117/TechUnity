@@ -6,10 +6,7 @@ import RecruitList from "../molecules/RecruitList";
 
 const SearchResultsIndex = memo(async ({ q }: { q: string }) => {
   const recruits = await searchRecruits(q);
-
-  // console.log(q)
-  
-  // console.log(results);
+  console.log(recruits)
 
   return <RecruitList recruits={recruits} />;
 });
