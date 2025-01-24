@@ -7,8 +7,8 @@ const SearchResultsIndex = React.lazy(
 );
 
 const SearchResults = ({ searchParams }: { searchParams: { q: string } }) => {
-  console.log("pageクエリ : " + searchParams.q);
-  
+  console.log("pageクエリ : " + searchParams.q); // これは出ている
+
   return (
     
     <div className="bg-slate-100">
