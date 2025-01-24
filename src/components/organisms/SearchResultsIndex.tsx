@@ -5,14 +5,13 @@ import { searchRecruits } from "@/lib/fetcher/search";
 import RecruitList from "../molecules/RecruitList";
 
 const SearchResultsIndex = memo(async ({ q }: { q: string }) => {
-  const res = await searchRecruits(q);
-  const results = await res;
+  const recruits = await searchRecruits(q);
 
   // console.log(q)
   
   // console.log(results);
 
-  return <RecruitList recruits={results} />;
+  return <RecruitList recruits={recruits} />;
 });
 
 SearchResultsIndex.displayName = "SearchResultsIndex";
