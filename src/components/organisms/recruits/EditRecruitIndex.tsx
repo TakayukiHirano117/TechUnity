@@ -1,4 +1,5 @@
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import React, { memo } from "react";
 
 import EditRecruit from "@/components/molecules/EditRecruit";
@@ -15,6 +16,10 @@ export const getEditRecruitDetail = async (id: string) => {
 
 const EditRecruitIndex = memo(async ({ id }: { id: string }) => {
   const recruit = await getEditRecruitDetail(id);
+
+  if (recruit.redirect) {
+    redirect(recruit.redirect);
+  }
 
   return <EditRecruit recruit={recruit} />;
 });

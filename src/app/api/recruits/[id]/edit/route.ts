@@ -13,6 +13,7 @@ export const GET = async (
   try {
     // ログインしているユーザーが投稿したものでなければエラー
     const token = await getToken({ req });
+
     if (!token) {
       return NextResponse.json("unauthorized", { status: 403 });
     }
@@ -26,8 +27,16 @@ export const GET = async (
         title: true,
         content: true,
         isPublished: true,
+        creatorId: true,
       },
     });
+
+    // console.log(recruit?.creatorId, token.id);
+
+    if (recruit?.creatorId !== token.id) {
+      // console.log("unauthorized");
+      return NextResponse.json({ redirect: "/" });
+    }
 
     return NextResponse.json(recruit);
   } catch (error) {
