@@ -9,7 +9,7 @@ export const GET = async (req: NextRequest) => {
 
   // console.log(req);
 
-  console.log("クエリ：　" + q)
+  console.log("クエリ： " + q)
 
   // 検索ワードが指定されていない場合
   if (!q) {

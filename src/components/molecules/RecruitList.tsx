@@ -26,7 +26,7 @@ const RecruitList = memo(
     }[];
   }) => {
 
-    console.log(recruits)
+    console.log(recruits) // これがvercelだと[]になっている
 
     return (
       <>
