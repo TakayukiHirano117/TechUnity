@@ -36,9 +36,6 @@ export const GET = async (req: NextRequest) => {
       };
     });
 
-    // デバッグ用ログ
-    // console.log(recruitsWithIsHired);
-
     return NextResponse.json(recruitsWithIsHired);
   } catch (error) {
     console.error("Error fetching applied recruits:", error);

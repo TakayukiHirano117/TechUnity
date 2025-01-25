@@ -20,6 +20,15 @@ import ImageUpload from "./ImageUpload";
 
 type ProfileFormValues = z.infer<typeof editProfileSchema>;
 
+export const isValidUrl = (url: string): boolean => {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 const DashBoardProfiles = memo(
   ({
     profile,
@@ -33,8 +42,6 @@ const DashBoardProfiles = memo(
     };
   }) => {
     const router = useRouter();
-
-    console.log(profile)
 
     const {
       register,

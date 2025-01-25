@@ -26,8 +26,6 @@ const RecruitList = memo(
     }[];
   }) => {
 
-    console.log(recruits) // これがvercelだと[]になっている
-
     return (
       <>
         {recruits?.length > 0 ? (

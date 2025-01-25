@@ -1,3 +1,4 @@
+import { isValidUrl } from "@/components/molecules/DashBoardProfiles";
 import { z } from "zod";
 
 export const createRecruitSchema = z.object({
@@ -23,7 +24,17 @@ export const editProfileSchema = z.object({
     .string()
     .min(1, "名前は必須です")
     .max(50, "名前は50文字以内で入力してください"),
-  githubUrl: z.string().optional(),
+  githubUrl: z
+    .string()
+    .optional()
+    .refine(
+      (url) =>
+        !url || (url.startsWith("https://github.com/") && isValidUrl(url)),
+      {
+        message:
+          "GitHubのURLはhttps://github.com/から始まる有効なURLを入力してください",
+      },
+    ),
   description: z
     .string()
     .max(200, "自己紹介文は200文字以内で入力してください")

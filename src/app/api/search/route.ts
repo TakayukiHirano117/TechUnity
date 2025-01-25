@@ -4,14 +4,8 @@ import prisma from "@/lib/db";
 
 export const GET = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url);
-  console.log(searchParams);
-  // const q = searchParams.get("q") || "";
-  // const q = decodeURIComponent(rawQuery.trim());
 
   const q = decodeURIComponent(searchParams.get("q") || "").trim();
-  // console.log(req);
-
-  console.log("クエリ： " + q);
 
   // 検索ワードが指定されていない場合
   if (!q) {
@@ -50,8 +44,6 @@ export const GET = async (req: NextRequest) => {
         hires: true,
       },
     });
-
-    console.log(results);
 
     return NextResponse.json(results);
   } catch (error) {

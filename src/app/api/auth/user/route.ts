@@ -20,7 +20,5 @@ export const GET = async (req: NextRequest) => {
     },
   });
 
-  // console.log(user)
-
   return NextResponse.json(user);
 };
