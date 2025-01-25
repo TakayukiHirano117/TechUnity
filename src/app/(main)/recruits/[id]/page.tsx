@@ -51,9 +51,8 @@ const RecruitDetailPage = () => {
     isLoading,
   } = useSWR(`/api/recruits/${id}`, getRecruitDetail);
 
-  const { toggleRecruitLike, isLikeRecruitMutating } = useRecruitLike(
-    id as string,
-  );
+  const { toggleLikeWithOptimisticUpdate, isLikeRecruitMutating } =
+    useRecruitLike(id as string);
 
   const { toggleApply, isApplyMutating } = useApply(id as string);
 
@@ -235,7 +234,9 @@ const RecruitDetailPage = () => {
                         <button
                           type="button"
                           className={`rounded-full p-2 hover:bg-red-300 cursor-pointer ${recruit.isLiked ? "bg-red-300" : "bg-slate-200"}`}
-                          onClick={() => toggleRecruitLike()}
+                          onClick={() =>
+                            toggleLikeWithOptimisticUpdate(recruit)
+                          }
                           disabled={isLikeRecruitMutating}
                         >
                           <HeartIcon

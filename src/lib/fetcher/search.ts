@@ -7,7 +7,5 @@ export const searchRecruits = async (q: string) => {
       "Content-Type": "application/json",
     },
   });
-  console.log(baseURL)
-
   return res.json();
 };

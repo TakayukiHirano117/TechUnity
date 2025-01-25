@@ -10,7 +10,7 @@ const UserProfileHeader = memo(
   ({ profile, className }: UserProfileHeaderProps) => {
     return (
       <div
-        className={`${className} flex items-center gap-8 justify-center bg-white max-w-max mx-auto p-4 rounded-lg shadow-sm`}
+        className={`${className} flex w-full items-center gap-8 justify-center bg-white max-w-max mx-auto p-4 rounded-lg shadow-sm`}
       >
         <AvatarIcon
           ImageSrc={profile?.image || ""}

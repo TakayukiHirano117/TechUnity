@@ -31,10 +31,8 @@ export const GET = async (
       },
     });
 
-    // console.log(recruit?.creatorId, token.id);
 
     if (recruit?.creatorId !== token.id) {
-      // console.log("unauthorized");
       return NextResponse.json({ redirect: "/" });
     }
 
