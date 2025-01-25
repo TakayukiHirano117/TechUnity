@@ -32,8 +32,6 @@ export const POST = async (req: NextRequest) => {
   try {
     const token = await getToken({ req });
 
-    // console.log(token)
-
     if (!token) {
       return NextResponse.json("unauthorized", { status: 403 });
     }

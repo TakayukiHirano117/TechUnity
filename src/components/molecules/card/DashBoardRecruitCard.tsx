@@ -60,7 +60,6 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
   const { toggleHire, isHireMutating } = useHire(recruit.id);
 
   const handleHire = async (userId: string) => {
-    // console.log(userId);
     await toggleHire({ userId });
     setDialogStates((prev) => ({ ...prev, [userId]: false }));
     router.refresh();

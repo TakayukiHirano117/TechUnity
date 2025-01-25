@@ -26,8 +26,6 @@ export const GET = async (req: NextRequest) => {
       },
     });
 
-    // console.log(profile);
-
     return NextResponse.json(profile);
   } catch (error) {
     console.error("Error fetching liked recruits:", error);
@@ -61,8 +59,6 @@ export const PUT = async (req: NextRequest) => {
         image,
       },
     });
-
-    console.log(profile)
 
     return NextResponse.json(profile);
   } catch (error) {
