@@ -1,8 +1,8 @@
 import React, { memo } from "react";
 
 import { ProfilesRecruitListProps } from "@/types/types";
+import ProfilesRecruitCard from "../card/ProfilesRecruitCard";
 
-import ProfilesRecruitCard from "./card/ProfilesRecruitCard";
 
 const ProfilesRecruitList = memo(
   ({ recruits }: { recruits: ProfilesRecruitListProps["recruits"] }) => {

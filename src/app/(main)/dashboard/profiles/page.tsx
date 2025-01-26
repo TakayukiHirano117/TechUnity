@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
 
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
-import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
+import DashBoardSideBar from "@/components/molecules/dashboard/DashBoardSideBar";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
 
 const DashBoardProfilesIndex = React.lazy(
-  () => import("@/components/organisms/DashBoardProfilesIndex"),
+  () => import("@/components/organisms/dashboard/DashBoardProfilesIndex"),
 );
 
 // 自分のプロフィールページ

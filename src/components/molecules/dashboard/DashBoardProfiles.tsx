@@ -7,16 +7,14 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
+import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
+import MainButton from "@/components/atoms/button/MainButton";
+import GitHubIcon from "@/components/atoms/Icon/GitHubIcon";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { editProfileSchema } from "@/lib/schema/formSchema";
-
-import AvatarIcon from "../atoms/avatar/AvatarIcon";
-import MainButton from "../atoms/button/MainButton";
-import GitHubIcon from "../atoms/Icon/GitHubIcon";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Textarea } from "../ui/textarea";
-
-import ImageUpload from "./ImageUpload";
+import ImageUpload from "../ImageUpload";
 
 type ProfileFormValues = z.infer<typeof editProfileSchema>;
 
