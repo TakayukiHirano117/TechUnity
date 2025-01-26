@@ -16,8 +16,10 @@ const searchRecruitSchema = z.object({
 });
 
 const SearchBar = () => {
+  // 検索バーの開閉状態を管理するstate
   const [open, setOpen] = useState(false);
   const router = useRouter();
+
   const { register, handleSubmit, formState } = useForm<
     z.infer<typeof searchRecruitSchema>
   >({
@@ -27,6 +29,10 @@ const SearchBar = () => {
     },
   });
 
+  /**
+   * 
+   * @param data - 検索フォームの入力値
+   */
   const onSubmit = (data: { q: string }) => {
     router.push(`/search?q=${encodeURIComponent(data.q)}`);
     setOpen(false);

@@ -3,28 +3,16 @@ import React, { Suspense } from "react";
 
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 
-const getUserProfile = async (url: string) => {
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch user profile");
-  }
-
-  const data = await response.json();
-  return data;
-};
-
 const ProfileWithRecruits = React.lazy(
   () => import("@/components/organisms/profiles/ProfileWithRecruits"),
 );
 
-type UserProfile = {
-  image?: string;
-  name?: string;
-  description?: string;
-  recruits_creator: Recruit[];
-};
-
+// プロフィールページ（だれでも閲覧可能）
+/**
+ * 
+ * @param id string ユーザーid
+ * @returns ユーザー情報
+ */
 const ProfilePage = ({ params }: { params: { id: string } }) => {
   const id = params.id;
 

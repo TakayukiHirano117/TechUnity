@@ -12,7 +12,8 @@ const DashBoardRecruitIndex = React.lazy(
   () => import("@/components/organisms/dashboard/DashBoardRecruitIndex"),
 );
 
-const RecruitsCreatedByMe = () => {
+
+const DashBoardRecruitsPage = () => {
   return (
     <div className="bg-slate-100 min-h-screen">
       <div className="px-8 py-14 flex justify-between container mx-auto gap-12 max-w-[1080px]">
@@ -47,4 +48,4 @@ const RecruitsCreatedByMe = () => {
   );
 };
 
-export default RecruitsCreatedByMe;
+export default DashBoardRecruitsPage;

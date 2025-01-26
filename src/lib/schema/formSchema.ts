@@ -1,5 +1,11 @@
 import { z } from "zod";
 
+// 正しいURL形式かどうかを判定する関数
+/**
+ * 
+ * @param url 判定対象のURL
+ * @returns URLが正しい形式かどうかの真偽値
+ */
 export const isValidUrl = (url: string): boolean => {
   try {
     new URL(url);
@@ -9,6 +15,7 @@ export const isValidUrl = (url: string): boolean => {
   }
 };
 
+// 募集の作成時のバリデーションスキーマ
 export const createRecruitSchema = z.object({
   title: z
     .string()
@@ -24,6 +31,7 @@ export const createRecruitSchema = z.object({
     }),
 });
 
+// 募集の編集時のバリデーションスキーマ
 export const editRecruitSchema = z.object({
   title: z
     .string()
@@ -39,6 +47,7 @@ export const editRecruitSchema = z.object({
     }),
 });
 
+// プロフィールの編集時のバリデーションスキーマ
 export const editProfileSchema = z.object({
   name: z
     .string()
@@ -62,11 +71,13 @@ export const editProfileSchema = z.object({
   image: z.string().url("有効な画像URLを入力してください").optional(),
 });
 
+// ログインフォームのバリデーションスキーマ
 export const signInFormSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 });
 
+// 新規登録フォームのバリデーションスキーマ
 export const signUpFormSchema = z.object({
   email: z.string().email(),
   username: z.string(),
