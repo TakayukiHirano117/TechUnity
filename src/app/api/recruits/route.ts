@@ -4,6 +4,7 @@ import { getToken } from "next-auth/jwt";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/db";
 
+// 募集一覧取得API
 export const GET = async (req: NextRequest) => {
   try {
     // select句で必要なカラムのみ返すように要修正
@@ -22,12 +23,15 @@ export const GET = async (req: NextRequest) => {
       },
     });
 
+    // console.log(recruits)
+
     return NextResponse.json(recruits);
   } catch (error) {
     return NextResponse.json("error", { status: 500 });
   }
 };
 
+// 募集作成API
 export const POST = async (req: NextRequest) => {
   try {
     const token = await getToken({ req });
@@ -36,7 +40,7 @@ export const POST = async (req: NextRequest) => {
       return NextResponse.json("unauthorized", { status: 403 });
     }
 
-    const { title, content, isPublished } = await req.json();
+    const { title, content, isPublished, repositoryUrl } = await req.json();
 
     const session = await getServerSession(authOptions);
     const creatorId = session!.user.id as string;
@@ -46,6 +50,7 @@ export const POST = async (req: NextRequest) => {
         title,
         content,
         isPublished,
+        repositoryUrl,
         creator: {
           connect: {
             id: creatorId,

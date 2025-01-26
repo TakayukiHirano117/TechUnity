@@ -51,10 +51,9 @@ export type RecruitCardProps = {
   // remainingCount: number;
 };
 
-export type DashBoardRecruits = {
+export type DashBoardRecruit = {
   id: string;
   title: string;
-  // content: string;
   creator: {
     id: string;
     name: string;
@@ -75,6 +74,7 @@ export type DashBoardRecruits = {
   isPublished: boolean;
   hires: Hire[];
   isHired: boolean;
+  repositoryUrl: string;
 };
 
 export type ProfilesRecruitListProps = {

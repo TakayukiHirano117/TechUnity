@@ -1,17 +1,9 @@
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
 import React, { Suspense } from "react";
 
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import EditRecruitIndex from "@/components/organisms/recruits/EditRecruitIndex";
-import { authOptions } from "@/lib/auth";
 
 const EditRecruitPage = async ({ params }: { params: { id: string } }) => {
-  // ログインしていないとunauthorizedページに飛ばす
-  // const session = await getServerSession(authOptions);
-  // if (!session) {
-  //   return redirect("/");
-  // }
 
   return (
     <div className="bg-slate-100 w-full">
