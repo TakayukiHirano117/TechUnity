@@ -69,9 +69,9 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
     setDialogStates((prev) => ({ ...prev, [userId]: isOpen }));
   };
 
-  const handleDeleteRecruit = () => {
+  const handleDeleteRecruit = async () => {
     try {
-      deleteRecruit(recruit.id);
+      await deleteRecruit(recruit.id);
       toast.success("削除しました。");
       router.refresh();
     } catch (error) {
