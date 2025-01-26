@@ -6,18 +6,20 @@ export default withAuth(
   async function middleware(req) {
     const token = await getToken({ req });
     
+    // tokenがあるかどうかで認証状態を判定しisAuthに真偽値で格納
     const isAuth = !!token;
-    const isAuthPage =
-      req.nextUrl.pathname.startsWith("/login") ||
-      req.nextUrl.pathname.startsWith("/register");
 
-    if (isAuthPage) {
-      if (isAuth) {
-        return NextResponse.redirect(new URL("/", req.url));
-      }
+    // const isAuthPage =
+    //   req.nextUrl.pathname.startsWith("/login") ||
+    //   req.nextUrl.pathname.startsWith("/register");
 
-      return null;
-    }
+    // if (isAuthPage) {
+    //   if (isAuth) {
+    //     return NextResponse.redirect(new URL("/", req.url));
+    //   }
+
+    //   return null;
+    // }
 
     if (!isAuth) {
       // 401ページにリダイレクトさせるのは各route.tsで行う。
@@ -27,13 +29,13 @@ export default withAuth(
   {
     callbacks: {
       async authorized() {
-        // if(token.role === "admin") true;
         return true;
       },
     },
   },
 );
 
+// 募集一覧・募集詳細・検索結果ページは認証不要
 export const config = {
   matcher: ["/recruits/create", "/recruits/:path*/edit", "/dashboard/:path*"],
 };

@@ -20,15 +20,7 @@ import ImageUpload from "./ImageUpload";
 
 type ProfileFormValues = z.infer<typeof editProfileSchema>;
 
-export const isValidUrl = (url: string): boolean => {
-  try {
-    new URL(url);
-    return true;
-  } catch {
-    return false;
-  }
-};
-
+// プロフィール確認・編集ページ
 const DashBoardProfiles = memo(
   ({
     profile,
@@ -58,13 +50,16 @@ const DashBoardProfiles = memo(
       },
     });
 
+    // 更新処理の有無にかかわらず、画像をアバターに反映するためのstate
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
+    // 画像アップロード時の処理
     const onInsertImage = (name: string, url: string) => {
       setUploadedImage(url);
       setValue("image", url);
     };
 
+    // プロフィール情報をフォームにセット
     useEffect(() => {
       if (profile) {
         setValue("name", profile.name || "");
@@ -74,6 +69,7 @@ const DashBoardProfiles = memo(
       }
     }, [profile, setValue]);
 
+    // プロフィール更新関数
     const onSubmit = async (data: ProfileFormValues) => {
       try {
         // 分離したい
