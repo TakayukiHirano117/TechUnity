@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-import { editProfileSchema } from "@/lib/formSchema";
+import { editProfileSchema } from "@/lib/schema/formSchema";
 
 import AvatarIcon from "../atoms/avatar/AvatarIcon";
 import MainButton from "../atoms/button/MainButton";
