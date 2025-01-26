@@ -35,13 +35,6 @@ export const GET = async (
       return NextResponse.json({ message: "Not found" }, { status: 404 });
     }
 
-    // console.log(recruit)
-    const rows = await prisma.$queryRaw<
-      Array<{ repository_url: string | null }>
-    >`SELECT repository_url FROM recruits WHERE id = ${id};`;
-    console.log(rows);
-
-
     // 自分が「いいね」しているかどうかを判定
     const isLiked = userId
       ? recruit.likes.some((like) => like.userId === userId)
