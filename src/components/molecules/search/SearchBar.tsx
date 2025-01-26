@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -16,6 +16,7 @@ const searchRecruitSchema = z.object({
 });
 
 const SearchBar = () => {
+  const [open, setOpen] = useState(false);
   const router = useRouter();
   const { register, handleSubmit, formState } = useForm<
     z.infer<typeof searchRecruitSchema>
@@ -28,12 +29,15 @@ const SearchBar = () => {
 
   const onSubmit = (data: { q: string }) => {
     router.push(`/search?q=${encodeURIComponent(data.q)}`);
+    setOpen(false);
   };
 
   return (
     <div className="flex items-center gap-2 relative">
       <MainDialog
         title="募集を検索"
+        onOpenChange={setOpen}
+        isOpen={open}
         trigger={
           <button type="button" className="relative">
             <SearchIcon className="w-6 h-6 font-bold cursor-pointer hover:opacity-70 text-slate-600" />

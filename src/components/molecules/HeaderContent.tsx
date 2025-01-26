@@ -8,7 +8,7 @@ import MainButton from "../atoms/button/MainButton";
 
 import LoginDialog from "./dialog/LoginDialog";
 import SignUpDialog from "./dialog/SignUpDialog";
-import MainDropdown from "./dropdown/MainDropdown";
+import HeaderDropdown from "./dropdown/HeaderDropdown";
 import SearchBar from "./search/SearchBar";
 
 const HeaderContent = memo(
@@ -47,7 +47,7 @@ const HeaderContent = memo(
           </>
         ) : (
           <>
-            <MainDropdown username={user.name!}>
+            <HeaderDropdown username={user.name!}>
               <button>
                 <AvatarIcon
                   className="cursor-pointer border"
@@ -55,7 +55,7 @@ const HeaderContent = memo(
                   fallbackText={user.name!}
                 />
               </button>
-            </MainDropdown>
+            </HeaderDropdown>
             <MainButton className="rounded-full font-bold hidden sm:block">
               <Link href={"/recruits/create"}>募集する</Link>
             </MainButton>
