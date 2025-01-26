@@ -28,16 +28,14 @@ export const GET = async (req: NextRequest) => {
       },
     });
 
-    // ログインしてるユーザーが採用されているかどうかの情報を追加したい。
+    // ログインしてるユーザーが採用されているかどうかの情報を追加
     const recruitsWithIsHired = appliedRecruits.map((recruit) => {
       const isHired = recruit.hires.some((hire) => hire.userId === userId);
       return {
         ...recruit,
-        isHired, // isHiredプロパティを追加
+        isHired,
       };
     });
-
-    // console.log("withHired" + recruitsWithIsHired)
 
     return NextResponse.json(recruitsWithIsHired);
   } catch (error) {
