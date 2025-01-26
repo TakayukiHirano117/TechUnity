@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import rehypeSanitize from "rehype-sanitize";
 import remarkBreaks from "remark-breaks";
@@ -15,8 +15,6 @@ import useSWR from "swr";
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import MainButton from "@/components/atoms/button/MainButton";
 import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
-import GitHubIcon from "@/components/atoms/Icon/GitHubIcon";
-import GoogleIcon from "@/components/atoms/Icon/GoogleIcon";
 import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import LoginDialog from "@/components/molecules/dialog/LoginDialog";
@@ -24,7 +22,6 @@ import MainDialog from "@/components/molecules/dialog/MainDialog";
 import { DialogClose } from "@/components/ui/dialog";
 import { useApply } from "@/hooks/useApply";
 import { useRecruitLike } from "@/hooks/useRecruitLike";
-import toast from "react-hot-toast";
 
 const getRecruitDetail = async (url: string) => {
   const response = await fetch(url, { cache: "no-store" });
@@ -51,9 +48,11 @@ const RecruitDetailPage = () => {
     isLoading,
   } = useSWR(`/api/recruits/${id}`, getRecruitDetail);
 
+  // いいねのトグルを行う関数と、ローディング状態を管理するhooks
   const { toggleLikeWithOptimisticUpdate, isLikeRecruitMutating } =
     useRecruitLike(id as string);
 
+  // 応募のトグルを行う関数と、ローディング状態を管理するhooks
   const { toggleApply, isApplyMutating } = useApply(id as string);
 
   return (

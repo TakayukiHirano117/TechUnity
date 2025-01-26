@@ -22,6 +22,7 @@ import { Switch } from "@/components/ui/switch";
 import { createRecruit } from "@/lib/fetcher/recruit";
 import { createRecruitSchema } from "@/lib/schema/formSchema";
 
+// 募集作成ページ
 const CreateRecruitPage = () => {
   const router = useRouter();
   // プレビューかどうかの状態管理をするステート
@@ -82,16 +83,20 @@ const CreateRecruitPage = () => {
 
   // カーソルの位置に画像のパスを挿入する関数
   const insertTextToContent = (text: string) => {
-    const currentContent = watch("content"); // 現在の content を取得
+    // 現在の content を取得
+    const currentContent = watch("content");
+
+    // カーソル位置を基準にして、カーソル位置前後の文字列を取得
     const before = currentContent.slice(0, cursorPositionRef.current);
     const after = currentContent.slice(cursorPositionRef.current);
 
-    // 挿入後の新しいコンテンツを作成
+    // 画像パス挿入後の新しいコンテンツを作成
     const newContent = `${before}${text}${after}`;
 
     setValue("content", newContent);
   };
 
+  // マークダウンエディターのカーソル位置を取得する関数
   const handleCursorChange = (
     event:
       | React.MouseEvent<HTMLTextAreaElement>
