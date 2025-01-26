@@ -6,6 +6,7 @@ export const searchRecruits = async (q: string) => {
     headers: {
       "Content-Type": "application/json",
     },
+    cache: "no-cache",
   });
   return res.json();
 };
