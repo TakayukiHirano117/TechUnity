@@ -1,42 +1,18 @@
-"use client";
-
-import { format } from "date-fns";
-import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import useSWR from "swr";
+import React, { Suspense } from "react";
 
-import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import MainButton from "@/components/atoms/button/MainButton";
-import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
-import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
-import { DashBoardRecruit } from "@/types/types";
 
 const items = SidebarItems;
 
-const getLikedRecruits = async (): Promise<DashBoardRecruit[]> => {
-  const res = await fetch("/api/dashboard/liked-recruits");
-  const recruits = await res.json();
-  return recruits;
-};
+const LikedRecruitsIndex = React.lazy(
+  () => import("@/components/organisms/dashboard/LikedRecruitsIndex"),
+);
 
 const LikedRecruitsDashboardPage = () => {
-  const {
-    data: recruits,
-    error,
-    isLoading,
-  } = useSWR<DashBoardRecruit[]>(
-    "/api/dashboard/liked-recruits",
-    getLikedRecruits,
-  );
-
-  // if (isLoading) return <p>loading...</p>;
-
-  if (error) return <p>エラーが発生しました: {error.message}</p>;
-
   return (
     <div className="bg-slate-100 min-h-screen">
       <div className="px-8 py-14 flex justify-between container mx-auto gap-12 max-w-[1080px]">
@@ -52,7 +28,7 @@ const LikedRecruitsDashboardPage = () => {
           </div>
 
           {/* ローディング状態の表示 */}
-          {!recruits || isLoading ? (
+          {/* {!recruits || isLoading ? (
             <div className="mx-auto space-y-3 h-screen">
               <LoadingIcon
                 width="40"
@@ -134,7 +110,20 @@ const LikedRecruitsDashboardPage = () => {
                 className="my-8"
               />
             </div>
-          )}
+          )} */}
+          <Suspense
+            fallback={
+              <div className="mx-auto space-y-3 h-screen">
+                <LoadingIcon
+                  width="40"
+                  height="40"
+                  className="animate-spin text-slate-600"
+                />
+              </div>
+            }
+          >
+            <LikedRecruitsIndex />
+          </Suspense>
         </div>
       </div>
     </div>
