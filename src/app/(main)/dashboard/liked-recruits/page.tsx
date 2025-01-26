@@ -13,11 +13,11 @@ import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
-import { DashBoardRecruits } from "@/types/types";
+import { DashBoardRecruit } from "@/types/types";
 
 const items = SidebarItems;
 
-const getLikedRecruits = async (): Promise<DashBoardRecruits[]> => {
+const getLikedRecruits = async (): Promise<DashBoardRecruit[]> => {
   const res = await fetch("/api/dashboard/liked-recruits");
   const recruits = await res.json();
   return recruits;
@@ -28,7 +28,7 @@ const LikedRecruitsDashboardPage = () => {
     data: recruits,
     error,
     isLoading,
-  } = useSWR<DashBoardRecruits[]>(
+  } = useSWR<DashBoardRecruit[]>(
     "/api/dashboard/liked-recruits",
     getLikedRecruits,
   );
