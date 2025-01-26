@@ -88,7 +88,7 @@ const DashBoardProfiles = memo(
     return (
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
         <div className="flex flex-col sm:flex-row gap-8 mt-4">
-          <div>
+          <div className="flex justify-center">
             <ImageUpload
               folder="recruits"
               onInsertImage={onInsertImage}
