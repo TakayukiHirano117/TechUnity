@@ -1,5 +1,13 @@
-import { isValidUrl } from "@/components/molecules/DashBoardProfiles";
 import { z } from "zod";
+
+export const isValidUrl = (url: string): boolean => {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+};
 
 export const createRecruitSchema = z.object({
   title: z
@@ -8,6 +16,12 @@ export const createRecruitSchema = z.object({
     .max(100, { message: "タイトルは100文字以内で入力してください" }),
   content: z.string().min(1, { message: "本文は1文字以上で入力してください" }),
   isPublished: z.boolean(),
+  repositoryUrl: z
+    .string()
+    .optional()
+    .refine((url) => !url || isValidUrl(url), {
+      message: "有効なURLを入力してください",
+    }),
 });
 
 export const editRecruitSchema = z.object({
@@ -17,6 +31,12 @@ export const editRecruitSchema = z.object({
     .max(100, { message: "タイトルは100文字以内で入力してください" }),
   content: z.string().min(1, { message: "本文は1文字以上で入力してください" }),
   isPublished: z.boolean(),
+  repositoryUrl: z
+    .string()
+    .optional()
+    .refine((url) => !url || isValidUrl(url), {
+      message: "有効なURLを入力してください",
+    }),
 });
 
 export const editProfileSchema = z.object({

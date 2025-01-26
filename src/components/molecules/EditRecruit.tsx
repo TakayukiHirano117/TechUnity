@@ -1,24 +1,24 @@
 "use client";
 
-import { updateRecruit } from "@/lib/fetcher/recruit";
-import { editRecruitSchema } from "@/lib/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import MDEditor from "@uiw/react-md-editor";
+import { ImageIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
-import { Input } from "../ui/input";
-import MDEditor from "@uiw/react-md-editor";
-import remarkGfm from "remark-gfm";
-import remarkBreaks from "remark-breaks";
-import rehypeSanitize from "rehype-sanitize";
-import { Switch } from "../ui/switch";
-import { Label } from "../ui/label";
-import ImageUpload from "./ImageUpload";
-import MainButton from "../atoms/button/MainButton";
-import { ImageIcon } from "lucide-react";
-import { Button } from "../ui/button";
 import toast from "react-hot-toast";
+import rehypeSanitize from "rehype-sanitize";
+import remarkBreaks from "remark-breaks";
+import remarkGfm from "remark-gfm";
+import { z } from "zod";
+import { updateRecruit } from "@/lib/fetcher/recruit";
+import { editRecruitSchema } from "@/lib/formSchema";
+import MainButton from "../atoms/button/MainButton";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Switch } from "../ui/switch";
+import ImageUpload from "./ImageUpload";
 
 const EditRecruit = memo(
   ({
@@ -29,6 +29,7 @@ const EditRecruit = memo(
       title: string;
       content: string;
       isPublished: boolean;
+      repositoryUrl?: string;
     };
   }) => {
     const [isPreview, setIsPreview] = useState(false);
@@ -49,10 +50,13 @@ const EditRecruit = memo(
         title: "",
         content: "",
         isPublished: false,
+        repositoryUrl: "",
       },
     });
 
+    const title = watch("title");
     const content = watch("content");
+    const repositoryUrl = watch("repositoryUrl");
 
     useEffect(() => {
       if (!isInitialResetDone.current) {
@@ -60,6 +64,7 @@ const EditRecruit = memo(
           title: recruit.title,
           content: recruit.content,
           isPublished: recruit.isPublished,
+          repositoryUrl: recruit.repositoryUrl,
         });
         isInitialResetDone.current = true;
       }
@@ -69,6 +74,7 @@ const EditRecruit = memo(
       title: string;
       content: string;
       isPublished: boolean;
+      repositoryUrl?: string;
     }) => {
       try {
         updateRecruit(recruit.id as string, data);
@@ -76,9 +82,15 @@ const EditRecruit = memo(
       } catch (error) {
         toast.error("更新に失敗しました");
       }
+    };
 
-      // router.push("/dashboard/recruits");
-      // router.refresh();
+    const onError = () => {
+      // バリデーションエラーを全て取得して表示
+      Object.values(errors).forEach((error) => {
+        if (error?.message) {
+          toast.error(error.message, { icon: "⚠️" });
+        }
+      });
     };
 
     const onInsertImage = useCallback(
@@ -91,12 +103,22 @@ const EditRecruit = memo(
     );
 
     return (
-      <form onSubmit={handleSubmit(onSubmit)} method="POST">
-        <Input
-          placeholder="タイトル"
-          className="bg-slate-100 text-2xl focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
-          {...register("title")}
-        />
+      <form onSubmit={handleSubmit(onSubmit, onError)} method="POST">
+        <div className="flex flex-col gap-4">
+          <Input
+            placeholder="タイトル"
+            className="bg-slate-100 font-bold text-2xl focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
+            {...register("title")}
+            value={title}
+          />
+          <hr />
+          <Input
+            placeholder="プロジェクトのリポジトリURL(任意)"
+            className="bg-slate-100 font-bold text-2xl focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
+            {...register("repositoryUrl")}
+            value={repositoryUrl}
+          />
+        </div>
         <div className="flex gap-4 mt-4">
           <div className="w-full md:w-4/5">
             {!isPreview ? (

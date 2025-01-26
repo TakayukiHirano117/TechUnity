@@ -27,6 +27,7 @@ export const GET = async (req: NextRequest) => {
         hires: true,
       },
     });
+
     // ログインしてるユーザーが採用されているかどうかの情報を追加したい。
     const recruitsWithIsHired = appliedRecruits.map((recruit) => {
       const isHired = recruit.hires.some((hire) => hire.userId === userId);
@@ -35,6 +36,8 @@ export const GET = async (req: NextRequest) => {
         isHired, // isHiredプロパティを追加
       };
     });
+
+    // console.log("withHired" + recruitsWithIsHired)
 
     return NextResponse.json(recruitsWithIsHired);
   } catch (error) {

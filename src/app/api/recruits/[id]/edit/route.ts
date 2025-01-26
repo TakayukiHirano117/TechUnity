@@ -26,6 +26,7 @@ export const GET = async (
         id: true,
         title: true,
         content: true,
+        repositoryUrl: true,
         isPublished: true,
         creatorId: true,
       },

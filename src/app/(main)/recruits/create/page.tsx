@@ -34,24 +34,27 @@ const CreateRecruitPage = () => {
     setValue,
     watch,
     control,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = useForm<z.infer<typeof createRecruitSchema>>({
     resolver: zodResolver(createRecruitSchema),
     defaultValues: {
       title: "",
       content: "",
       isPublished: false,
+      repositoryUrl: "",
     },
   });
 
   const title = watch("title");
   const content = watch("content");
+  const repositoryUrl = watch("repositoryUrl");
 
   // 募集作成関数
   const onSubmit = async (data: {
     title: string;
     content: string;
     isPublished: boolean;
+    repositoryUrl?: string;
   }) => {
     try {
       const res = await createRecruit(data);
@@ -64,6 +67,14 @@ const CreateRecruitPage = () => {
     } catch (error) {
       toast.error("エラーが発生しました", { icon: "❌" });
     }
+  };
+  const onError = () => {
+    // バリデーションエラーを全て取得して表示
+    Object.values(errors).forEach((error) => {
+      if (error?.message) {
+        toast.error(error.message, { icon: "⚠️" });
+      }
+    });
   };
 
   // マークダウンエディター内のカーソル位置を保持するためのRef
@@ -100,14 +111,23 @@ const CreateRecruitPage = () => {
     <div className="bg-slate-100 w-full">
       <div className="max-w-[960px] mx-auto sm:p-8 p-2 container">
         {/* ここ別のコンポーネントにできるよね */}
-        <form onSubmit={handleSubmit(onSubmit)} method="POST">
+        <form onSubmit={handleSubmit(onSubmit, onError)} method="POST">
           {/* タイトル入力欄 */}
-          <Input
-            placeholder="タイトル"
-            value={title}
-            className="bg-slate-100 font-bold text-2xl focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
-            {...register("title")}
-          />
+          <div className="flex flex-col gap-4">
+            <Input
+              placeholder="タイトル *"
+              value={title}
+              className="bg-slate-100 font-bold text-2xl focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
+              {...register("title")}
+            />
+            <hr />
+            <Input
+              placeholder="プロジェクトのリポジトリURL"
+              value={repositoryUrl}
+              className="bg-slate-100 font-bold text-2xl focus-visible:ring-offset-0 p-2 md:text-3xl outline-none rounded-none border-none focus:ring-0 focus:outline-none hover:border-none focus:border-none focus-visible:ring-0 shadow-none"
+              {...register("repositoryUrl")}
+            />
+          </div>
           <div className="flex flex-col md:flex-row gap-4 mt-4">
             <div className="w-full md:w-4/5">
               {/* プレビューではないときにマークダウンエディターを表示 */}
@@ -124,7 +144,7 @@ const CreateRecruitPage = () => {
                     textareaProps={{
                       onClick: handleCursorChange,
                       onKeyUp: handleCursorChange,
-                      placeholder: "Markdownで募集を書いてください",
+                      placeholder: "Markdownで募集を書いてください *",
                     }}
                     style={{ boxShadow: "none", borderRadius: "0.5rem" }}
                     visibleDragbar={false}

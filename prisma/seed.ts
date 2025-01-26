@@ -26,7 +26,6 @@ async function main() {
 
   await prisma.recruits.createMany({ data: recruits });
 
-  console.log("Inserted 10 dummy recruits!");
 }
 
 main()
