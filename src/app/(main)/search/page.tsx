@@ -6,6 +6,12 @@ const SearchResultsIndex = React.lazy(
   () => import("@/components/organisms/search/SearchResultsIndex"),
 );
 
+// 検索結果ページ
+/**
+ * 
+ * @param q string 検索ワード
+ * @returns 検索結果
+ */
 const SearchResults = ({ searchParams }: { searchParams: { q: string } }) => {
   return (
     <div className="bg-slate-100">
