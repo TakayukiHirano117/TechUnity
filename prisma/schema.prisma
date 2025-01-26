@@ -74,17 +74,18 @@ model VerificationToken {
 }
 
 model Recruit {
-  id           String        @id @default(cuid())
-  title        String
-  content      String
-  createdAt    DateTime      @default(now()) @map(name: "created_at")
-  updatedAt    DateTime      @updatedAt @map(name: "updated_at")
-  isPublished  Boolean       @default(false) @map(name: "is_published")
-  creator      User          @relation(fields: [creatorId], references: [id], name: "creator")
-  creatorId    String
-  likes        Like[]
-  applications Application[]
-  hires        Hire[]
+  id            String        @id @default(cuid())
+  title         String
+  content       String
+  repositoryUrl String?       @map(name: "repository_url")
+  createdAt     DateTime      @default(now()) @map(name: "created_at")
+  updatedAt     DateTime      @updatedAt @map(name: "updated_at")
+  isPublished   Boolean       @default(false) @map(name: "is_published")
+  creator       User          @relation(fields: [creatorId], references: [id], name: "creator")
+  creatorId     String
+  likes         Like[]
+  applications  Application[]
+  hires         Hire[]
 
   @@map(name: "recruits")
 }

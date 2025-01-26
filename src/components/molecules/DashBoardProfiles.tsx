@@ -27,7 +27,7 @@ export const isValidUrl = (url: string): boolean => {
   } catch {
     return false;
   }
-}
+};
 
 const DashBoardProfiles = memo(
   ({

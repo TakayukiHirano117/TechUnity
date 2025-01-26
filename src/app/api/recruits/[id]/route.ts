@@ -35,6 +35,13 @@ export const GET = async (
       return NextResponse.json({ message: "Not found" }, { status: 404 });
     }
 
+    // console.log(recruit)
+    const rows = await prisma.$queryRaw<
+      Array<{ repository_url: string | null }>
+    >`SELECT repository_url FROM recruits WHERE id = ${id};`;
+    console.log(rows);
+
+
     // 自分が「いいね」しているかどうかを判定
     const isLiked = userId
       ? recruit.likes.some((like) => like.userId === userId)
@@ -71,7 +78,7 @@ export const PUT = async (
 
     const id = params.id;
 
-    const { title, content, isPublished } = await req.json();
+    const { title, content, isPublished, repositoryUrl } = await req.json();
 
     const updatedAt = new Date();
 
@@ -81,6 +88,7 @@ export const PUT = async (
         title,
         content,
         isPublished,
+        repositoryUrl,
         updatedAt,
       },
     });
