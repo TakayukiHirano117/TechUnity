@@ -7,28 +7,18 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-import { editProfileSchema } from "@/lib/formSchema";
-
-import AvatarIcon from "../atoms/avatar/AvatarIcon";
-import MainButton from "../atoms/button/MainButton";
-import GitHubIcon from "../atoms/Icon/GitHubIcon";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Textarea } from "../ui/textarea";
-
-import ImageUpload from "./ImageUpload";
+import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
+import MainButton from "@/components/atoms/button/MainButton";
+import GitHubIcon from "@/components/atoms/Icon/GitHubIcon";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { editProfileSchema } from "@/lib/schema/formSchema";
+import ImageUpload from "../ImageUpload";
 
 type ProfileFormValues = z.infer<typeof editProfileSchema>;
 
-export const isValidUrl = (url: string): boolean => {
-  try {
-    new URL(url);
-    return true;
-  } catch {
-    return false;
-  }
-};
-
+// プロフィール確認・編集ページ
 const DashBoardProfiles = memo(
   ({
     profile,
@@ -58,13 +48,16 @@ const DashBoardProfiles = memo(
       },
     });
 
+    // 更新処理の有無にかかわらず、画像をアバターに反映するためのstate
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
+    // 画像アップロード時の処理
     const onInsertImage = (name: string, url: string) => {
       setUploadedImage(url);
       setValue("image", url);
     };
 
+    // プロフィール情報をフォームにセット
     useEffect(() => {
       if (profile) {
         setValue("name", profile.name || "");
@@ -74,6 +67,7 @@ const DashBoardProfiles = memo(
       }
     }, [profile, setValue]);
 
+    // プロフィール更新関数
     const onSubmit = async (data: ProfileFormValues) => {
       try {
         // 分離したい

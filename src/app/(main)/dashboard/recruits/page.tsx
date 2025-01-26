@@ -5,11 +5,11 @@ import React, { Suspense } from "react";
 
 import MainButton from "@/components/atoms/button/MainButton";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
-import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
+import DashBoardSideBar from "@/components/molecules/dashboard/DashBoardSideBar";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
 
 const DashBoardRecruitIndex = React.lazy(
-  () => import("@/components/organisms/recruits/DashBoardRecruitIndex"),
+  () => import("@/components/organisms/dashboard/DashBoardRecruitIndex"),
 );
 
 const RecruitsCreatedByMe = () => {

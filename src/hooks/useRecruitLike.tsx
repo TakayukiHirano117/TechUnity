@@ -1,6 +1,7 @@
 import { mutate } from "swr";
 import useSWRMutation from "swr/mutation";
 
+// いいねAPIをたたく関数
 const likeRecruit = async (url: string) => {
   const response = await fetch(url, {
     method: "POST",
@@ -10,6 +11,7 @@ const likeRecruit = async (url: string) => {
   return response.json();
 };
 
+// いいね機能のカスタムフック
 export const useRecruitLike = (id: string) => {
   const { trigger: toggleRecruitLike, isMutating: isLikeRecruitMutating } =
     useSWRMutation(`/api/recruits/${id}/like`, likeRecruit, {
@@ -38,7 +40,6 @@ export const useRecruitLike = (id: string) => {
     );
 
     try {
-      // サーバーにリクエスト
       await toggleRecruitLike();
     } catch (error) {
       // リクエスト失敗時はキャッシュを元に戻す

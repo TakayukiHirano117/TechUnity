@@ -3,13 +3,11 @@ import React, { Suspense } from "react";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 
 const SearchResultsIndex = React.lazy(
-  () => import("@/components/organisms/SearchResultsIndex"),
+  () => import("@/components/organisms/search/SearchResultsIndex"),
 );
 
 const SearchResults = ({ searchParams }: { searchParams: { q: string } }) => {
-
   return (
-    
     <div className="bg-slate-100">
       <div className="container max-w-[960px] min-h-screen mx-auto p-8 flex flex-col gap-8">
         <div className="flex items-center gap-2">

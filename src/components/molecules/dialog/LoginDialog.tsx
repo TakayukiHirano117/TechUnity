@@ -17,7 +17,7 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signInFormSchema } from "@/lib/formSchema";
+import { signInFormSchema } from "@/lib/schema/formSchema";
 
 import MainDialog from "./MainDialog";
 
