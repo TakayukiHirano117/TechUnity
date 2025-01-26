@@ -2,9 +2,9 @@ import Link from "next/link";
 import React, { memo } from "react";
 
 import { UserProfileHeaderProps } from "@/types/types";
+import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
+import GitHubIcon from "@/components/atoms/Icon/GitHubIcon";
 
-import AvatarIcon from "../atoms/avatar/AvatarIcon";
-import GitHubIcon from "../atoms/Icon/GitHubIcon";
 
 const UserProfileHeader = memo(
   ({ profile, className }: UserProfileHeaderProps) => {
