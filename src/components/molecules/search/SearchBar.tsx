@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import SearchIcon from "@/components/atoms/SearchIcon";
+import SearchIcon from "@/components/atoms/Icon/SearchIcon";
 import { Input } from "@/components/ui/input";
 
 import MainDialog from "../dialog/MainDialog";

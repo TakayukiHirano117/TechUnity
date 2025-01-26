@@ -1,6 +1,7 @@
 import { mutate } from "swr";
 import useSWRMutation from "swr/mutation";
 
+// 応募APIをたたく関数
 const applyForApplication = async (url: string) => {
   const response = await fetch(url, {
     method: "POST",

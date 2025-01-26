@@ -12,13 +12,13 @@ import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import { z } from "zod";
 import { updateRecruit } from "@/lib/fetcher/recruit";
-import { editRecruitSchema } from "@/lib/formSchema";
-import MainButton from "../atoms/button/MainButton";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Switch } from "../ui/switch";
-import ImageUpload from "./ImageUpload";
+import { editRecruitSchema } from "@/lib/schema/formSchema";
+import MainButton from "../../atoms/button/MainButton";
+import { Button } from "../../ui/button";
+import { Input } from "../../ui/input";
+import { Label } from "../../ui/label";
+import { Switch } from "../../ui/switch";
+import ImageUpload from "../ImageUpload";
 
 const EditRecruit = memo(
   ({

@@ -1,6 +1,6 @@
 import React from "react";
 
-import HeaderContent from "@/components/molecules/HeaderContent";
+import HeaderContent from "@/components/molecules/header/HeaderContent";
 import { getUser } from "@/lib/fetcher/user";
 
 const HeaderIndex = async () => {

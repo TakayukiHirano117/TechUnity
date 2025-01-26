@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import React, { memo } from "react";
 
-import EditRecruit from "@/components/molecules/EditRecruit";
+import EditRecruit from "@/components/molecules/recruits/EditRecruit";
 
 const baseURL = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
 

@@ -3,6 +3,7 @@ import GearIcon from "@/components/atoms/Icon/GearIcon";
 import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import RecruitIcon from "@/components/atoms/Icon/RecruitIcon";
 
+// ダッシュボードのサイドバーの項目
 export const SidebarItems = [
   {
     id: 1,

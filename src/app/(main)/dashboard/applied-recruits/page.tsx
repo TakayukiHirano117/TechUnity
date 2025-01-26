@@ -3,18 +3,19 @@ import React, { Suspense } from "react";
 
 import MainButton from "@/components/atoms/button/MainButton";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
-import DashBoardSideBar from "@/components/molecules/DashBoardSideBar";
+import DashBoardSideBar from "@/components/molecules/dashboard/DashBoardSideBar";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
 
 const AppliedRecruitsIndex = React.lazy(
   () => import("@/components/organisms/dashboard/AppliedRecruitsIndex"),
 );
 
+// 応募した募集一覧ページ
 const AppliedRecruitsPage = () => {
   return (
     <div className="bg-slate-100 min-h-screen">
       <div className="px-8 py-14 flex justify-between container mx-auto gap-12 max-w-[1080px]">
-        {/* DashBoardSideBarを常時表示 */}
+        {/* DashBoardSideBar */}
         <DashBoardSideBar items={SidebarItems} />
 
         <div className="flex flex-col gap-4 sm:w-9/12 w-full">

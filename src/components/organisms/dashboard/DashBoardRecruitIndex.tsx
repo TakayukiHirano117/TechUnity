@@ -1,9 +1,9 @@
 import React from "react";
 
-import DashBoardRecruitList from "@/components/molecules/DashBoardRecruitList";
+import DashBoardRecruitList from "@/components/molecules/dashboard/DashBoardRecruitList";
 import { getRecruitsWithUser } from "@/lib/fetcher/dashboard";
 
-import NoDashboardRecruitsMessage from "./NoDashboardRecruitsMessage";
+import NoDashboardRecruitsMessage from "../recruits/NoDashboardRecruitsMessage";
 
 const DashBoardRecruitIndex = async () => {
   const recruits = await getRecruitsWithUser();
