@@ -3,6 +3,12 @@ import { getToken } from "next-auth/jwt";
 
 import prisma from "@/lib/db";
 
+// ログイン中のユーザーのプロフィールを取得
+/**
+ * 
+ * @param req リクエスト
+ * @returns ログイン中のユーザーのプロフィール
+ */
 export const GET = async (req: NextRequest) => {
   try {
     const token = await getToken({ req });
@@ -36,6 +42,12 @@ export const GET = async (req: NextRequest) => {
   }
 };
 
+// ログイン中のユーザーのプロフィールを更新
+/**
+ * 
+ * @param req リクエスト
+ * @returns 更新されたプロフィール
+ */
 export const PUT = async (req: NextRequest) => {
   try {
     const token = await getToken({ req });

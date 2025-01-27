@@ -3,6 +3,13 @@ import { getToken } from "next-auth/jwt";
 
 import prisma from "@/lib/db";
 
+// 募集詳細取得API
+/**
+ * 
+ * @param req リクエスト
+ * @param params 募集ID
+ * @returns 募集詳細
+ */
 export const GET = async (
   req: NextRequest,
   { params }: { params: { id: string } },
@@ -35,11 +42,12 @@ export const GET = async (
       return NextResponse.json({ message: "Not found" }, { status: 404 });
     }
 
-    // 自分が「いいね」しているかどうかを判定
+    // ログインしているユーザーが「いいね」しているかどうかを判定
     const isLiked = userId
       ? recruit.likes.some((like) => like.userId === userId)
       : false;
 
+    // ログインしているユーザーが応募しているかどうかを判定
     const isApplied = userId
       ? recruit.applications.some(
           (application) => application.userId === userId,
@@ -58,6 +66,13 @@ export const GET = async (
   }
 };
 
+// 募集更新API
+/**
+ * 
+ * @param req リクエスト
+ * @param params 募集ID
+ * @returns 更新した募集情報
+ */
 export const PUT = async (
   req: NextRequest,
   { params }: { params: { id: string } },
@@ -92,6 +107,13 @@ export const PUT = async (
   }
 };
 
+// 募集削除API
+/**
+ * 
+ * @param req リクエスト
+ * @param params 募集ID
+ * @returns 削除成功
+ */
 export const DELETE = async (
   req: NextRequest,
   { params }: { params: { id: string } },
@@ -105,11 +127,11 @@ export const DELETE = async (
 
     const id = params.id;
 
-    await prisma.recruit.delete({
+    const recruit = await prisma.recruit.delete({
       where: { id: id },
     });
 
-    return NextResponse.json("success");
+    return NextResponse.json(recruit);
   } catch (error) {
     return NextResponse.json("error", { status: 500 });
   }
