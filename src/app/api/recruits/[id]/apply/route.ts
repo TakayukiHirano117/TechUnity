@@ -2,6 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import prisma from "@/lib/db";
 
+// 応募切り替えAPI
+/**
+ * 
+ * @param req リクエスト
+ * @param id 募集ID 
+ * @returns 
+ */
 export const POST = async (
   req: NextRequest,
   { params }: { params: { id: string } },

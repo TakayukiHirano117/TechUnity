@@ -2,6 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 import prisma from "@/lib/db";
 
+// ユーザーのプロフィールとそのユーザーが作成した募集一覧を取得するAPI
+/**
+ * 
+ * @param req リクエスト
+ * @param id ユーザーID
+ * @returns ユーザーのプロフィールとそのユーザーが作成した募集一覧
+ */
 export const GET = async (
   req: NextRequest,
   { params }: { params: { id: string } },

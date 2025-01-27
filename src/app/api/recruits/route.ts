@@ -5,6 +5,11 @@ import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/db";
 
 // 募集一覧取得API
+/**
+ * 
+ * @param req リクエスト
+ * @returns 募集一覧
+ */
 export const GET = async (req: NextRequest) => {
   try {
     // select句で必要なカラムのみ返すように要修正
@@ -30,6 +35,11 @@ export const GET = async (req: NextRequest) => {
 };
 
 // 募集作成API
+/**
+ * 
+ * @param req リクエスト
+ * @returns 作成した募集情報
+ */
 export const POST = async (req: NextRequest) => {
   try {
     const token = await getToken({ req });

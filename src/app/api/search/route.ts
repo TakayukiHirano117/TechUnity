@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 import prisma from "@/lib/db";
 
+// 募集検索API
+/**
+ * 
+ * @param req リクエスト
+ * @returns 検索クエリに一致する募集情報
+ */
 export const GET = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url);
 

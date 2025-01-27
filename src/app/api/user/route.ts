@@ -4,11 +4,17 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/db";
 
+// ユーザーデータを取得するAPI
+/**
+ * 
+ * @param req リクエスト
+ * @returns ログインしているユーザー情報
+ */
 export const GET = async (req: NextRequest) => {
-  // ユーザーデータを取得
   const session = await getServerSession(authOptions);
 
   // これがないとログインしてない場合はエラーになるので要修正
+  // かといってログインしているときといないときでレスポンスが異なるのはいかがなものか💦
   if (!session) {
     return NextResponse.json(session);
   }

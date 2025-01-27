@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import prisma from "@/lib/db";
 
+// ログイン中のユーザーがいいねした募集情報を取得
+/**
+ * 
+ * @param req リクエスト
+ * @returns ログイン中のユーザーがいいねした募集情報
+ */
 export const GET = async (req: NextRequest) => {
   try {
     const token = await getToken({ req });
