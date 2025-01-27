@@ -3,6 +3,12 @@ import { getToken } from "next-auth/jwt";
 
 import prisma from "@/lib/db";
 
+// ログイン中のユーザーが作成した募集情報を取得
+/**
+ * 
+ * @param req リクエスト
+ * @returns ログイン中のユーザーが作成した募集情報
+ */
 export const GET = async (req: NextRequest) => {
   try {
     const token = await getToken({ req });

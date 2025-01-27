@@ -3,16 +3,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 import prisma from "@/lib/db";
 
+// ユーザー新規登録API
+/**
+ * 
+ * @param req リクエスト
+ * @returns ユーザー情報
+ */
 export const POST = async (req: NextRequest) => {
   try {
-    // リクエストボディの取得
     const body = await req.json();
     const { email, username, password } = body;
 
-    // パスワードのハッシュ化
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // ユーザーの作成
     const response = await prisma.user.create({
       data: {
         email,

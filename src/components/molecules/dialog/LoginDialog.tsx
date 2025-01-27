@@ -40,7 +40,6 @@ const LoginDialog = memo(({ trigger }: { trigger: React.ReactNode }) => {
 
   // credentials認証のログイン処理
   const onSignInSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // ログイン
     try {
       const res = await signIn("credentials", {
         ...data,
@@ -52,7 +51,6 @@ const LoginDialog = memo(({ trigger }: { trigger: React.ReactNode }) => {
       } else {
         toast.success("ログインしました。");
       }
-
 
       router.refresh();
     } catch (e) {
