@@ -49,7 +49,10 @@ const LoginDialog = memo(({ trigger }: { trigger: React.ReactNode }) => {
 
       if (!res?.ok) {
         toast.error(res!.error);
+      } else {
+        toast.success("ログインしました。");
       }
+
 
       router.refresh();
     } catch (e) {
@@ -76,7 +79,9 @@ const LoginDialog = memo(({ trigger }: { trigger: React.ReactNode }) => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>メールアドレス</FormLabel>
+                <FormLabel>
+                  メールアドレス(テストユーザー：testuser@test.com)
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="aaa@example.com"
@@ -92,7 +97,7 @@ const LoginDialog = memo(({ trigger }: { trigger: React.ReactNode }) => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>パスワード</FormLabel>
+                <FormLabel>パスワード(テストユーザー: testuser)</FormLabel>
                 <FormControl>
                   <Input type="password" {...field} />
                 </FormControl>
