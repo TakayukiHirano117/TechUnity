@@ -32,6 +32,13 @@ const LoginDialog = memo(({ trigger }: { trigger: React.ReactNode }) => {
     },
   });
 
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting },
+  } = signInForm;
+
+  // credentials認証のログイン処理
   const onSignInSubmit: SubmitHandler<FieldValues> = async (data) => {
     // ログイン
     try {
@@ -61,11 +68,11 @@ const LoginDialog = memo(({ trigger }: { trigger: React.ReactNode }) => {
       </h3>
       <Form {...signInForm}>
         <form
-          onSubmit={signInForm.handleSubmit(onSignInSubmit)}
+          onSubmit={handleSubmit(onSignInSubmit)}
           className="flex flex-col gap-2"
         >
           <FormField
-            control={signInForm.control}
+            control={control}
             name="email"
             render={({ field }) => (
               <FormItem>
@@ -81,7 +88,7 @@ const LoginDialog = memo(({ trigger }: { trigger: React.ReactNode }) => {
             )}
           />
           <FormField
-            control={signInForm.control}
+            control={control}
             name="password"
             render={({ field }) => (
               <FormItem>
@@ -93,7 +100,7 @@ const LoginDialog = memo(({ trigger }: { trigger: React.ReactNode }) => {
             )}
           />
           <MainButton type="submit" className="rounded-full font-bold">
-            ログインする
+            {isSubmitting ? "ログイン中..." : "ログイン"}
           </MainButton>
         </form>
       </Form>
