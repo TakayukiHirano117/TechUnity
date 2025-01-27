@@ -58,7 +58,7 @@ const RecruitDetailPage = () => {
   return (
     <div className="bg-slate-100 mx-auto">
       {!recruit || isLoading ? (
-        <div className="flex justify-between">
+        <div className="flex justify-between ">
           <div className="mx-auto space-y-3 h-screen mt-3">
             <LoadingIcon
               width="40"
