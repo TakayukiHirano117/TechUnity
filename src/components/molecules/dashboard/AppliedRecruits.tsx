@@ -16,17 +16,14 @@ const AppliedRecruits = ({ recruits }: { recruits: DashBoardRecruit[] }) => {
       {recruits.map((recruit) => (
         <div
           key={recruit.id}
-          className="flex items-center justify-between gap-4"
+          className="flex items-center justify-between gap-4 container text-ellipsis overflow-hidden"
         >
           <div className="border-t w-full p-2">
             <div className="flex justify-between items-center gap-2">
               <div className="flex flex-col gap-2">
-                <div>
-                  <h3 className="text-lg font-bold hover:opacity-70">
-                    <Link
-                      href={`/recruits/${recruit.id}`}
-                      className="truncate w-1/2"
-                    >
+                <div className="flex-1 min-w-0">
+                  <h3 className="max-w-1/2 truncate font-bold text-lg hover:opacity-70">
+                    <Link href={`/recruits/${recruit.id}`} className="block">
                       {recruit.title}
                     </Link>
                   </h3>
