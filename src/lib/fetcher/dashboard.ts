@@ -10,6 +10,7 @@ export const getRecruitsWithUser = async () => {
   const res = await fetch(`${baseURL}/api/dashboard/recruits`, {
     // headers情報がないからgetTokenできなかったっぽい。
     headers: Object.fromEntries(headers()),
+    cache: "no-store",
   });
   const recruits = await res.json();
   return recruits;

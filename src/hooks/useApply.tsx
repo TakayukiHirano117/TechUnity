@@ -5,7 +5,6 @@ import useSWRMutation from "swr/mutation";
 const applyForApplication = async (url: string) => {
   const response = await fetch(url, {
     method: "POST",
-    cache: "no-store",
   });
   if (!response.ok) throw new Error("Failed to apply for the recruit");
   return response.json();

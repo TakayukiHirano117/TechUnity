@@ -53,7 +53,6 @@ export const GET = async (req: NextRequest) => {
 
     return NextResponse.json(results);
   } catch (error) {
-    console.error("Error fetching recruits: ", error);
     return NextResponse.json(
       { message: "検索に失敗しました。" },
       { status: 500 },
