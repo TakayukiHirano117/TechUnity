@@ -25,9 +25,7 @@ import { useRecruitLike } from "@/hooks/useRecruitLike";
 
 const getRecruitDetail = async (url: string) => {
   const response = await fetch(url, { cache: "no-store" });
-  // console.log(response)
   const json = await response.json();
-  console.log(json)
   return json;
 };
 
