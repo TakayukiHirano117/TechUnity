@@ -57,6 +57,15 @@ const DashBoardProfiles = memo(
       setValue("image", url);
     };
 
+    // バリデーションエラーを全て取得して表示
+    const onError = () => {
+      Object.values(errors).forEach((error) => {
+        if (error?.message) {
+          toast.error(error.message, { icon: "⚠️" });
+        }
+      });
+    };
+
     // プロフィール情報をフォームにセット
     useEffect(() => {
       if (profile) {
@@ -86,7 +95,7 @@ const DashBoardProfiles = memo(
     };
 
     return (
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+      <form onSubmit={handleSubmit(onSubmit, onError)} className="flex flex-col gap-8">
         <div className="flex flex-col sm:flex-row gap-8 mt-4">
           <div className="flex justify-center h-fit">
             <ImageUpload
@@ -121,11 +130,6 @@ const DashBoardProfiles = memo(
                 placeholder="ユーザー名"
                 className={errors.name ? "border-red-500" : ""}
               />
-              {errors.name && (
-                <span className="text-red-500 text-sm">
-                  {errors.name.message}
-                </span>
-              )}
             </div>
             <div className="flex flex-col gap-2">
               <Label
@@ -140,11 +144,6 @@ const DashBoardProfiles = memo(
                 placeholder="GitHub URL"
                 className={errors.githubUrl ? "border-red-500" : ""}
               />
-              {errors.githubUrl && (
-                <span className="text-red-500 text-sm">
-                  {errors.githubUrl.message}
-                </span>
-              )}
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="bio" className="text-slate-600 font-bold">
@@ -157,11 +156,6 @@ const DashBoardProfiles = memo(
                   errors.description ? "border-red-500" : ""
                 }`}
               />
-              {errors.description && (
-                <span className="text-red-500 text-sm">
-                  {errors.description.message}
-                </span>
-              )}
             </div>
             <div className="flex justify-center">
               <MainButton className="font-bold rounded-full" type="submit">
