@@ -72,7 +72,7 @@ const RecruitDetailPage = () => {
         <>
           <div className="container mx-auto">
             <div className="flex flex-col items-center py-[4rem] gap-4">
-              <h1 className="text-3xl sm:text-4xl font-bold px-8">
+              <h1 className="text-3xl sm:text-4xl font-bold px-8 sm:px-24">
                 {recruit?.title}
               </h1>
               <div className="flex gap-4 items-center">
