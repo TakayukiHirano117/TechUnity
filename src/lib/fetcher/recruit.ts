@@ -32,7 +32,6 @@ export const createRecruit = async (data: {
 export const deleteRecruit = async (id: string) => {
   const response = await fetch(`/api/recruits/${id}`, {
     method: "DELETE",
-    cache: "no-cache",
   });
   return response.json();
 };
@@ -105,7 +104,7 @@ export const getEditRecruitDetail = async (id: string) => {
  */
 export const getRecruitDetail = async (id: string) => {
   const response = await fetch(`${baseURL}/api/recruits/${id}`, {
-    cache: "no-cache",
+    cache: "no-store",
   });
   return response.json();
 };

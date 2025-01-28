@@ -5,7 +5,6 @@ import useSWRMutation from "swr/mutation";
 const likeRecruit = async (url: string) => {
   const response = await fetch(url, {
     method: "POST",
-    cache: "no-store",
   });
   if (!response.ok) throw new Error("Failed to like recruit");
   return response.json();

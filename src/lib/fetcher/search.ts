@@ -12,7 +12,7 @@ export const searchRecruits = async (q: string) => {
     headers: {
       "Content-Type": "application/json",
     },
-    cache: "no-cache",
+    cache: "no-store",
   });
 
   const recruits = await res.json();

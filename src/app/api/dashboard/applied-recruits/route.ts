@@ -45,7 +45,6 @@ export const GET = async (req: NextRequest) => {
 
     return NextResponse.json(recruitsWithIsHired);
   } catch (error) {
-    console.error("Error fetching applied recruits:", error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : String(error) },
       { status: 500 },
