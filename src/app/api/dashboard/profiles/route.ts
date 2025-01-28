@@ -34,7 +34,6 @@ export const GET = async (req: NextRequest) => {
 
     return NextResponse.json(profile);
   } catch (error) {
-    console.error("Error fetching liked recruits:", error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : String(error) },
       { status: 500 },
@@ -74,7 +73,6 @@ export const PUT = async (req: NextRequest) => {
 
     return NextResponse.json(profile);
   } catch (error) {
-    console.error("Error fetching liked recruits:", error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : String(error) },
       { status: 500 },

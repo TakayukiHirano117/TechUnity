@@ -12,6 +12,7 @@ export const revalidate = 0;
 const getLikedRecruits = async (): Promise<DashBoardRecruit[]> => {
   const res = await fetch(`${baseURL}/api/dashboard/liked-recruits`, {
     headers: Object.fromEntries(headers()),
+    cache: "no-store",
   });
   const recruits = await res.json();
   return recruits;

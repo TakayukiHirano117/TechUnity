@@ -36,7 +36,6 @@ export const GET = async (req: NextRequest) => {
 
     return NextResponse.json(likedRecruits);
   } catch (error) {
-    console.error("Error fetching liked recruits:", error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : String(error) },
       { status: 500 },
