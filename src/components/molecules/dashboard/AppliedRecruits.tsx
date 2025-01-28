@@ -14,6 +14,7 @@ const AppliedRecruits = ({ recruits }: { recruits: DashBoardRecruit[] }) => {
     // 応募した募集データがある場合の表示
     <div className="flex flex-col gap-4">
       {recruits.map((recruit) => (
+        // card形式でコンポーネント分ける
         <div
           key={recruit.id}
           className="flex items-center justify-between gap-4 container text-ellipsis overflow-hidden"
@@ -22,8 +23,8 @@ const AppliedRecruits = ({ recruits }: { recruits: DashBoardRecruit[] }) => {
             <div className="flex justify-between items-center gap-2">
               <div className="flex flex-col gap-2">
                 <div className="flex-1 min-w-0">
-                  <h3 className="max-w-1/2 truncate font-bold text-lg hover:opacity-70">
-                    <Link href={`/recruits/${recruit.id}`} className="block">
+                  <h3 className="max-w-[200px]  sm:max-w-[350px] truncate font-bold text-lg hover:opacity-70">
+                    <Link href={`/recruits/${recruit.id}`}>
                       {recruit.title}
                     </Link>
                   </h3>
