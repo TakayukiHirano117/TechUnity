@@ -20,6 +20,7 @@ export const useRecruitLike = (id: string) => {
     });
 
   const toggleLikeWithOptimisticUpdate = async (currentData: {
+    creator: { id: string };
     isLiked: boolean;
     likes: { userId: string }[];
   }) => {
@@ -31,9 +32,10 @@ export const useRecruitLike = (id: string) => {
         isLiked: !currentData.isLiked, // 「いいね」をトグル
         likes: currentData.isLiked
           ? currentData.likes.filter(
-              (like: { userId: string }) => like.userId !== "currentUserId",
+              (like: { userId: string }) =>
+                like.userId !== currentData.creator.id,
             )
-          : [...currentData.likes, { userId: "currentUserId" }],
+          : [...currentData.likes, { userId: currentData.creator.id }],
       },
       false, // 再フェッチを防ぐ
     );
