@@ -48,7 +48,6 @@ export const POST = async (
 
     return NextResponse.json({ success: true, isLiked }, { status: 200 });
   } catch (error) {
-    console.error("Error in POST /api/recruits/:id/like:", error); // ログに出力
     return NextResponse.json(
       { error: error instanceof Error ? error.message : String(error) }, // エラー内容をレスポンスに含める
       { status: 500 },
