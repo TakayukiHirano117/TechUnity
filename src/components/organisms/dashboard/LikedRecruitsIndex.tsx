@@ -1,7 +1,8 @@
 import { headers } from "next/headers";
 import React from "react";
-import LikedRecruits from "@/components/molecules/dashboard/LikedRecruits";
 import { DashBoardRecruit } from "@/types/types";
+import LikedRecruitList from "@/components/molecules/dashboard/LikedRecruitList";
+import NoLikedRecruitsMessage from "./NoLikedRecruitsMessage";
 
 // 本番環境と開発環境でURLを変更する
 const baseURL = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
@@ -22,7 +23,11 @@ const getLikedRecruits = async (): Promise<DashBoardRecruit[]> => {
 const LikedRecruitsIndex = async () => {
   const recruits = await getLikedRecruits();
 
-  return <LikedRecruits recruits={recruits} />;
+  return recruits.length > 0 ? (
+    <LikedRecruitList recruits={recruits} />
+  ) : (
+    <NoLikedRecruitsMessage />
+  )
 };
 
 export const dynamic = "force-dynamic";
