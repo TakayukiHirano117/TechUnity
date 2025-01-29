@@ -59,6 +59,11 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
 
   const { toggleHire, isHireMutating } = useHire(recruit.id);
 
+  // ユーザーを採用する関数
+  /**
+   * 
+   * @param userId 採用するユーザーのID
+   */
   const handleHire = async (userId: string) => {
     await toggleHire({ userId });
     setDialogStates((prev) => ({ ...prev, [userId]: false }));
@@ -84,7 +89,9 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
       <div className="border-t w-full p-2 flex items-center justify-between gap-2">
         <div className="flex-1 min-w-0">
           <h3 className="max-w-1/2 truncate font-bold text-lg hover:opacity-70">
-            <Link href={`/recruits/${recruit.id}/edit`} className="">{recruit.title}</Link>
+            <Link href={`/recruits/${recruit.id}/edit`} className="">
+              {recruit.title}
+            </Link>
           </h3>
           <div className="flex items-center gap-2">
             <span className="text-sm text-slate-600">
