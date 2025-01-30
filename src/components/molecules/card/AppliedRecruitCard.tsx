@@ -95,6 +95,7 @@ const AppliedRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
                         href={recruit.repositoryUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="hover:underline"
                       >
                         プロジェクトURLはこちら
                       </Link>
@@ -103,7 +104,7 @@ const AppliedRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
                 </MainDialog>
               ) : (
                 <MainDialog
-                  title="採用されました🎉"
+                  title="採用されました✅"
                   description="チーム開発にともに励みましょう！"
                   trigger={
                     <Button
