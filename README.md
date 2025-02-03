@@ -32,11 +32,8 @@
 - 自分が作成した募集管理
 
 ## デモ動画
-※ READMEに上げるとどうしてもボーダーが消えてしまいますので、可能であれば直接触っていただければと思います。
 
-https://github.com/user-attachments/assets/5ca4fe5e-17e4-4c92-b710-993ba3627be8
-
-
+<video src="https://github.com/user-attachments/assets/ad60108b-65f0-45d9-b230-8008ecf7999e"></video>
 
 ## 追加予定の機能
 
