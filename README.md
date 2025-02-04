@@ -32,7 +32,7 @@
 - 自分が作成した募集管理
 
 ## デモ動画
-
+なぜかカーソルが消えていますがご容赦ください💦
 <video src="https://github.com/user-attachments/assets/ad60108b-65f0-45d9-b230-8008ecf7999e"></video>
 
 ## 追加予定の機能
