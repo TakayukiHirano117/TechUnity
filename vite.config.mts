@@ -10,5 +10,16 @@ export default defineConfig({
     environment: "happy-dom",
     setupFiles: "./src/lib/vitest-setup.ts",
     globals: true,
+    coverage: {
+      reporter: ["text", "json", "html"],
+      thresholds: {
+        global: {
+          statements: 80,
+          branches: 80,
+          functions: 80,
+          lines: 80,
+        },
+      }
+    },
   },
 });
