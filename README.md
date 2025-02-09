@@ -12,8 +12,8 @@
 - TypeScript ^5.7.2
 - DB(Supabase(postgresql))
 - ORM(Prisma)
-- CI/CDパイプライン(GitHub Actions)
-- デプロイ(Vercel)
+- CI(GitHub Actions)
+- CD, ホスティング(Vercel)
 - テスト(vitest, testing-library, msw)
 - UIライブラリ・フレームワーク(tailwindcss, shadcn/ui)
 - 認証(NextAuth.js v4(4.24.11))
