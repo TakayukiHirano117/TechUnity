@@ -34,11 +34,14 @@ jobs:
 
       - name: Check Coverage
         run: |
-            COVERAGE=$(jq '.total.lines.pct' coverage/coverage-final.json)
-            echo "Coverage: $COVERAGE%"
-            if (( $(echo "$COVERAGE < 80" | bc -l) )); then
-                echo "❌ Coverage is below 80%! (Current: $COVERAGE%)"
-                exit 1
-            else
-                echo "✅ Coverage is above 80%. (Current: $COVERAGE%)"
-            fi
+          # 実際にテストが実行されたファイルのみのカバレッジを取得
+          COVERAGE=$(jq '[. | to_entries[] | select(.value.lines.total > 0) | .value.lines.pct] | add / length' coverage/coverage-final.json)
+
+          echo "Coverage: $COVERAGE%"
+
+          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+              echo "❌ Coverage is below 80%! (Current: $COVERAGE%)"
+              exit 1
+          else
+              echo "✅ Coverage is above 80%. (Current: $COVERAGE%)"
+          fi

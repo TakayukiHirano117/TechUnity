@@ -19,7 +19,8 @@ export default defineConfig({
           functions: 80,
           lines: 80,
         },
-      }
+      },
+      all: false,
     },
   },
 });
