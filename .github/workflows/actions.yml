@@ -1,0 +1,33 @@
+name: actions
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. リポジトリをチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Node.js のセットアップ
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # 3. 依存関係をインストール
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. テスト実行
+      - name: Test
+        run: npm run test
+
+      # 5. カバレッジ取得（必要に応じてコメントアウト等で管理）
+      - name: Coverage
+        run: npm run coverage
