@@ -35,7 +35,6 @@ const RecruitList = memo(
                 key={recruit.id}
                 id={recruit.id}
                 title={recruit.title}
-                description={recruit.content}
                 authorName={recruit?.creator?.name || "匿名"}
                 authorId={recruit?.creator?.id || ""}
                 avatarImageSrc={
