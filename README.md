@@ -12,6 +12,7 @@
 - TypeScript ^5.7.2
 - DB(Supabase(postgresql))
 - ORM(Prisma)
+- CI/CDパイプライン(GitHub Actions)
 - デプロイ(Vercel)
 - テスト(vitest, testing-library, msw)
 - UIライブラリ・フレームワーク(tailwindcss, shadcn/ui)
