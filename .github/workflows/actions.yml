@@ -31,3 +31,14 @@ jobs:
       # 5. カバレッジ取得（必要に応じてコメントアウト等で管理）
       - name: Coverage
         run: npm run coverage
+
+      - name: Check Coverage
+        run: |
+            COVERAGE=$(jq '.total.lines.pct' coverage/coverage-summary.json)
+            echo "Coverage: $COVERAGE%"
+            if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+                echo "❌ Coverage is below 80%! (Current: $COVERAGE%)"
+                exit 1
+            else
+                echo "✅ Coverage is above 80%. (Current: $COVERAGE%)"
+            fi
