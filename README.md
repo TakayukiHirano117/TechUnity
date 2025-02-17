@@ -7,6 +7,10 @@
 
 ## 技術一覧・機能一覧
 
+ログインテストユーザー
+メールアドレス: testuser@test.com
+パスワード: testuser
+
 - Nextjs 14.2.21
 - React 18.3.1
 - TypeScript ^5.7.2
