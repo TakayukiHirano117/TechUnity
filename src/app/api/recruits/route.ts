@@ -20,6 +20,7 @@ export const GET = async (req: NextRequest) => {
       orderBy: {
         createdAt: "desc",
       },
+      take: 20,
       include: {
         creator: true,
         likes: true,
