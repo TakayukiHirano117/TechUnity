@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 import prisma from "@/lib/db";
 
+const PAGE_SIZE = 20;
+
 // 募集検索API
 /**
  * 
@@ -12,6 +14,7 @@ export const GET = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url);
 
   const q = decodeURIComponent(searchParams.get("q") || "").trim();
+  const page = parseInt(searchParams.get("page") || "1");
 
   // 検索ワードが指定されていない場合
   if (!q) {
@@ -22,14 +25,36 @@ export const GET = async (req: NextRequest) => {
   }
 
   try {
-    const results = await prisma.recruit.findMany({
+    const totalCount = await prisma.recruit.count({
       where: {
-        isPublished: true, // 公開されているもののみを対象
+        isPublished: true,
         OR: [
           {
             title: {
               contains: q,
-              mode: "insensitive", // 大文字・小文字を区別しない
+              mode: "insensitive",
+            },
+          },
+          {
+            content: {
+              contains: q,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+    });
+
+    const totalPages = Math.ceil(totalCount / PAGE_SIZE) || 1;
+    
+    const recruits = await prisma.recruit.findMany({
+      where: {
+        isPublished: true,
+        OR: [
+          {
+            title: {
+              contains: q,
+              mode: "insensitive",
             },
           },
           {
@@ -43,6 +68,8 @@ export const GET = async (req: NextRequest) => {
       orderBy: {
         createdAt: "desc",
       },
+      skip: (page - 1) * PAGE_SIZE,
+      take: PAGE_SIZE,
       include: {
         creator: true,
         likes: true,
@@ -51,7 +78,14 @@ export const GET = async (req: NextRequest) => {
       },
     });
 
-    return NextResponse.json(results);
+    console.log(recruits)
+
+    return NextResponse.json({
+      recruits,
+      totalCount,
+      totalPages,
+      currentPage: page,
+    });
   } catch (error) {
     return NextResponse.json(
       { message: "検索に失敗しました。" },

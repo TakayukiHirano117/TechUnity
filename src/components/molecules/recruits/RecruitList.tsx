@@ -47,6 +47,7 @@ const RecruitList = memo(
               />
             ))}
           </div>
+          
         ) : (
           <div className="flex flex-col items-center gap-4 justify-center text-gray-500">
             <Image
@@ -55,7 +56,7 @@ const RecruitList = memo(
               height={300}
               alt="no data"
             />
-            <h2>該当する募集が見つかりませんでした。</h2>
+            <h2>募集が見つかりませんでした。</h2>
           </div>
         )}
       </>

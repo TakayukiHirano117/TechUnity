@@ -13,6 +13,7 @@ import MainDialog from "../dialog/MainDialog";
 
 const searchRecruitSchema = z.object({
   q: z.string().min(1, { message: "検索ワードは1文字以上で入力してください" }),
+  page: z.string(),
 });
 
 const SearchBar = () => {
@@ -26,15 +27,18 @@ const SearchBar = () => {
     resolver: zodResolver(searchRecruitSchema),
     defaultValues: {
       q: "",
+      page: "1",
     },
   });
 
   /**
-   * 
+   *
    * @param data - 検索フォームの入力値
    */
-  const onSubmit = (data: { q: string }) => {
-    router.push(`/search?q=${encodeURIComponent(data.q)}`);
+  const onSubmit = (data: { q: string; page: string }) => {
+    router.push(
+      `/search?q=${encodeURIComponent(data.q)}&page=${encodeURIComponent(data.page)}`,
+    );
     setOpen(false);
   };
 

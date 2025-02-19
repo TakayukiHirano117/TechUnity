@@ -8,11 +8,16 @@ const SearchResultsIndex = React.lazy(
 
 // 検索結果ページ
 /**
- * 
+ *
  * @param q string 検索ワード
+ * @param page string ページ番号
  * @returns 検索結果
  */
-const SearchResults = ({ searchParams }: { searchParams: { q: string } }) => {
+const SearchResults = ({
+  searchParams,
+}: {
+  searchParams: { q: string; page: string };
+}) => {
   return (
     <div className="bg-slate-100">
       <div className="container max-w-[960px] min-h-screen mx-auto p-8 flex flex-col gap-8">
@@ -31,7 +36,7 @@ const SearchResults = ({ searchParams }: { searchParams: { q: string } }) => {
             </div>
           }
         >
-          <SearchResultsIndex q={searchParams.q} />
+          <SearchResultsIndex q={searchParams.q} page={searchParams.page} />
         </Suspense>
       </div>
     </div>
