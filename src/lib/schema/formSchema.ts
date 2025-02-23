@@ -16,6 +16,9 @@ export const isValidUrl = (url: string): boolean => {
 };
 
 // 募集の作成時のバリデーションスキーマ
+/**
+ * 
+ */
 export const createRecruitSchema = z.object({
   title: z
     .string()
