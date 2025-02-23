@@ -4,7 +4,7 @@ FROM node:20-alpine AS builder
 WORKDIR /usr/src/app
 
 # 設定ファイル（エイリアス設定含む）と依存ファイルをコピー
-COPY package*.json tsconfig.json next.config.mjs .env postcss.config.mjs tailwind.config.ts  ./
+COPY package*.json tsconfig.json next.config.mjs postcss.config.mjs tailwind.config.ts  ./
 RUN npm install
 
 # ビルドに必要なディレクトリをコピー
@@ -26,7 +26,6 @@ COPY --from=builder /usr/src/app/node_modules ./node_modules
 # ビルド済みの成果物をコピー
 COPY --from=builder /usr/src/app/.next ./.next
 COPY --from=builder /usr/src/app/prisma ./prisma
-COPY --from=builder /usr/src/app/.env ./.env
 COPY --from=builder /usr/src/app/public ./public
 # ランタイムで必要な設定ファイルをコピー
 COPY tsconfig.json next.config.mjs package*.json ./
