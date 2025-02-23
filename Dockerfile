@@ -13,7 +13,7 @@ COPY ./src ./src
 COPY ./public ./public
 
 # Prismaクライアント生成とNext.jsアプリのビルド
-RUN npx prisma generate
+# RUN npx prisma generate
 RUN npm run build
 
 # 2nd Stage: Runner
