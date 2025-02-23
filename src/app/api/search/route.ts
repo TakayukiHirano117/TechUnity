@@ -78,8 +78,6 @@ export const GET = async (req: NextRequest) => {
       },
     });
 
-    console.log(recruits)
-
     return NextResponse.json({
       recruits,
       totalCount,

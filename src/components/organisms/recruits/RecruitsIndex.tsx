@@ -14,7 +14,7 @@ const RecruitsIndex = async () => {
         <span className="text-slate-600 text-sm">
           検索バーからもっと募集を探してみましょう
         </span>
-        <button type="button">
+        <button type="button" className=" animate-bounce">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"

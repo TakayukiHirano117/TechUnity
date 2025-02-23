@@ -24,6 +24,8 @@ const actionTypes = {
 
 let count = 0;
 
+// こいつも、テスト
+// 優先度低
 function genId() {
   count = (count + 1) % Number.MAX_SAFE_INTEGER;
   return count.toString();
@@ -53,6 +55,7 @@ interface State {
   toasts: ToasterToast[];
 }
 
+// テスト
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
 
 const addToRemoveQueue = (toastId: string) => {
