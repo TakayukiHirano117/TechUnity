@@ -1,0 +1,146 @@
+name: TechUnity Frontend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: ap-northeast-1
+  ECS_CLUSTER: techunity-cluster
+  ECS_SERVICE: techunity-fe-service
+  ECR_REPOSITORY: techunity-fe
+  ECS_TASK_DEFINITION_FE: .aws/task-def-fe.json
+
+jobs:
+  # Build
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code
+      - uses: actions/checkout@v4
+      - name: Build an Image
+        run: docker image build -t temp_techunity-fe-image:latest .
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Push the image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          docker image tag temp_techunity-fe-image:latest $ECR_REGISTRY/$ECR_REPOSITORY:${{github.sha}}
+          docker image push $ECR_REGISTRY/$ECR_REPOSITORY:${{github.sha}}
+          echo $ECR_REGISTRY/$ECR_REPOSITORY:${{github.sha}} > fe-image-uri.txt
+
+      - name: Upload the image uri file as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fe-image-uri
+          path: fe-image-uri.txt
+
+  # Deploy
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test-and-build
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+
+      - name: Download the artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: fe-image-uri
+          path: artifacts
+
+      - name: Define the image URI
+        run: |
+          echo "FE_IMAGE_URI=$(cat artifacts/fe-image-uri.txt)" >> $GITHUB_ENV
+
+      - name: FIll in the new image URI in the amazon ECS task definition
+        id: render-task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION_FE }}
+          container-name: api
+          image: ${{ env.FE_IMAGE_URI }}
+          environment-variables: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+            NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+
+      - name: Deploy ECS task
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.render-task-def.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
+# テストのトリガーと、ECRにイメージをpushする場合を分けたいので一旦コメントアウト
+# on:
+#   pull_request:
+#     branches:
+#       - develop
+
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       # 1. リポジトリをチェックアウト
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       # 2. Node.js のセットアップ
+#       - name: Use Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 20
+
+#       # 3. 依存関係をインストール
+#       - name: Install dependencies
+#         run: npm ci
+
+#       # 4. テスト実行
+#       - name: Test
+#         run: npm run test
+
+#       # 5. カバレッジ取得（必要に応じてコメントアウト等で管理）
+#       - name: Coverage
+#         run: npm run coverage
+
+#       - name: Check Coverage
+#         run: |
+#           # テストが実行されたファイルのみのカバレッジを取得
+#           FILES_COVERED=$(jq '[. | to_entries[] | select(.value.lines.total > 0) | .value.lines.pct] | length' coverage/coverage-final.json)
+
+#           # テストが実行されたファイルがゼロの場合は 100% に設定（エラー回避）
+#           if [[ "$FILES_COVERED" -eq 0 ]]; then
+#               echo "⚠️ No files were tested, assuming 100% coverage."
+#               COVERAGE=100
+#           else
+#               COVERAGE=$(jq '[. | to_entries[] | select(.value.lines.total > 0) | .value.lines.pct] | add / length' coverage/coverage-final.json)
+#           fi
+
+#           echo "Coverage: $COVERAGE%"
+
+#           if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+#               echo "❌ Coverage is below 80%! (Current: $COVERAGE%)"
+#               exit 1
+#           else
+#               echo "✅ Coverage is above 80%. (Current: $COVERAGE%)"
+#           fi
