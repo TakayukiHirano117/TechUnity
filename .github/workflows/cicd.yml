@@ -94,6 +94,9 @@ jobs:
   #         service: ${{ env.ECS_SERVICE }}
   #         cluster: ${{ env.ECS_CLUSTER }}
   #         wait-for-service-stability: true
+
+
+
 # テストのトリガーと、ECRにイメージをpushする場合を分けたいので一旦コメントアウト
 # on:
 #   pull_request:
