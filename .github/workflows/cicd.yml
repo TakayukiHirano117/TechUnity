@@ -20,10 +20,11 @@ jobs:
       # Checkout the code
       - uses: actions/checkout@v4
       - name: Build an Image
-        # run: docker image build -t temp_techunity-fe-image:latest .
         run: |
           docker image build \
             --build-arg NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }} \
+            --build-arg CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }} \
+            --build-arg CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }} \
             -t temp_techunity-fe-image:latest .
 
       - name: Configure AWS credentials
