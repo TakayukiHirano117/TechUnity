@@ -1,6 +1,11 @@
 # 1st Stage: Builder
 FROM node:20-alpine AS builder
 
+# Build arguments
+ARG NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+# Set as environment variable for build stage
+ENV NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=$NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+
 WORKDIR /usr/src/app
 
 # 設定ファイル（エイリアス設定含む）と依存ファイルをコピー
@@ -18,6 +23,10 @@ RUN npm run build
 
 # 2nd Stage: Runner
 FROM node:20-alpine AS runner
+
+# Build arguments (必要に応じて実行時の環境変数として設定)
+ARG NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+ENV NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=$NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 
 WORKDIR /usr/src/app
 
