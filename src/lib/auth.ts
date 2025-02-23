@@ -10,8 +10,8 @@ import prisma from "./db";
 export const authOptions: NextAuthOptions = {
   providers: [
     Github({
-      clientId: process.env.GITHUB_CLIENT_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
+      clientId: process.env.AUTH_GITHUB_CLIENT_ID!,
+      clientSecret: process.env.AUTH_GITHUB_SECRET!,
     }),
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
