@@ -20,7 +20,11 @@ jobs:
       # Checkout the code
       - uses: actions/checkout@v4
       - name: Build an Image
-        run: docker image build -t temp_techunity-fe-image:latest .
+        # run: docker image build -t temp_techunity-fe-image:latest .
+        run: |
+          docker image build \
+            --build-arg NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }} \
+            -t temp_techunity-fe-image:latest .
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -90,9 +94,6 @@ jobs:
   #         service: ${{ env.ECS_SERVICE }}
   #         cluster: ${{ env.ECS_CLUSTER }}
   #         wait-for-service-stability: true
-
-
-  
 # テストのトリガーと、ECRにイメージをpushする場合を分けたいので一旦コメントアウト
 # on:
 #   pull_request:
