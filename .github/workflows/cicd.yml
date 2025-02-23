@@ -12,6 +12,10 @@ env:
   ECR_REPOSITORY: techunity-fe
   ECS_TASK_DEFINITION_FE: .aws/task-def-fe.json
 
+permissions:
+  id-token: write
+  contents: read
+  
 jobs:
   # Build
   test-and-build:
