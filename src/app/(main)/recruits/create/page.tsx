@@ -101,4 +101,6 @@ const CreateRecruitPage = () => {
   );
 };
 
+export const dynamic = "force-dynamic";
+
 export default CreateRecruitPage;
