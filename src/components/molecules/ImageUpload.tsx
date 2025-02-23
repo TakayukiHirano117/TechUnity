@@ -1,3 +1,5 @@
+'use client'
+
 import { CldUploadWidget } from "next-cloudinary";
 import React, { memo, ReactElement } from "react";
 
@@ -12,6 +14,12 @@ const ImageUpload = memo(
   ({ folder, onInsertImage, isCropping, children }: ImageUploadType) => {
     return (
       <CldUploadWidget
+        config={{
+          cloud: {
+            cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+            apiKey: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+          },
+        }}
         signatureEndpoint="/api/sign-cloudinary-params"
         uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
         onSuccess={(results) => {
