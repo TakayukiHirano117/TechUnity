@@ -7,6 +7,8 @@
 
 ## 技術一覧・機能一覧
 
+※ 現在vercel → AWS ECS on Fargateに移行中です。
+
 ログインテストユーザー
 
 メールアドレス: testuser@test.com
