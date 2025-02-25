@@ -6,6 +6,7 @@
 気軽にチーム開発経験を積めることを目的としています。
 
 [公開先URL](https://tech-unity-dev.com)
+
 [公開先URL2](https://tech-unity.vercel.app/)
 
 ## 技術一覧・機能一覧
