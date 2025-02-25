@@ -79,6 +79,13 @@ jobs:
         run: |
           echo "FE_IMAGE_URI=$(cat artifacts/fe-image-uri.txt)" >> $GITHUB_ENV
 
+      - name: Update ECS Service with Health Check Grace Period
+        run: |
+          aws ecs update-service \
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --service ${{ env.ECS_SERVICE }} \
+            --health-check-grace-period-seconds 10
+
       - name: Fill in the new image URI in the amazon ECS task definition
         id: render-task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
