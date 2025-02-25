@@ -5,10 +5,10 @@
 チーム開発経験を積みたいけど、自分のまわりに開発をしている友人が少なかったり、Xなどで声をかけるのは少し気が引ける方が、
 気軽にチーム開発経験を積めることを目的としています。
 
-## 技術一覧・機能一覧
+[公開先URL](https://tech-unity-dev.com)
+[公開先URL2](https://tech-unity.vercel.app/)
 
-※ 現在vercel → AWS ECS on Fargateに移行中です。
-[TechUnity移行先URL](https://tech-unity-dev.com)
+## 技術一覧・機能一覧
 
 ログインテストユーザー
 
