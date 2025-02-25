@@ -8,6 +8,7 @@
 ## 技術一覧・機能一覧
 
 ※ 現在vercel → AWS ECS on Fargateに移行中です。
+[TechUnity移行先URL](https://tech-unity-dev.com)
 
 ログインテストユーザー
 
