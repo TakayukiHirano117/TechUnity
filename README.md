@@ -24,7 +24,7 @@
 - DB(Supabase(postgresql))
 - ORM(Prisma)
 - CI/CDパイプライン (GitHub Actions)
-- ホスティング(Vercel → ECS on Fargate)
+- ホスティング(Vercel, AWS ECS on Fargate)
 - テスト(vitest, testing-library, msw)
 - UIライブラリ・フレームワーク(tailwindcss, shadcn/ui)
 - 認証(NextAuth.js v4(4.24.11))
