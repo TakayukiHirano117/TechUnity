@@ -18,10 +18,11 @@
 - Nextjs 14.2.21
 - React 18.3.1
 - TypeScript ^5.7.2
+- Docker
 - DB(Supabase(postgresql))
 - ORM(Prisma)
-- CI(GitHub Actions)
-- CD, ホスティング(Vercel)
+- CI/CDパイプライン (GitHub Actions)
+- ホスティング(Vercel → ECS on Fargate)
 - テスト(vitest, testing-library, msw)
 - UIライブラリ・フレームワーク(tailwindcss, shadcn/ui)
 - 認証(NextAuth.js v4(4.24.11))
