@@ -119,4 +119,4 @@ jobs:
 
       - name: Update ECS Service with Load Balancer
         run: |
-          aws ecs update-service --cluster ${{ env.ECS_CLUSTER }} --service ${{ env.ECS_SERVICE }} --load-balancers '[{"targetGroupArn":"arn:aws:elasticloadbalancing:ap-northeast-1:615299732848:targetgroup/techunity-tg-2/6a4f91498a0ebae5","containerName":"fe","containerPort":3000}]'
+          aws ecs update-service --cluster ${{ env.ECS_CLUSTER }} --service ${{ env.ECS_SERVICE }} --load-balancers '[{"targetGroupArn":"arn:aws:elasticloadbalancing:ap-northeast-1:615299732848:targetgroup/techunity-tg-3/558c0c5e0f9b9f24","containerName":"fe","containerPort":3000}]'
