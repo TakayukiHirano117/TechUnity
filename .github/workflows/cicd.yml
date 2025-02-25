@@ -110,6 +110,6 @@ jobs:
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
 
-      - name: Update ECS Service with Load Balancer
-        run: |
-          aws ecs update-service --cluster ${{ env.ECS_CLUSTER }} --service ${{ env.ECS_SERVICE }} --load-balancers '[{"targetGroupArn":"arn:aws:elasticloadbalancing:ap-northeast-1:615299732848:targetgroup/techunity-tg-4/edb022440593315f","containerName":"fe","containerPort":3000}]'
+      # - name: Update ECS Service with Load Balancer
+      #   run: |
+      #     aws ecs update-service --cluster ${{ env.ECS_CLUSTER }} --service ${{ env.ECS_SERVICE }} --load-balancers '[{"targetGroupArn":"arn:aws:elasticloadbalancing:ap-northeast-1:615299732848:targetgroup/techunity-tg-4/edb022440593315f","containerName":"fe","containerPort":3000}]'
