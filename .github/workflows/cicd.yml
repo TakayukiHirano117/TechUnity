@@ -27,6 +27,7 @@ jobs:
         run: |
           docker image build \
             --build-arg NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }} \
+            --build-arg NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} \
             -t temp_techunity-fe-image:latest .
 
       - name: Configure AWS credentials
