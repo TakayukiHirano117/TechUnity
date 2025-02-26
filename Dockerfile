@@ -6,6 +6,8 @@ WORKDIR /usr/src/app
 # ビルド引数として Cloudinary のクラウドネームを受け取り、環境変数に設定
 ARG NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 ENV NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=$NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+ARG NEXT_PUBLIC_CLOUDINARY_API_KEY
+ENV NEXT_PUBLIC_CLOUDINARY_API_KEY=$NEXT_PUBLIC_CLOUDINARY_API_KEY
 
 # 設定ファイルや依存ファイルをコピー
 COPY package*.json tsconfig.json next.config.mjs postcss.config.mjs tailwind.config.ts ./
