@@ -9,6 +9,8 @@
 
 [公開先URL2 https://tech-unity.vercel.app](https://tech-unity.vercel.app/)
 
+公開先URL2ではNextAuthでのGitHubのキー作成の都合上、GitHubログインが使えないかと思われます。
+
 ## 技術一覧・機能一覧
 
 ログインテストユーザー
