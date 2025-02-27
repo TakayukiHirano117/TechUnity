@@ -5,11 +5,12 @@
 チーム開発経験を積みたいけど、自分のまわりに開発をしている友人が少なかったり、Xなどで声をかけるのは少し気が引ける方が、
 気軽にチーム開発経験を積めることを目的としています。
 
-[公開先URL https://tech-unity-dev.com](https://tech-unity-dev.com)
+[公開先URL1 https://tech-unity-dev.com](https://tech-unity-dev.com)
 
 [公開先URL2 https://tech-unity.vercel.app](https://tech-unity.vercel.app/)
 
-公開先URL2ではNextAuthでのGitHubのキー作成の都合上、GitHubログインが使えないかと思われます。
+公開先URL2ではNextAuthでのGitHubのキー作成の都合上、GitHubログインが使えないかと思われますので
+よければ公開先URL1をご覧ください。
 
 ## 技術一覧・機能一覧
 
