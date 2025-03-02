@@ -53,6 +53,9 @@
 なぜかカーソルが消えていますがご容赦ください💦
 <video src="https://github.com/user-attachments/assets/ad60108b-65f0-45d9-b230-8008ecf7999e"></video>
 
+## AWS構成図
+現在準備中です。
+
 ## 追加予定の機能
 
 - DM機能
