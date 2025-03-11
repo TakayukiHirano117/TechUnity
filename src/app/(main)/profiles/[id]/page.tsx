@@ -1,15 +1,15 @@
-import { Recruit } from "@prisma/client";
+import dynamic from "next/dynamic";
 import React, { Suspense } from "react";
 
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 
-const ProfileWithRecruits = React.lazy(
+const ProfileWithRecruits = dynamic(
   () => import("@/components/organisms/profiles/ProfileWithRecruits"),
 );
 
 // プロフィールページ（だれでも閲覧可能）
 /**
- * 
+ *
  * @param id string ユーザーid
  * @returns ユーザー情報
  */

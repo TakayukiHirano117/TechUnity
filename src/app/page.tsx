@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import React, { Suspense } from "react";
 
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
@@ -8,7 +9,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 
-const RecruitsIndex = React.lazy(
+const RecruitsIndex = dynamic(
   () => import("@/components/organisms/recruits/RecruitsIndex"),
 );
 
