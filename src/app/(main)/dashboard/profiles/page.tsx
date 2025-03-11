@@ -1,10 +1,11 @@
+import dynamic from "next/dynamic";
 import React, { Suspense } from "react";
 
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/dashboard/DashBoardSideBar";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
 
-const DashBoardProfilesIndex = React.lazy(
+const DashBoardProfilesIndex = dynamic(
   () => import("@/components/organisms/dashboard/DashBoardProfilesIndex"),
 );
 

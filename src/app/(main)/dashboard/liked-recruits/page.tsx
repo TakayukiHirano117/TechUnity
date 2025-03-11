@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
@@ -6,7 +7,7 @@ import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/dashboard/DashBoardSideBar";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
 
-const LikedRecruitsIndex = React.lazy(
+const LikedRecruitsIndex = dynamic(
   () => import("@/components/organisms/dashboard/LikedRecruitsIndex"),
 );
 
