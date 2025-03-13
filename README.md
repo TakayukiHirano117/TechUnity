@@ -66,7 +66,7 @@
 - 利用規約・利用ガイドの作成
 - トピック機能
 - ソート機能
-- Route HandlersのExpressへの移行
+- Route HandlersのHono.jsもしくはExpressへの移行
 
 ## 開発フロー
 Gitフロー
