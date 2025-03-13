@@ -20,7 +20,7 @@
 
 パスワード: testuser
 
-- Nextjs 14.2.21
+- Next.js 14.2.21
 - React 18.3.1
 - TypeScript ^5.7.2
 - Docker
