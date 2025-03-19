@@ -73,7 +73,7 @@ const CommentItem = ({
           className="prose prose-sm max-w-none"
         />
 
-        {session && (
+        {session && comment.parentId === null && (
           <div className="mt-2">
             <button
               onClick={() =>

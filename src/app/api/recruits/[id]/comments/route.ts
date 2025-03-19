@@ -31,7 +31,7 @@ export const GET = async (
             image: true,
           },
         },
-        // 返信コメントを含める
+        // 返信コメントを含める（1階層のみ）
         replies: {
           include: {
             user: {
@@ -39,18 +39,6 @@ export const GET = async (
                 id: true,
                 name: true,
                 image: true,
-              },
-            },
-            // ネストされた返信も含める（再帰的に）
-            replies: {
-              include: {
-                user: {
-                  select: {
-                    id: true,
-                    name: true,
-                    image: true,
-                  },
-                },
               },
             },
           },
@@ -118,7 +106,7 @@ export const POST = async (
       );
     }
 
-    // 親コメントが指定されている場合、存在確認
+    // 親コメントが指定されている場合、存在確認と最上位コメントかどうかチェック
     if (parentId) {
       const parentComment = await prisma.comment.findUnique({
         where: { id: parentId },
@@ -128,6 +116,14 @@ export const POST = async (
         return NextResponse.json(
           { error: "親コメントが見つかりません。" },
           { status: 404 },
+        );
+      }
+
+      // 親コメントが最上位コメントでない場合はエラー
+      if (parentComment.parentId !== null) {
+        return NextResponse.json(
+          { error: "最上位のコメントにのみ返信できます。" },
+          { status: 400 },
         );
       }
     }
