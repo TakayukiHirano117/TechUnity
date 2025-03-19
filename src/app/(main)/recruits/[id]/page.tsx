@@ -12,6 +12,8 @@ import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import useSWR from "swr";
 
+import CommentSection from "@/components/molecules/comments/CommentSection";
+
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import MainButton from "@/components/atoms/button/MainButton";
 import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
@@ -317,6 +319,9 @@ const RecruitDetailPage = () => {
               </div>
             </aside>
           </div>
+          
+          {/* コメントセクション */}
+          <CommentSection recruitId={id as string} />
         </>
       )}
     </div>

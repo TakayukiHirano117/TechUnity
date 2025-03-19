@@ -60,6 +60,7 @@ model User {
   Like             Like[]
   Application      Application[]
   Hire             Hire[]
+  comments         Comment[]
 
   @@map(name: "users")
 }
@@ -86,6 +87,7 @@ model Recruit {
   likes         Like[]
   applications  Application[]
   hires         Hire[]
+  comments      Comment[]
 
   @@map(name: "recruits")
 }
@@ -121,4 +123,24 @@ model Hire {
 
   @@unique([userId, recruitId])
   @@map(name: "hires")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  recruit   Recruit  @relation(fields: [recruitId], references: [id], onDelete: Cascade)
+  recruitId String
+  
+  // 親コメントへの参照
+  parentId  String?
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  
+  // 子コメント（返信）
+  replies   Comment[] @relation("CommentReplies")
+
+  @@map(name: "comments")
 }
