@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/db";
 
-// Use a direct instance of PrismaClient to avoid the regeneration issue
-const prisma = new PrismaClient();
 
 // コメント一覧取得API
 /**
