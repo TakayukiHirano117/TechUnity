@@ -321,7 +321,7 @@ const RecruitDetailPage = () => {
           </div>
 
           {/* コメントセクション */}
-          <div className="max-w-[1200px] mx-auto sm:px-8">
+          <div className="max-w-[1200px] mx-auto sm:p-8 py-8">
             <CommentSection recruitId={id as string} />
           </div>
         </>
