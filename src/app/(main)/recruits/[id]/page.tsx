@@ -319,9 +319,11 @@ const RecruitDetailPage = () => {
               </div>
             </aside>
           </div>
-          
+
           {/* コメントセクション */}
-          <CommentSection recruitId={id as string} />
+          <div className="max-w-[1200px] mx-auto sm:px-8">
+            <CommentSection recruitId={id as string} />
+          </div>
         </>
       )}
     </div>
