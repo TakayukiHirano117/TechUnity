@@ -143,7 +143,7 @@ const CommentSection = ({ recruitId }: CommentSectionProps) => {
   };
 
   return (
-    <div className="mt-2 bg-white border p-6 sm:rounded-lg">
+    <div className=" bg-white border p-6 sm:rounded-lg">
       <h2 className="text-xl font-bold mb-6">コメント</h2>
 
       {session ? (
