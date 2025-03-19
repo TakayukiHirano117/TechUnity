@@ -163,6 +163,7 @@ const CommentSection = ({ recruitId }: CommentSectionProps) => {
                           preview="edit"
                           height={200}
                           visibleDragbar={false}
+                          hideToolbar={true}
                           textareaProps={{
                             placeholder: "コメントを入力してください...",
                           }}
