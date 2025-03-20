@@ -85,7 +85,7 @@ export const POST = async (
 
     const recruitId = params.id;
     const userId = token.id as string;
-    const { content, parentId } = await req.json();
+    const { content, parentId: originalParentId } = await req.json();
 
     if (!content || content.trim() === "") {
       return NextResponse.json(
@@ -106,10 +106,13 @@ export const POST = async (
       );
     }
 
-    // 親コメントが指定されている場合、存在確認と最上位コメントかどうかチェック
-    if (parentId) {
+    // 実際に使用する親コメントIDを決定
+    let effectiveParentId = originalParentId;
+
+    // 親コメントが指定されている場合、存在確認
+    if (originalParentId) {
       const parentComment = await prisma.comment.findUnique({
-        where: { id: parentId },
+        where: { id: originalParentId },
       });
 
       if (!parentComment) {
@@ -119,12 +122,10 @@ export const POST = async (
         );
       }
 
-      // 親コメントが最上位コメントでない場合はエラー
+      // 子コメントへの返信の場合、その親コメントのIDを使用する
+      // これにより、階層が深くならずに同じレベルに表示される
       if (parentComment.parentId !== null) {
-        return NextResponse.json(
-          { error: "最上位のコメントにのみ返信できます。" },
-          { status: 400 },
-        );
+        effectiveParentId = parentComment.parentId;
       }
     }
 
@@ -133,7 +134,7 @@ export const POST = async (
         content,
         userId,
         recruitId,
-        parentId: parentId || null,
+        parentId: effectiveParentId || null,
       },
       include: {
         user: {
