@@ -39,6 +39,7 @@ type CommentItemProps = {
   replyForm: UseFormReturn<ReplyFormValues>;
   isSubmitting: boolean;
   handleSubmitReply: (parentId: string) => Promise<void>;
+  isLatestReply?: boolean;
 };
 
 const CommentItem = ({
@@ -49,6 +50,7 @@ const CommentItem = ({
   replyForm,
   isSubmitting,
   handleSubmitReply,
+  isLatestReply = true, // デフォルトでは最新の返信とみなす
 }: CommentItemProps) => {
   return (
     <div className="border-b pb-4">
@@ -73,7 +75,7 @@ const CommentItem = ({
           className="prose prose-sm max-w-none"
         />
 
-        {session && comment.parentId === null && (
+        {session && isLatestReply && (
           <div className="mt-2">
             <button
               onClick={() =>
@@ -137,7 +139,7 @@ const CommentItem = ({
         {/* 返信コメントを表示 */}
         {comment.replies && comment.replies.length > 0 && (
           <div className="mt-4 ml-4 space-y-4 border-l-2 border-gray-200 pl-4">
-            {comment.replies.map((reply) => (
+            {comment.replies.map((reply, index) => (
               <CommentItem
                 key={reply.id}
                 comment={reply}
@@ -147,6 +149,7 @@ const CommentItem = ({
                 replyForm={replyForm}
                 isSubmitting={isSubmitting}
                 handleSubmitReply={handleSubmitReply}
+                isLatestReply={index === comment.replies!.length - 1}
               />
             ))}
           </div>

@@ -222,6 +222,7 @@ const CommentSection = ({ recruitId }: CommentSectionProps) => {
               replyForm={replyForm}
               isSubmitting={isSubmitting}
               handleSubmitReply={handleSubmitReply}
+              isLatestReply={true}
             />
           ))
         ) : (
