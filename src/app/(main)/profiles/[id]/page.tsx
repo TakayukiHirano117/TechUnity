@@ -1,11 +1,8 @@
-import dynamic from "next/dynamic";
 import React, { Suspense } from "react";
 
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 
-const ProfileWithRecruits = dynamic(
-  () => import("@/components/organisms/profiles/ProfileWithRecruits"),
-);
+import ProfileWithRecruits from "@/components/organisms/profiles/ProfileWithRecruits";
 
 // プロフィールページ（だれでも閲覧可能）
 /**

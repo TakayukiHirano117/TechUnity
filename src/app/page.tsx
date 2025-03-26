@@ -1,19 +1,15 @@
-import dynamic from "next/dynamic";
 import React, { Suspense } from "react";
 
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import TipsIcon from "@/components/atoms/Icon/TipsIcon";
+import RecruitsIndex from "@/components/organisms/recruits/RecruitsIndex";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 
-const RecruitsIndex = dynamic(
-  () => import("@/components/organisms/recruits/RecruitsIndex"),
-);
-
-const Top = () => {
+const TopPage = () => {
   return (
     <div className="bg-slate-100">
       <div className="container max-w-[960px] min-h-screen mx-auto p-8 flex flex-col gap-8">
@@ -49,4 +45,4 @@ const Top = () => {
   );
 };
 
-export default Top;
+export default TopPage;
