@@ -1,15 +1,11 @@
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
 import MainButton from "@/components/atoms/button/MainButton";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/dashboard/DashBoardSideBar";
+import AppliedRecruitsIndex from "@/components/organisms/dashboard/AppliedRecruitsIndex";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
-
-const AppliedRecruitsIndex = dynamic(
-  () => import("@/components/organisms/dashboard/AppliedRecruitsIndex"),
-);
 
 // 応募した募集一覧ページ
 const AppliedRecruitsPage = () => {

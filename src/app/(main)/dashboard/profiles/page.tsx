@@ -1,13 +1,9 @@
-import dynamic from "next/dynamic";
 import React, { Suspense } from "react";
 
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/dashboard/DashBoardSideBar";
+import DashBoardProfilesIndex from "@/components/organisms/dashboard/DashBoardProfilesIndex";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
-
-const DashBoardProfilesIndex = dynamic(
-  () => import("@/components/organisms/dashboard/DashBoardProfilesIndex"),
-);
 
 // 自分のプロフィールページ
 const ProfileSettingsPage = () => {

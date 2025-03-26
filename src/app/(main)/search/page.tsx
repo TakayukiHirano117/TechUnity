@@ -1,11 +1,8 @@
-import dynamic from "next/dynamic";
 import React, { Suspense } from "react";
 
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 
-const SearchResultsIndex = dynamic(
-  () => import("@/components/organisms/search/SearchResultsIndex"),
-);
+import SearchResultsIndex from "@/components/organisms/search/SearchResultsIndex";
 
 // 検索結果ページ
 /**
