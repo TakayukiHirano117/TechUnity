@@ -1,15 +1,11 @@
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
 import MainButton from "@/components/atoms/button/MainButton";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/dashboard/DashBoardSideBar";
+import DashBoardRecruitIndex from "@/components/organisms/dashboard/DashBoardRecruitIndex";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
-
-const DashBoardRecruitIndex = dynamic(
-  () => import("@/components/organisms/dashboard/DashBoardRecruitIndex"),
-);
 
 const DashBoardRecruitsPage = () => {
   return (
