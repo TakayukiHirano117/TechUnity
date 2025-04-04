@@ -39,13 +39,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "ja_JP",
-    url: "https://techunity.vercel.app/",
+    url: "https://tech-unity-dev.com/",
     siteName: "TechUnity",
     title: "TechUnity | チーム開発メンバー募集プラットフォーム",
-    description: "TechUnityはチーム開発メンバー募集プラットフォームです。エンジニア、デザイナー、プロジェクトマネージャーなど、様々な役割のメンバーを募集できます。",
+    description:
+      "TechUnityはチーム開発メンバー募集プラットフォームです。エンジニア、デザイナー、プロジェクトマネージャーなど、様々な役割のメンバーを募集できます。",
     images: [
       {
-        url: "https://techunity.vercel.app/Logo.png",
+        url: "https://tech-unity-dev.com/Logo.png",
         width: 1200,
         height: 630,
         alt: "TechUnity | チーム開発メンバー募集プラットフォーム",
@@ -56,8 +57,9 @@ export const metadata: Metadata = {
     site: "@TechUnity",
     card: "summary_large_image",
     title: "TechUnity | チーム開発メンバー募集プラットフォーム",
-    description: "TechUnityはチーム開発メンバー募集プラットフォームです。エンジニア、デザイナー、プロジェクトマネージャーなど、様々な役割のメンバーを募集できます。",
-    images: ["https://techunity.vercel.app/Logo.png"],
+    description:
+      "TechUnityはチーム開発メンバー募集プラットフォームです。エンジニア、デザイナー、プロジェクトマネージャーなど、様々な役割のメンバーを募集できます。",
+    images: ["https://tech-unity-dev.com/Logo.png"],
     creator: "TakayukiHirano117",
   },
 };
