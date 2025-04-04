@@ -41,19 +41,23 @@ export const metadata: Metadata = {
     locale: "ja_JP",
     url: "https://techunity.vercel.app/",
     siteName: "TechUnity",
+    title: "TechUnity | チーム開発メンバー募集プラットフォーム",
+    description: "TechUnityはチーム開発メンバー募集プラットフォームです。エンジニア、デザイナー、プロジェクトマネージャーなど、様々な役割のメンバーを募集できます。",
     images: [
-      // {
-      // 	url: "https://techunity.vercel.app/ogp.png",
-      // 	width: 1200,
-      // 	height: 630,
-      // 	alt: "TechUnity",
-      // },
+      {
+        url: "https://techunity.vercel.app/Logo.png",
+        width: 1200,
+        height: 630,
+        alt: "TechUnity | チーム開発メンバー募集プラットフォーム",
+      },
     ],
   },
   twitter: {
     site: "@TechUnity",
     card: "summary_large_image",
-    images: [],
+    title: "TechUnity | チーム開発メンバー募集プラットフォーム",
+    description: "TechUnityはチーム開発メンバー募集プラットフォームです。エンジニア、デザイナー、プロジェクトマネージャーなど、様々な役割のメンバーを募集できます。",
+    images: ["https://techunity.vercel.app/Logo.png"],
     creator: "TakayukiHirano117",
   },
 };
