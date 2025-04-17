@@ -25,8 +25,14 @@ import { DialogClose } from "@/components/ui/dialog";
 import { useApply } from "@/hooks/useApply";
 import { useRecruitLike } from "@/hooks/useRecruitLike";
 
-const getRecruitDetail = async (url: string) => {
-  const response = await fetch(url, { cache: "no-store" });
+const getRecruitDetail = async (url: string, accessToken: string) => {
+  const response = await fetch(url, {
+    cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   const json = await response.json();
   return json;
 };
@@ -36,6 +42,11 @@ const RecruitDetailPage = () => {
   const id = params.id;
 
   const { data: session } = useSession();
+  // console.log("session", session);
+
+  // APIフェッチするときにこれをAuthorizationヘッダーに入れる
+  // console.log(session?.accessToken);
+  const accessToken = session?.accessToken ?? null;
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -49,7 +60,10 @@ const RecruitDetailPage = () => {
     data: recruit,
     error,
     isLoading,
-  } = useSWR(`/api/recruits/${id}`, getRecruitDetail);
+  } = useSWR(
+    accessToken ? [`/api/recruits/${id}`, accessToken] : null,
+    ([url, token]) => getRecruitDetail(url, token),
+  );
 
   // いいねのトグルを行う関数と、ローディング状態を管理するhooks
   const { toggleLikeWithOptimisticUpdate, isLikeRecruitMutating } =

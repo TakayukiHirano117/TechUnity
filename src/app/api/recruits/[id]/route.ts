@@ -5,7 +5,7 @@ import prisma from "@/lib/db";
 
 // 募集詳細取得API
 /**
- * 
+ *
  * @param req リクエスト
  * @param params 募集ID
  * @returns 募集詳細
@@ -17,7 +17,27 @@ export const GET = async (
   try {
     const id = params.id;
 
-    const token = await getToken({ req });
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    // const accessToken = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    const accessToken = token?.accessToken;
+    // const accessToken = "gdasfaf";
+
+    const authHeader = req.headers.get("authorization");
+    const rawAccessToken = authHeader?.startsWith("Bearer ")
+      ? authHeader.slice(7)
+      : null;
+
+    console.log("rawAccessToken", rawAccessToken);
+
+    // 照合
+    if (!accessToken || accessToken !== rawAccessToken) {
+      return NextResponse.json("invalid token", { status: 401 });
+    } else {
+      console.log("valid token");
+    }
+
+    console.log("accessToken", accessToken);
+    console.log("token", token);
 
     const userId = token?.id || null;
 
@@ -68,7 +88,7 @@ export const GET = async (
 
 // 募集更新API
 /**
- * 
+ *
  * @param req リクエスト
  * @param params 募集ID
  * @returns 更新した募集情報
@@ -109,7 +129,7 @@ export const PUT = async (
 
 // 募集削除API
 /**
- * 
+ *
  * @param req リクエスト
  * @param params 募集ID
  * @returns 削除成功
