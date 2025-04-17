@@ -58,11 +58,8 @@ export const authOptions: NextAuthOptions = {
     signOut: "/",
   },
   callbacks: {
-    async jwt({ token, user, account }) {
-      if (account) {
-        token.accessToken = account.access_token;
-      }
-
+    async jwt({ token, user }) {
+      
       if (user) {
         return { ...token, id: user.id };
       }
@@ -75,8 +72,6 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.image = token.picture;
-
-        session.accessToken = token.accessToken;
       }
       return session;
     },

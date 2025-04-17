@@ -18,26 +18,27 @@ export const GET = async (
     const id = params.id;
 
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    console.log("token", token);
     // const accessToken = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    const accessToken = token?.accessToken;
+    // const accessToken = token?.accessToken;
     // const accessToken = "gdasfaf";
 
-    const authHeader = req.headers.get("authorization");
-    const rawAccessToken = authHeader?.startsWith("Bearer ")
-      ? authHeader.slice(7)
-      : null;
+    // const authHeader = req.headers.get("authorization");
+    // const rawAccessToken = authHeader?.startsWith("Bearer ")
+    //   ? authHeader.slice(7)
+    //   : null;
 
-    console.log("rawAccessToken", rawAccessToken);
+    // console.log("rawAccessToken", rawAccessToken);
 
     // 照合
-    if (!accessToken || accessToken !== rawAccessToken) {
-      return NextResponse.json("invalid token", { status: 401 });
-    } else {
-      console.log("valid token");
-    }
+    // if (!accessToken || accessToken !== rawAccessToken) {
+    //   return NextResponse.json("invalid token", { status: 401 });
+    // } else {
+    //   console.log("valid token");
+    // }
 
-    console.log("accessToken", accessToken);
-    console.log("token", token);
+    // console.log("accessToken", accessToken);
+    // console.log("token", token);
 
     const userId = token?.id || null;
 

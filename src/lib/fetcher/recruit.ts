@@ -67,9 +67,12 @@ export const updateRecruit = async (
  * 
  * @returns 募集一覧
  */
-export const getAllRecruits = async () => {
+export const getAllRecruits = async (jwt) => {
   const res = await fetch(`${baseURL}/api/recruits`, {
     cache: "no-store",
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
   });
 
   return res.json();

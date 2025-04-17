@@ -1,3 +1,5 @@
+import { getServerSession } from "next-auth";
+import { encode } from "next-auth/jwt";
 import React, { Suspense } from "react";
 
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
@@ -8,8 +10,27 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { authOptions } from "@/lib/auth";
 
-const TopPage = () => {
+const TopPage = async () => {
+  const session = await getServerSession(authOptions);
+
+  let jwt: string | null = null;
+
+  if (session?.user) {
+    jwt = await encode({
+      token: {
+        id: session.user.id,
+        name: session.user.name,
+        email: session.user.email,
+        picture: session.user.image,
+      },
+      secret: process.env.NEXTAUTH_SECRET!,
+    });
+
+    console.log(jwt);
+  }
+
   return (
     <div className="bg-slate-100">
       <div className="container max-w-[960px] min-h-screen mx-auto p-8 flex flex-col gap-8">
@@ -38,7 +59,7 @@ const TopPage = () => {
             </div>
           }
         >
-          <RecruitsIndex />
+          <RecruitsIndex jwt={jwt} />
         </Suspense>
       </div>
     </div>

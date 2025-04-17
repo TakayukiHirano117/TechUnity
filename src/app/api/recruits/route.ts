@@ -11,6 +11,19 @@ import prisma from "@/lib/db";
  * @returns 募集一覧
  */
 export const GET = async (req: NextRequest) => {
+  // console.log(req);
+
+  const token = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+
+  if (!token) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
+  console.log("✅ JWT verified!", token); // ← ここに { id, email, name, ... } が入ってる
+
   try {
     // select句で必要なカラムのみ返すように要修正
     const recruits = await prisma.recruit.findMany({
