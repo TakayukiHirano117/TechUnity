@@ -9,7 +9,8 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "test": "vitest",
-    "coverage": "vitest --coverage"
+    "coverage": "vitest --coverage",
+    "gen:api": "orval"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -28,10 +29,12 @@
     "@radix-ui/react-tabs": "^1.1.2",
     "@radix-ui/react-toast": "^1.2.4",
     "@supabase/supabase-js": "^2.47.10",
+    "@tanstack/react-query": "^5.90.12",
     "@testing-library/jest-dom": "^6.6.3",
     "@types/bcrypt": "^5.0.2",
     "@uiw/react-md-editor": "^4.0.5",
     "algoliasearch": "^5.19.0",
+    "axios": "^1.13.2",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.1",
     "cloudinary": "^2.5.1",
@@ -80,6 +83,7 @@
     "happy-dom": "^16.3.0",
     "jsdom": "^25.0.1",
     "msw": "^2.7.0",
+    "orval": "^7.17.0",
     "postcss": "^8",
     "prettier": "^3.4.2",
     "prisma": "^6.1.0",
