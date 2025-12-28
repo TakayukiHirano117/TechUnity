@@ -47,6 +47,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
+      # Generate Prisma client
+      - name: Generate Prisma client
+        run: pnpm prisma generate
+      
       # Run tests
       - name: Run tests
         run: pnpm test
