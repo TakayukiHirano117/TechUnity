@@ -83,3 +83,20 @@ body .w-md-editor-text-input {
     @apply bg-background text-foreground;
   }
 }
+
+/* Dify チャットボットスタイル */
+#dify-chatbot-bubble-button {
+  background-color: #1c64f2 !important;
+  position: fixed !important;
+  bottom: 1rem !important;
+  right: 1rem !important;
+  z-index: 9999 !important;
+}
+#dify-chatbot-bubble-window {
+  width: 24rem !important;
+  height: 40rem !important;
+  position: fixed !important;
+  bottom: 4rem !important;
+  right: 1rem !important;
+  z-index: 9998 !important;
+}
