@@ -1,5 +1,5 @@
-import { Application, Hire, Like } from ".prisma/client";
 import { ReactNode } from "react";
+import { Application, Hire, Like } from ".prisma/client";
 
 export type MainButtonProps = {
   children: React.ReactNode;
