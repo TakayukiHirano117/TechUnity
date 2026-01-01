@@ -1,0 +1,35 @@
+---
+description: Explain a technology name and provide detailed information about it
+globs: 
+alwaysApply: false
+---
+
+Please provide a detailed explanation of the following technology.
+
+When a technology name is specified, please provide the following information:
+
+1. **Technology Overview**: What the technology is
+2. **Problem It Solves**: What problems or challenges this technology addresses
+3. **Historical Context**: The historical background and circumstances that led to its creation
+4. **Key Features**: Characteristics and advantages of the technology
+5. **Usage Examples**: Actual code examples (if applicable)
+6. **Official Documentation**: Links to official documentation (if available)
+7. **Related Technologies**: Related technologies or frameworks (if applicable)
+
+## Guidelines
+
+- Base all information on publicly available sources. For anything beyond general knowledge, always reference primary sources (official documentation, GitHub implementation details, etc.) and cite them
+- Avoid speculation. If speculation is necessary, clearly state that it is speculation
+- Third-party evaluations outside of official documentation should be treated as secondary sources. Follow the rules for speculation and either reference primary sources or clearly state that it is speculation
+- If information is unknown, state "unknown" rather than speculating
+- Provide all responses in English
+
+## Usage Examples
+
+- Rails
+- ActiveModel::Model
+- form_with
+- PostgreSQL
+- Docker
+- React
+- TypeScript
