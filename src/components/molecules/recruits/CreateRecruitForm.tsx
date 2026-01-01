@@ -64,7 +64,7 @@ const CreateRecruitForm = () => {
         router.push("/dashboard/recruits");
         router.refresh();
       }
-    } catch (error) {
+    } catch {
       toast.error("エラーが発生しました", { icon: "❌" });
     }
   };

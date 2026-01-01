@@ -98,7 +98,7 @@ const CommentSection = ({ recruitId }: CommentSectionProps) => {
         description: "コメントを投稿しました。",
       });
       mutate(); // Refresh comments
-    } catch (error) {
+    } catch {
       toast({
         title: "エラー",
         description: "コメントの投稿に失敗しました。",
@@ -133,7 +133,7 @@ const CommentSection = ({ recruitId }: CommentSectionProps) => {
         description: "コメントを投稿しました。",
       });
       mutate(); // Refresh comments
-    } catch (error) {
+    } catch {
       toast({
         title: "エラー",
         description: "返信の投稿に失敗しました。",

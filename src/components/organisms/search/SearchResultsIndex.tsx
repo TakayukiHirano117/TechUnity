@@ -19,7 +19,7 @@ export const revalidate = 0;
 // q: 検索クエリ, page: 現在のページ番号（文字列）
 const SearchResultsIndex = memo(
   async ({ q, page }: { q: string; page: string }) => {
-    const { recruits, totalCount, totalPages, currentPage } =
+    const { recruits, totalPages } =
       await searchRecruits(q, page);
     const parsedPage = parseInt(page, 10);
 

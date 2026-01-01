@@ -39,7 +39,7 @@ export const POST = async (
         where: { id: existingHire.id },
       });
     } else {
-      const res = await prisma.hire.create({
+      await prisma.hire.create({
         data: {
           userId,
           recruitId,

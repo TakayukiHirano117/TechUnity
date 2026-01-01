@@ -45,7 +45,7 @@ export const GET = async (
     }
 
     return NextResponse.json(recruit);
-  } catch (error) {
+  } catch {
     return NextResponse.json("error", { status: 500 });
   }
 };

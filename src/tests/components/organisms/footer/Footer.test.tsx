@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 // Next.jsのコンポーネントをモック
+/* eslint-disable @next/next/no-img-element */
 vi.mock("next/image", () => ({
   __esModule: true,
   default: ({ src, alt, width, height }: { src: string; alt: string; width: number; height: number }) => (
@@ -14,6 +15,7 @@ vi.mock("next/image", () => ({
     />
   ),
 }));
+/* eslint-enable @next/next/no-img-element */
 
 vi.mock("next/link", () => ({
   __esModule: true,
@@ -70,9 +72,6 @@ describe("Footer Component", () => {
   });
 
   it("renders the copyright information with current year", () => {
-    // 現在の年を取得
-    const currentYear = new Date().getFullYear().toString();
-    
     render(<Footer />);
     
     // 著作権情報の一部が表示されていることを確認

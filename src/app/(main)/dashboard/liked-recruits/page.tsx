@@ -4,9 +4,9 @@ import React, { Suspense } from "react";
 import MainButton from "@/components/atoms/button/MainButton";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import DashBoardSideBar from "@/components/molecules/dashboard/DashBoardSideBar";
+import LikedRecruitsIndex from "@/components/organisms/dashboard/LikedRecruitsIndex";
 import { SidebarItems } from "@/config/dashboard/SidebarItems";
 
-import LikedRecruitsIndex from "@/components/organisms/dashboard/LikedRecruitsIndex";
 
 // いいねした募集一覧ページ
 const LikedRecruitsDashboardPage = () => {

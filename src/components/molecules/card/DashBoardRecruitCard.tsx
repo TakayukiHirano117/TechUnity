@@ -79,7 +79,7 @@ const DashBoardRecruitCard = ({ recruit }: { recruit: DashBoardRecruit }) => {
       await deleteRecruit(recruit.id);
       toast.success("削除しました。");
       router.refresh();
-    } catch (error) {
+    } catch {
       toast.error("削除に失敗しました。");
     }
   };

@@ -84,7 +84,7 @@ export const GET = async (req: NextRequest) => {
       totalPages,
       currentPage: page,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { message: "検索に失敗しました。" },
       { status: 500 },

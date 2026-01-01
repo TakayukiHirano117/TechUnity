@@ -10,7 +10,7 @@ import prisma from "@/lib/db";
  * @param req リクエスト
  * @returns ログインしているユーザー情報
  */
-export const GET = async (req: NextRequest) => {
+export const GET = async (_req: NextRequest) => {
   const session = await getServerSession(authOptions);
 
   // これがないとログインしてない場合はエラーになるので要修正

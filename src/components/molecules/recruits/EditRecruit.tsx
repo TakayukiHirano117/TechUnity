@@ -33,7 +33,7 @@ const EditRecruit = memo(
     };
   }) => {
     const [isPreview, setIsPreview] = useState(false);
-    const router = useRouter();
+    useRouter();
     const isInitialResetDone = useRef(false);
 
     const {
@@ -79,7 +79,7 @@ const EditRecruit = memo(
       try {
         updateRecruit(recruit.id as string, data);
         toast.success("更新しました");
-      } catch (error) {
+      } catch {
         toast.error("更新に失敗しました");
       }
     };

@@ -61,7 +61,7 @@ export const GET = async (
     };
 
     return NextResponse.json(response);
-  } catch (error) {
+  } catch {
     return NextResponse.json("error", { status: 500 });
   }
 };
@@ -102,7 +102,7 @@ export const PUT = async (
     });
 
     return NextResponse.json(recruit);
-  } catch (error) {
+  } catch {
     return NextResponse.json("error", { status: 500 });
   }
 };
@@ -132,7 +132,7 @@ export const DELETE = async (
     });
 
     return NextResponse.json(recruit);
-  } catch (error) {
+  } catch {
     return NextResponse.json("error", { status: 500 });
   }
 };

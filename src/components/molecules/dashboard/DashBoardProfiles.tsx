@@ -89,7 +89,7 @@ const DashBoardProfiles = memo(
         });
         toast.success("プロフィールを更新しました。");
         router.refresh();
-      } catch (err) {
+      } catch {
         toast.error("プロフィールを更新に失敗しました");
       }
     };
