@@ -5,6 +5,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import NextAuthSessionProvider from "@/components/atoms/auth/NextAuthSessionProvider";
 import ProgressBar from "@/components/atoms/progress/ProgressBar";
+import QueryProvider from "@/components/atoms/provider/QueryProvider";
 import DifyChatbot from "@/components/molecules/dify/ChatbotArea";
 import Footer from "@/components/organisms/footer/Footer";
 import Header from "@/components/organisms/header/Header";
@@ -80,13 +81,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-[screen]`}
       >
         <NextAuthSessionProvider>
-          <Header />
-          {/* <HeaderWrapper /> */}
-          <ProgressBar>
-            {children}
-            <Toaster />
-          </ProgressBar>
-          <Footer />
+          <QueryProvider>
+            <Header />
+            {/* <HeaderWrapper /> */}
+            <ProgressBar>
+              {children}
+              <Toaster />
+            </ProgressBar>
+            <Footer />
+          </QueryProvider>
         </NextAuthSessionProvider>
       </body>
     </html>
