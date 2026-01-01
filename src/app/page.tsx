@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
 import TipsIcon from "@/components/atoms/Icon/TipsIcon";

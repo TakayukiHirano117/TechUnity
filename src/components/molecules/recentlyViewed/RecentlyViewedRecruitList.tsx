@@ -52,19 +52,19 @@ const RecentlyViewedRecruitList = memo(
       <div className="relative">
         {/* 左端のスクロールインジケーター */}
         {canScrollLeft && (
-          <div className="absolute left-0 top-0 bottom-4 w-10 flex items-center justify-center pointer-events-none z-10">
+          <div className="absolute left-0 top-0 bottom-4 w-8 flex items-center justify-center pointer-events-none z-10 bg-gradient-to-r from-slate-100 to-transparent">
             <div className="animate-pulse">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="text-slate-400"
+                className="text-slate-500"
               >
                 <polyline points="15 18 9 12 15 6" />
               </svg>
@@ -75,7 +75,7 @@ const RecentlyViewedRecruitList = memo(
         {/* スクロールエリア */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-4 overflow-x-auto pb-4 px-10"
+          className="flex gap-4 overflow-x-auto pb-4"
         >
           {recruits.map((recruit) => (
             <div key={recruit.id} className="flex-shrink-0 w-[280px]">
@@ -93,19 +93,19 @@ const RecentlyViewedRecruitList = memo(
 
         {/* 右端のスクロールインジケーター */}
         {canScrollRight && (
-          <div className="absolute right-0 top-0 bottom-4 w-10 flex items-center justify-center pointer-events-none z-10">
+          <div className="absolute right-0 top-0 bottom-4 w-8 flex items-center justify-center pointer-events-none z-10 bg-gradient-to-l from-slate-100 to-transparent">
             <div className="animate-pulse">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="text-slate-400"
+                className="text-slate-500"
               >
                 <polyline points="9 18 15 12 9 6" />
               </svg>
