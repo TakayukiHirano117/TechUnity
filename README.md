@@ -90,3 +90,22 @@ Gitフロー
 今後安定板になるとは思うものの、まだ安定性に欠けると判断してv4を採用しました。
 Next.js15とReact19についても同様です。
 
+## コーディング規約
+
+### コミットメッセージ
+
+| Prefix | Description |
+|--------|-------------|
+| build | ビルド |
+| ci | CI |
+| chore | 雑事（カテゴライズする必要ないようなもの） |
+| docs | ドキュメント |
+| feat | 新機能 |
+| fix | バグフィックス |
+| perf | パフォーマンス |
+| refactor | リファクタリング |
+| revert | コミット取り消し（git revert） |
+| style | コードスタイル修正 |
+| test | テスト |
+
+参考: https://gist.github.com/minop1205/5fc4f6ef0ec89fb1738833ba25ae00a0

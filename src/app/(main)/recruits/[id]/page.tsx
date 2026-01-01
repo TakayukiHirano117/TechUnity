@@ -6,12 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import rehypeSanitize from "rehype-sanitize";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import useSWR from "swr";
-
 
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import MainButton from "@/components/atoms/button/MainButton";
@@ -24,6 +23,7 @@ import MainDialog from "@/components/molecules/dialog/MainDialog";
 import { DialogClose } from "@/components/ui/dialog";
 import { useApply } from "@/hooks/useApply";
 import { useRecruitLike } from "@/hooks/useRecruitLike";
+import { useRecentlyViewedStore } from "@/store/recentlyViewedRecruits";
 
 const getRecruitDetail = async (url: string) => {
   const response = await fetch(url, { cache: "no-store" });
@@ -33,11 +33,19 @@ const getRecruitDetail = async (url: string) => {
 
 const RecruitDetailPage = () => {
   const params = useParams();
-  const id = params.id;
+  const id = params.id as string;
 
   const { data: session } = useSession();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  // 最近見た募集にIDを追加
+  const addRecruitId = useRecentlyViewedStore((state) => state.addRecruitId);
+  useEffect(() => {
+    if (id) {
+      addRecruitId(id);
+    }
+  }, [id, addRecruitId]);
 
   const handleApply = async () => {
     await toggleApply();
@@ -45,17 +53,17 @@ const RecruitDetailPage = () => {
     setIsDialogOpen(false);
   };
 
-  const {
-    data: recruit,
-    isLoading,
-  } = useSWR(`/api/recruits/${id}`, getRecruitDetail);
+  const { data: recruit, isLoading } = useSWR(
+    `/api/recruits/${id}`,
+    getRecruitDetail,
+  );
 
   // いいねのトグルを行う関数と、ローディング状態を管理するhooks
   const { toggleLikeWithOptimisticUpdate, isLikeRecruitMutating } =
-    useRecruitLike(id as string);
+    useRecruitLike(id);
 
   // 応募のトグルを行う関数と、ローディング状態を管理するhooks
-  const { toggleApply, isApplyMutating } = useApply(id as string);
+  const { toggleApply, isApplyMutating } = useApply(id);
 
   return (
     <div className="bg-slate-100 mx-auto">
@@ -321,7 +329,7 @@ const RecruitDetailPage = () => {
 
           {/* コメントセクション */}
           <div className="max-w-[1200px] mx-auto sm:p-8 py-8">
-            <CommentSection recruitId={id as string} />
+            <CommentSection recruitId={id} />
           </div>
         </>
       )}

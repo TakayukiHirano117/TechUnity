@@ -115,6 +115,33 @@ paths:
         '500':
           description: サーバーエラー
 
+  /recruits/recently-viewed:
+    get:
+      tags:
+        - Recruits
+      summary: 最近見た募集一覧取得
+      operationId: getRecentlyViewedRecruits
+      parameters:
+        - name: ids
+          in: query
+          required: true
+          schema:
+            type: string
+          description: カンマ区切りの募集ID
+      responses:
+        '200':
+          description: 最近見た募集一覧
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecruitWithRelations'
+        '400':
+          description: IDが指定されていない
+        '500':
+          description: サーバーエラー
+
   /recruits/{id}:
     get:
       tags:
