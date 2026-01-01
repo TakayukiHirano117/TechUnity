@@ -1,4 +1,6 @@
-// {
+{
+  "postman.settings.dotenv-detection-notification-visibility": false
+} // {
 //   "workbench.colorTheme": "Default Dark Modern",
 //   "workbench.iconTheme": "vscode-icons",
 //   "files.autoSave": "afterDelay",

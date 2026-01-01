@@ -1,17 +1,42 @@
 import Link from "next/link";
 import React, { memo } from "react";
 
-import { UserProfileHeaderProps } from "@/types/types";
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import GitHubIcon from "@/components/atoms/Icon/GitHubIcon";
 
+import { tv, type VariantProps } from "tailwind-variants";
+
+const userProfileHeaderVariant = tv({
+  base: "flex w-full items-center gap-8 justify-center max-w-max mx-auto p-4 rounded-lg shadow-sm",
+  variants: {
+    variant: {
+      default: "bg-white",
+      primary: "bg-primary",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
+type UserProfileHeaderProps = {
+  profile: {
+    id: string;
+    name: string;
+    githubUrl: string;
+    description: string;
+    email: string;
+    image: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  className?: string;
+} & VariantProps<typeof userProfileHeaderVariant>;
 
 const UserProfileHeader = memo(
-  ({ profile, className }: UserProfileHeaderProps) => {
+  ({ profile, className, variant }: UserProfileHeaderProps) => {
     return (
-      <div
-        className={`${className} flex w-full items-center gap-8 justify-center bg-white max-w-max mx-auto p-4 rounded-lg shadow-sm`}
-      >
+      <div className={userProfileHeaderVariant({ variant, className })}>
         <AvatarIcon
           ImageSrc={profile?.image || ""}
           fallbackText={profile?.name || "No Name"}

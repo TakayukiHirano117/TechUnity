@@ -9,7 +9,7 @@ const ProfileWithRecruits = memo(async ({ id }: { id: string }) => {
 
   return (
     <>
-      <UserProfileHeader profile={profile} className="my-8" />
+      <UserProfileHeader profile={profile} className="my-8" variant="default" />
       <ProfilesRecruitList recruits={profile.recruits_creator} />
     </>
   );
