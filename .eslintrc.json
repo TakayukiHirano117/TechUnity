@@ -15,9 +15,14 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:storybook/recommended"
   ],
-  "plugins": ["@typescript-eslint", "react", "import"],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "import"
+  ],
   "rules": {
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
@@ -32,12 +37,18 @@
           "sibling",
           "index"
         ],
-        "alphabetize": { "order": "asc", "caseInsensitive": true }
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
       }
     ],
     "@typescript-eslint/no-unused-vars": [
       "warn",
-      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
     ],
     "prettier/prettier": "off"
   },
