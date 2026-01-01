@@ -21,7 +21,7 @@ const SearchBar = () => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  const { register, handleSubmit, formState } = useForm<
+  const { register, handleSubmit } = useForm<
     z.infer<typeof searchRecruitSchema>
   >({
     resolver: zodResolver(searchRecruitSchema),

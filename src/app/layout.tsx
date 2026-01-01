@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 import NextAuthSessionProvider from "@/components/atoms/auth/NextAuthSessionProvider";
 import ProgressBar from "@/components/atoms/progress/ProgressBar";
 import DifyChatbot from "@/components/molecules/dify/ChatbotArea";
 import Footer from "@/components/organisms/footer/Footer";
 import Header from "@/components/organisms/header/Header";
-import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

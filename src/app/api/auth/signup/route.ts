@@ -27,7 +27,7 @@ export const POST = async (req: NextRequest) => {
     });
 
     return NextResponse.json(response);
-  } catch (error) {
+  } catch {
     return new NextResponse("Error", { status: 500 });
   }
 };

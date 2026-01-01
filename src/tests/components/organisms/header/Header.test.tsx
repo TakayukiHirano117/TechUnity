@@ -8,6 +8,7 @@ vi.mock("@/components/organisms/header/HeaderIndex", () => ({
 }));
 
 // Next.jsのコンポーネントをモック
+/* eslint-disable @next/next/no-img-element */
 vi.mock("next/image", () => ({
   __esModule: true,
   default: ({ src, alt, width, height }: { src: string; alt: string; width: number; height: number }) => (
@@ -20,6 +21,7 @@ vi.mock("next/image", () => ({
     />
   ),
 }));
+/* eslint-enable @next/next/no-img-element */
 
 vi.mock("next/link", () => ({
   __esModule: true,

@@ -12,13 +12,13 @@ import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import useSWR from "swr";
 
-import CommentSection from "@/components/molecules/comments/CommentSection";
 
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import MainButton from "@/components/atoms/button/MainButton";
 import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
 import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import LoadingIcon from "@/components/atoms/Icon/LoadingIcon";
+import CommentSection from "@/components/molecules/comments/CommentSection";
 import LoginDialog from "@/components/molecules/dialog/LoginDialog";
 import MainDialog from "@/components/molecules/dialog/MainDialog";
 import { DialogClose } from "@/components/ui/dialog";
@@ -47,7 +47,6 @@ const RecruitDetailPage = () => {
 
   const {
     data: recruit,
-    error,
     isLoading,
   } = useSWR(`/api/recruits/${id}`, getRecruitDetail);
 

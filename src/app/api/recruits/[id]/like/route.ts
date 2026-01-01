@@ -36,7 +36,7 @@ export const POST = async (
         where: { id: existingLike.id },
       });
     } else {
-      const res = await prisma.like.create({
+      await prisma.like.create({
         data: {
           userId: userId,
           recruitId: recruitId,

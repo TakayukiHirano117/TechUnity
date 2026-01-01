@@ -7,7 +7,7 @@ export default function DifyChatbot() {
     <>
       <Script
         id="dify-chatbot-config"
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             window.difyChatbotConfig = {
@@ -22,7 +22,7 @@ export default function DifyChatbot() {
       <Script
         src="https://udify.app/embed.min.js"
         id={DIFY_TOKEN}
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
       />
     </>
   );

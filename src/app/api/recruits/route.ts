@@ -10,7 +10,7 @@ import prisma from "@/lib/db";
  * @param req リクエスト
  * @returns 募集一覧
  */
-export const GET = async (req: NextRequest) => {
+export const GET = async (_req: NextRequest) => {
   try {
     // select句で必要なカラムのみ返すように要修正
     const recruits = await prisma.recruit.findMany({
@@ -30,7 +30,7 @@ export const GET = async (req: NextRequest) => {
     });
 
     return NextResponse.json(recruits);
-  } catch (error) {
+  } catch {
     return NextResponse.json("error", { status: 500 });
   }
 };
@@ -69,7 +69,7 @@ export const POST = async (req: NextRequest) => {
     });
 
     return NextResponse.json(recruit);
-  } catch (error) {
+  } catch {
     return NextResponse.json("error", { status: 500 });
   }
 };

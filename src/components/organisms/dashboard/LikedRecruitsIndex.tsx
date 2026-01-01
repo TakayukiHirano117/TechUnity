@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import React from "react";
-import { DashBoardRecruit } from "@/types/types";
 import LikedRecruitList from "@/components/molecules/dashboard/LikedRecruitList";
+import { DashBoardRecruit } from "@/types/types";
 import NoLikedRecruitsMessage from "./NoLikedRecruitsMessage";
 
 // 本番環境と開発環境でURLを変更する

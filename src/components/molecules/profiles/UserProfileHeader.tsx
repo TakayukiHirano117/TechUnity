@@ -1,10 +1,10 @@
 import Link from "next/link";
 import React, { memo } from "react";
 
+import { tv, type VariantProps } from "tailwind-variants";
 import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import GitHubIcon from "@/components/atoms/Icon/GitHubIcon";
 
-import { tv, type VariantProps } from "tailwind-variants";
 
 const userProfileHeaderVariant = tv({
   base: "flex w-full items-center gap-8 justify-center max-w-max mx-auto p-4 rounded-lg shadow-sm",

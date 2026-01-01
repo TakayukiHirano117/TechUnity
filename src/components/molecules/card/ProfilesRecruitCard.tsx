@@ -3,7 +3,6 @@ import { format } from "date-fns";
 import Link from "next/link";
 import React from "react";
 
-import AvatarIcon from "@/components/atoms/avatar/AvatarIcon";
 import ApplyIcon from "@/components/atoms/Icon/ApplyIcon";
 import HeartIcon from "@/components/atoms/Icon/HeartIcon";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
