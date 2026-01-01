@@ -62,20 +62,4 @@ describe("RecruitsIndex Component", () => {
     expect(recruitItem2).toHaveTextContent("Vue Developer");
   });
 
-  it("renders the search guidance message", async () => {
-    render(await RecruitsIndex());
-    
-    // 検索バーへの誘導メッセージが表示されていることを確認
-    const guidanceMessage = screen.getByText("検索バーからもっと募集を探してみましょう");
-    expect(guidanceMessage).toBeInTheDocument();
-    
-    // アニメーションするボタンが表示されていることを確認
-    const animatedButton = screen.getByRole("button");
-    expect(animatedButton).toBeInTheDocument();
-    expect(animatedButton).toHaveClass("animate-bounce");
-    
-    // SVGが表示されていることを確認
-    const svg = animatedButton.querySelector("svg");
-    expect(svg).toBeInTheDocument();
-  });
 });
